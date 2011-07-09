@@ -1,0 +1,45 @@
+=== Social linkz ===
+
+Contributors: SedLex
+Author URI: http://www.sedlex.fr/
+Plugin URI: http://wordpress.org/extend/plugins/social-linkz/
+Tags: plugin, short url, bitly
+Requires at least: 3.0
+Tested up to: 3.2
+Stable tag: trunk
+
+Add Facebook or Twitter button in posts in order to share them
+
+== Description ==
+
+Add social links such as Twitter or Facebook at the bottom of every post. 
+
+You can choose the buttons to be displayed. 
+
+== Installation ==
+
+1. Upload this folder to your plugin directory (for instance '/wp-content/plugins/')
+2. Activate the plugin through the 'Plugins' menu in WordPress
+3. Navigate to the 'SL plugins' box
+4. All plugins developed with the SL core will be listed in this box
+5. Enjoy !
+
+== Screenshots ==
+
+1. The configuration page of the plugin
+2. The buttons
+
+== Changelog ==
+
+= 1.0.1 =
+* First release in the wild web (enjoy)
+
+
+== Frequently Asked Questions ==
+
+* Where can I read more?
+
+Visit http://www.sedlex.fr/cote_geek/
+
+
+
