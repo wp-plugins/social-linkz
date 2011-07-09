@@ -5,7 +5,7 @@ Description: <p>Add social links such as Twitter or Facebook at the bottom of ev
 Version: 1.0.1
 Author: SedLex
 Author URI: http://www.sedlex.fr/
-Plugin URI: http://wordpress.org/extend/plugins/simple-quotation/
+Plugin URI: http://wordpress.org/extend/plugins/social-linkz/
 License: GPL3
 */
 
