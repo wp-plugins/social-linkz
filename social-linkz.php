@@ -2,7 +2,7 @@
 /*
 Plugin Name: Social Linkz
 Description: <p>Add social links such as Twitter or Facebook at the bottom of every post. </p><p>You can choose the buttons to be displayed. </p><p>This plugin is under GPL licence. </p>
-Version: 1.0.1
+Version: 1.0.2
 Author: SedLex
 Author URI: http://www.sedlex.fr/
 Plugin URI: http://wordpress.org/extend/plugins/social-linkz/
@@ -90,7 +90,7 @@ class sociallinkz extends pluginSedLex {
 			<script>jQuery(function($){ $('#tabs').tabs(); }) ; </script>		
 			<div id="tabs">
 				<ul class="hide-if-no-js">
-					<li><a href="#tab-parameters"><? echo __('Parameters',$this->pluginName) ?></a></li>					
+					<li><a href="#tab-parameters"><? echo __('Parameters',$this->pluginID) ?></a></li>					
 				</ul>
 				<?php
 				//==========================================================================================
@@ -103,16 +103,16 @@ class sociallinkz extends pluginSedLex {
 				?>
 				<div id="tab-parameters" class="blc-section">
 				
-					<h3 class="hide-if-js"><? echo __('Parameters',$this->pluginName) ?></h3>
-					<p><?php echo __('Here is the parameters of the plugin. Please modify them at your convenience.',$this->pluginName) ; ?> </p>
+					<h3 class="hide-if-js"><? echo __('Parameters',$this->pluginID) ?></h3>
+					<p><?php echo __('Here is the parameters of the plugin. Please modify them at your convenience.',$this->pluginID) ; ?> </p>
 				
 					<?php
 					$params = new parametersSedLex($this, 'tab-parameters') ; 
-					$params->add_title(__('What do you want to print at the end of your post?',$this->pluginName)) ; 
-					$params->add_param('twitter', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_twitter.png'/> ".__('The Twitter button:',$this->pluginName)) ; 
+					$params->add_title(__('What do you want to print at the end of your post?',$this->pluginID)) ; 
+					$params->add_param('twitter', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_twitter.png'/> ".__('The Twitter button:',$this->pluginID)) ; 
 					$params->add_param('name_twitter', __('Your twitter name:',$this->pluginName)) ; 
-					$params->add_param('facebook', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_facebook.png'/> ".__('The FaceBook button:',$this->pluginName)) ; 
-					$params->add_param('print', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_print.png'/> ".__('The print button:',$this->pluginName)) ; 
+					$params->add_param('facebook', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_facebook.png'/> ".__('The FaceBook button:',$this->pluginID)) ; 
+					$params->add_param('print', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_print.png'/> ".__('The print button:',$this->pluginID)) ; 
 					
 					$params->flush() ; 
 					
@@ -135,7 +135,7 @@ class sociallinkz extends pluginSedLex {
 			<?php
 			if ($this->get_param('facebook')) {
 			?>
-			<a rel="nofollow" target="_blank" href="http://www.facebook.com/sharer.php?u=<?php echo urlencode($url) ; ?>&amp;t=<?php echo urlencode($titre) ; ?>" title="Partager -<?php echo htmlentities($titre, ENT_QUOTES) ; ?>- sur Facebook">
+			<a rel="nofollow" target="_blank" href="http://www.facebook.com/sharer.php?u=<?php echo urlencode($url) ; ?>&amp;t=<?php echo urlencode($titre) ; ?>" title="<?php echo sprintf(__("Share -%s- on Facebook", $this->pluginID), htmlentities($titre, ENT_QUOTES)) ; ?>">
 				<img class="lnk_social_linkz" src="<?php echo WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__)) ; ?>/img/lnk_facebook.png" alt="Facebook" height="24" width="24"/> 
 			</a>
 			<?php
@@ -146,14 +146,14 @@ class sociallinkz extends pluginSedLex {
 					$via = " (via @".$this->get_param('name_twitter').")" ; 
 				}
 			?>
-			<a rel="nofollow" target="_blank" href="http://twitter.com/?status=<?php echo str_replace('+','%20',urlencode("[Blog] ".$titre)) ; ?>%20-%20<?php echo urlencode($url) ; ?>.<?php echo str_replace('+','%20',urlencode($via)) ; ?>" title="Partager -<?php echo htmlentities($titre, ENT_QUOTES) ; ?>- sur Twitter">
+			<a rel="nofollow" target="_blank" href="http://twitter.com/?status=<?php echo str_replace('+','%20',urlencode("[Blog] ".$titre)) ; ?>%20-%20<?php echo urlencode($url) ; ?>.<?php echo str_replace('+','%20',urlencode($via)) ; ?>" title="<?php echo sprintf(__("Share -%s- on Twitter", $this->pluginID), htmlentities($titre, ENT_QUOTES)) ;?>">
 				<img class="lnk_social_linkz" src="<?php echo WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__)) ;  ?>/img/lnk_twitter.png" alt="Twitter" height="24" width="24"/> 
 			</a>
 			<?php
 			}
 			if ($this->get_param('print')) {
 			?>
-			<a rel="nofollow" target="_blank" href="#" title="Imprimer">
+			<a rel="nofollow" target="_blank" href="#" title="<?php echo __("Print", $this->pluginID) ;?>">
 				<img onclick="window.print();return false;" class="lnk_social_linkz" src="<?php echo WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__)) ; ?>/img/lnk_print.png" alt="Print" height="24" width="24"/> 
 			</a>
 			<?php

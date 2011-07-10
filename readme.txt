@@ -31,6 +31,9 @@ You can choose the buttons to be displayed.
 
 == Changelog ==
 
+= 1.0.2 =
+* Remove all french sentences hard coded in the code and preparation for the i8n
+
 = 1.0.1 =
 * First release in the wild web (enjoy)
 
