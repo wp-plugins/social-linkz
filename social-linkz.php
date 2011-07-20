@@ -2,7 +2,7 @@
 /*
 Plugin Name: Social Linkz
 Description: <p>Add social links such as Twitter or Facebook at the bottom of every post. </p><p>You can choose the buttons to be displayed. </p><p>This plugin is under GPL licence. </p>
-Version: 1.0.2
+Version: 1.0.3
 Author: SedLex
 Author URI: http://www.sedlex.fr/
 Plugin URI: http://wordpress.org/extend/plugins/social-linkz/
@@ -33,7 +33,7 @@ class sociallinkz extends pluginSedLex {
 		
 		//Paramètres supplementaires
 		add_filter('the_content', array($this,'print_social_linkz'));
-
+		add_action('wp_print_scripts', array( $this, 'google_api'));
 
 	}
 	/**
@@ -54,6 +54,8 @@ class sociallinkz extends pluginSedLex {
 	function get_default_option($option) {
 		switch ($option) {
 			case 'twitter' 		: return true 	; break ; 
+			case 'googleplus' 		: return true 	; break ; 
+			case 'googleplus_count' : return true 	; break ; 
 			case 'name_twitter'	: return "" 	; break ; 
 			case 'facebook' 	: return true 	; break ; 
 			case 'print'	 	: return true 	; break ; 
@@ -61,7 +63,15 @@ class sociallinkz extends pluginSedLex {
 		return null ;
 	}
 
-
+	/** ====================================================================================================================================================
+	* Add the Google API for the scripts
+	* 
+	* @return variant of the option
+	*/
+	function google_api() {
+		wp_enqueue_script('google_plus', 'https://apis.google.com/js/plusone.js');
+	}
+	
 	/** ====================================================================================================================================================
 	* The configuration page
 	* 
@@ -112,6 +122,8 @@ class sociallinkz extends pluginSedLex {
 					$params->add_param('twitter', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_twitter.png'/> ".__('The Twitter button:',$this->pluginID)) ; 
 					$params->add_param('name_twitter', __('Your twitter name:',$this->pluginName)) ; 
 					$params->add_param('facebook', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_facebook.png'/> ".__('The FaceBook button:',$this->pluginID)) ; 
+					$params->add_param('googleplus', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_googleplus.png'/> ".__('The Google+ button:',$this->pluginID)) ; 
+					$params->add_param('googleplus_count', __('Show the count for the Google+ button:',$this->pluginID)) ; 
 					$params->add_param('print', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_print.png'/> ".__('The print button:',$this->pluginID)) ; 
 					
 					$params->flush() ; 
@@ -150,6 +162,16 @@ class sociallinkz extends pluginSedLex {
 				<img class="lnk_social_linkz" src="<?php echo WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__)) ;  ?>/img/lnk_twitter.png" alt="Twitter" height="24" width="24"/> 
 			</a>
 			<?php
+			}
+			if ($this->get_param('googleplus')) {
+				$count = "false" ; 
+				if ($this->get_param('googleplus_count')) {
+					$count = "true" ; 
+				}
+			?>
+			<g:plusone size="standard" count="<?php echo $count; ?>"></g:plusone>
+			<?php
+				
 			}
 			if ($this->get_param('print')) {
 			?>
