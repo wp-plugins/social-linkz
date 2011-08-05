@@ -3,7 +3,7 @@
 Contributors: SedLex
 Author URI: http://www.sedlex.fr/
 Plugin URI: http://wordpress.org/extend/plugins/social-linkz/
-Tags: plugin, short url, bitly
+Tags: plugin, facebook, google plus, twitter, social
 Requires at least: 3.0
 Tested up to: 3.2
 Stable tag: trunk
@@ -30,6 +30,9 @@ You can choose the buttons to be displayed.
 2. The buttons
 
 == Changelog ==
+
+= 1.0.4 =
+* Update the framework (3.0)
 
 = 1.0.3 =
 * Add the google+ features
