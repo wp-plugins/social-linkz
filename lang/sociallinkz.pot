@@ -1,0 +1,139 @@
+Content-Transfer-Encoding: 8bit
+
+#: social-linkz.php:119
+#@ sociallinkz
+msgid "This plugin help you sharing on the social network by adding facebook or twitter buttons."
+msgstr ""
+
+#: social-linkz.php:133
+#: social-linkz.php:143
+#: social-linkz.php:152
+#: social-linkz.php:161
+#: social-linkz.php:167
+#: social-linkz.php:176
+#: social-linkz.php:185
+#: social-linkz.php:192
+#@ sociallinkz
+msgid "Display %s button?"
+msgstr ""
+
+#: social-linkz.php:134
+#: social-linkz.php:144
+#: social-linkz.php:153
+#: social-linkz.php:162
+#: social-linkz.php:168
+#: social-linkz.php:177
+#: social-linkz.php:186
+#: social-linkz.php:193
+#@ sociallinkz
+msgid "The %s button:"
+msgstr ""
+
+#: social-linkz.php:135
+#: social-linkz.php:145
+#: social-linkz.php:154
+#: social-linkz.php:163
+#: social-linkz.php:169
+#: social-linkz.php:178
+#: social-linkz.php:187
+#@ sociallinkz
+msgid "To share the post on %s !"
+msgstr ""
+
+#: social-linkz.php:136
+#: social-linkz.php:146
+#: social-linkz.php:155
+#: social-linkz.php:164
+#: social-linkz.php:170
+#: social-linkz.php:179
+#: social-linkz.php:188
+#@ sociallinkz
+msgid "Show the counter of this %s button:"
+msgstr ""
+
+#: social-linkz.php:137
+#: social-linkz.php:147
+#: social-linkz.php:148
+#: social-linkz.php:156
+#: social-linkz.php:171
+#: social-linkz.php:180
+#: social-linkz.php:189
+#@ sociallinkz
+msgid "The official %s button:"
+msgstr ""
+
+#: social-linkz.php:138
+#: social-linkz.php:149
+#: social-linkz.php:157
+#: social-linkz.php:172
+#: social-linkz.php:181
+#@ sociallinkz
+msgid "The SSL websites may not work properly with this official button... Moreover the rendering is not perfect !"
+msgstr ""
+
+#: social-linkz.php:139
+#: social-linkz.php:158
+#: social-linkz.php:173
+#: social-linkz.php:182
+#@ sociallinkz
+msgid "Show the counter of this official %s button:"
+msgstr ""
+
+#: social-linkz.php:140
+#@ sociallinkz
+msgid "Your %s pseudo:"
+msgstr ""
+
+#: social-linkz.php:196
+#@ sociallinkz
+msgid "Parameters"
+msgstr ""
+
+#: social-linkz.php:202
+#: core/templates/my-plugin.php:212
+#@ sociallinkz
+msgid "Manage translations"
+msgstr ""
+
+#: social-linkz.php:205
+#: core/templates/my-plugin.php:215
+#@ sociallinkz
+msgid "This form is an easy way to contact the author and to discuss issues / incompatibilities / etc."
+msgstr ""
+
+#: social-linkz.php:209
+#: core/templates/my-plugin.php:219
+#@ sociallinkz
+msgid "Give feedback"
+msgstr ""
+
+#: social-linkz.php:212
+#@ sociallinkz
+msgid "Here is the plugins developped by the author"
+msgstr ""
+
+#: social-linkz.php:215
+#@ sociallinkz
+msgid "Other possible plugins"
+msgstr ""
+
+#: social-linkz.php:244
+#@ sociallinkz
+msgid "Share -%s- on Facebook"
+msgstr ""
+
+#: social-linkz.php:271
+#@ sociallinkz
+msgid "Share -%s- on Twitter"
+msgstr ""
+
+#: social-linkz.php:290
+#@ sociallinkz
+msgid "Tweet"
+msgstr ""
+
+#: social-linkz.php:384
+#@ sociallinkz
+msgid "Print"
+msgstr ""
+
