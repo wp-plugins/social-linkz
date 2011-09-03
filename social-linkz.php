@@ -2,7 +2,7 @@
 /*
 Plugin Name: Social Linkz
 Description: <p>Add social links such as Twitter or Facebook at the bottom of every post. </p><p>You can choose the buttons to be Geted. </p><p>This plugin is under GPL licence. </p>
-Version: 1.1.0
+Version: 1.1.1
 Author: SedLex
 Author Email: sedlex@sedlex.fr
 Framework Email: sedlex@sedlex.fr
@@ -118,6 +118,9 @@ class sociallinkz extends pluginSedLex {
 			<?php echo $this->signature ; ?>
 			<p><?php echo __('This plugin help you sharing on the social network by adding facebook or twitter buttons.', $this->pluginID) ; ?></p>
 		<?php
+		
+			// On verifie que les droits sont corrects
+			$this->check_folder_rights( array() ) ; 
 			
 			//==========================================================================================
 			//
