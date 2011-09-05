@@ -1,0 +1,79 @@
+msgid ""
+msgstr ""
+"Generated: SL Framework (http://www.sedlex.fr)\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2011-09-05T10:51:34+00:00\n"
+"Last-Translator: GianFrancoAlarcn <www.SomosMovies.com.ar>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-Language: Spanish\n"
+"X-Poedit-Country: Argentina\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;\n"
+"X-Poedit-Basepath: \n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes\n"
+
+msgid "This plugin help you sharing on the social network by adding facebook or twitter buttons."
+msgstr "Este plugin te ayudará a compartir en la red social Facebook o mediante la adición de botones de twitter."
+
+msgid "Display %s button?"
+msgstr "Mostrar %s botón"
+
+msgid "The %s button:"
+msgstr "El  %s botón"
+
+msgid "To share the post on %s !"
+msgstr "Para compartir el mensaje de %s !"
+
+msgid "Show the counter of this %s button:"
+msgstr "Mostrar el contador de este %s botón"
+
+msgid "The official %s button:"
+msgstr "El oficial %s botón"
+
+msgid "The SSL websites may not work properly with this official button... Moreover the rendering is not perfect !"
+msgstr "Los sitios web SSL pueden no funcionar correctamente con este botón oficial ... Por otra parte la representación no es perfecto!"
+
+msgid "Show the counter of this official %s button:"
+msgstr "Mostrar el contenido de este oficial %s botón"
+
+msgid "Your %s pseudo:"
+msgstr "Su %s seudo:"
+
+msgid "Parameters"
+msgstr "parámetros"
+
+msgid "Manage translations"
+msgstr "administrar traducciones"
+
+msgid "This form is an easy way to contact the author and to discuss issues / incompatibilities / etc."
+msgstr "Este formulario es una forma fácil de contactar con el autor y para discutir temas / incompatibilidades / etc"
+
+msgid "Give feedback"
+msgstr "Deje su comentario"
+
+msgid "Here is the plugins developped by the author"
+msgstr "Aquí está el plugin desarrollado por el autor"
+
+msgid "Other possible plugins"
+msgstr "Otros plugins posibles"
+
+msgid "Share -%s- on Facebook"
+msgstr "Compartir -%s en Facebook"
+
+msgid "Share -%s- on Twitter"
+msgstr "Compartir -%s- en Twitter"
+
+msgid "Tweet"
+msgstr "Tweet"
+
+msgid "Print"
+msgstr "Imprimir"
+

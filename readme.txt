@@ -31,6 +31,11 @@ You can choose the buttons to be displayed.
 
 == Changelog ==
 
+= 1.1.2 =
+* New translation for Español/Argentina by GianFrancoAlarcn
+* New translation for Türkçe by Hseyinzkan
+* Big thanks to them!
+
 = 1.1.1 =
 * Ensure that folders and files permissions are correct for an adequate behavior
 
@@ -61,4 +66,4 @@ You can choose the buttons to be displayed.
 Visit http://www.sedlex.fr/cote_geek/
 
  
-InfoVersion:eef6e03872fcfcad1208803216785e6d
+InfoVersion:4eb38b1d2d46814a00a8be68e753d41e

@@ -2,7 +2,7 @@
 /*
 Plugin Name: Social Linkz
 Description: <p>Add social links such as Twitter or Facebook at the bottom of every post. </p><p>You can choose the buttons to be Geted. </p><p>This plugin is under GPL licence. </p>
-Version: 1.1.1
+Version: 1.1.2
 Author: SedLex
 Author Email: sedlex@sedlex.fr
 Framework Email: sedlex@sedlex.fr

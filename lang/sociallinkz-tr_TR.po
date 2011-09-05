@@ -1,0 +1,79 @@
+msgid ""
+msgstr ""
+"Generated: SL Framework (http://www.sedlex.fr)\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2011-09-05T10:09:30+00:00\n"
+"Last-Translator: Hseyinzkan <huseyinozkan75@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Poedit-Language: Turkish\n"
+"X-Poedit-Country: Turkey\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;\n"
+"X-Poedit-Basepath: \n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes\n"
+
+msgid "This plugin help you sharing on the social network by adding facebook or twitter buttons."
+msgstr "Bu plugin sosyal ağda paylaşıma yardımcı olmak için facebook ve twitter düğmelerini ekler."
+
+msgid "Display %s button?"
+msgstr "%s düğmesi gösterilsin mi?"
+
+msgid "The %s button:"
+msgstr "%s düğmesi:"
+
+msgid "To share the post on %s !"
+msgstr "Gönderiyi %s &#039;da paylaşmak !"
+
+msgid "Show the counter of this %s button:"
+msgstr "Bu %s düğmesinin sayacını göster:"
+
+msgid "The official %s button:"
+msgstr "Resmi %s düğmesi:"
+
+msgid "The SSL websites may not work properly with this official button... Moreover the rendering is not perfect !"
+msgstr "SSL web siteleri bu resmi düğmeyle düzgün bir şekilde çalışmayabilir."
+
+msgid "Show the counter of this official %s button:"
+msgstr "Resmi %s düğmesinin sayacını göster"
+
+msgid "Your %s pseudo:"
+msgstr "%s takma adınız:"
+
+msgid "Parameters"
+msgstr "Parametreler"
+
+msgid "Manage translations"
+msgstr "Çevirileri yönet"
+
+msgid "This form is an easy way to contact the author and to discuss issues / incompatibilities / etc."
+msgstr "Bu form yazarla iletişim kurmak ve sorunları / uyumsuzlukları / vs. tartışmak için kolay bir yoldur."
+
+msgid "Give feedback"
+msgstr "Geri besleme veriniz"
+
+msgid "Here is the plugins developped by the author"
+msgstr "Yazar tarafından geliştirilmiş pluginler burada"
+
+msgid "Other possible plugins"
+msgstr "Diğer olası pluginler"
+
+msgid "Share -%s- on Facebook"
+msgstr "Facebook&#039;da -%s- paylaş"
+
+msgid "Share -%s- on Twitter"
+msgstr "Twitter&#039;da -%s- paylaş"
+
+msgid "Tweet"
+msgstr "Tweet"
+
+msgid "Print"
+msgstr "Yazdır"
+
