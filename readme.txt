@@ -8,7 +8,7 @@ Requires at least: 3.0
 Tested up to: 3.2
 Stable tag: trunk
 
-Add Facebook or Twitter button in posts in order to share them
+Add Facebook, Twitter, LinkedIn, Viado, StumbleUpon, Google+, etc. buttons in posts/excerpt in order to share your articles
 
 == Description ==
 
@@ -31,9 +31,13 @@ You can choose the buttons to be displayed.
 
 == Changelog ==
 
+= 1.1.3 =
+* The buttons may be correctly displayed in the excerpt
+* ZipArchive class has been suppressed and pclzip is used instead
+
 = 1.1.2 =
-* New translation for Español/Argentina by GianFrancoAlarcn
-* New translation for Türkçe by Hseyinzkan
+* New translation for Espagnol (Argentina) by GianFrancoAlarcn
+* New translation for Turk by Hseyinzkan
 * Big thanks to them!
 
 = 1.1.1 =
@@ -66,4 +70,4 @@ You can choose the buttons to be displayed.
 Visit http://www.sedlex.fr/cote_geek/
 
  
-InfoVersion:4eb38b1d2d46814a00a8be68e753d41e
+InfoVersion:24425d67fdc5ac291bfde1d0bf9b2807

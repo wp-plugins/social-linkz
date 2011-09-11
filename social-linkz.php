@@ -2,7 +2,7 @@
 /*
 Plugin Name: Social Linkz
 Description: <p>Add social links such as Twitter or Facebook at the bottom of every post. </p><p>You can choose the buttons to be Geted. </p><p>This plugin is under GPL licence. </p>
-Version: 1.1.2
+Version: 1.1.3
 Author: SedLex
 Author Email: sedlex@sedlex.fr
 Framework Email: sedlex@sedlex.fr
@@ -36,6 +36,7 @@ class sociallinkz extends pluginSedLex {
 		//Parametres supplementaires
 		add_filter('the_content', array($this,'print_social_linkz'), 1000);
 		add_action('wp_print_scripts', array( $this, 'google_api'));
+		add_filter('get_the_excerpt', array( $this, 'the_excerpt'));
 	}
 	/**
 	 * Function to instantiate our class and make it a singleton
@@ -54,6 +55,8 @@ class sociallinkz extends pluginSedLex {
 	*/
 	function get_default_option($option) {
 		switch ($option) {
+			case 'display_in_excerpt' 			: return false ; break ; 
+			
 			case 'twitter' 						: return true 	; break ; 
 			case 'twitter_count' 						: return false 	; break ; 
 			case 'twitter_hosted' 				: return false 	; break ; 
@@ -195,6 +198,10 @@ class sociallinkz extends pluginSedLex {
 				$params->add_title(sprintf(__('Display %s button?',$this->pluginID), $title)) ; 
 				$params->add_param('print', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_print.png'/> ".sprintf(__('The %s button:',$this->pluginID), $title)) ; 
 				
+				 
+				$params->add_title(sprintf(__('Display all these buttons in the excerpt ?',$this->pluginID), $title)) ; 
+				$params->add_param('display_in_excerpt', "".sprintf(__('These buttons should be displayed in excerpt:',$this->pluginID), $title)) ; 
+				
 				$params->flush() ; 
 			$tabs->add_tab(__('Parameters',  $this->pluginID), ob_get_clean() ) ; 	
 			
@@ -234,9 +241,29 @@ class sociallinkz extends pluginSedLex {
 
 	function print_social_linkz ($content) {
 		global $post ; 
-		$url = wp_get_shortlink() ; 
-		$long_url = get_permalink() ; 
+		
+		
+		// If the_except, we leave
+		if (!is_single()) {
+			return $content ; 
+		}
+		
+		
+		return $content.$this->print_buttons($post) ; 
+	}
+	
+	/** ====================================================================================================================================================
+	* Print the buttons
+	* 
+	* @return void
+	*/
+	
+	function print_buttons($post) {
+	
+		$url = wp_get_shortlink($post->ID) ; 
+		$long_url = get_permalink($post->ID) ; 
 		$titre = $post->post_title ; 
+		
 		ob_start() ; 
 		?>
 		<div class="social_linkz">
@@ -270,6 +297,7 @@ class sociallinkz extends pluginSedLex {
 				if ($this->get_param('name_twitter')!="") {
 					$via = " (via @".$this->get_param('name_twitter').")" ; 
 				}
+				
 				?>
 				<a rel="nofollow" target="_blank" href="http://twitter.com/?status=<?php echo str_replace('+','%20',urlencode("[Blog] ".$titre)) ; ?>%20-%20<?php echo urlencode($url) ; ?>.<?php echo str_replace('+','%20',urlencode($via)) ; ?>" title="<?php echo sprintf(__("Share -%s- on Twitter", $this->pluginID), htmlentities($titre, ENT_QUOTES)) ;?>">
 					<img class="lnk_social_linkz" src="<?php echo WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__)) ;  ?>/img/lnk_twitter.png" alt="Twitter" height="24" width="24"/> 
@@ -392,7 +420,7 @@ class sociallinkz extends pluginSedLex {
 			?>
 		</div>
 		<?php
-		$content .= ob_get_contents();
+		$content = ob_get_contents();
 		ob_end_clean();
 		return $content ; 
 	}
@@ -595,6 +623,18 @@ class sociallinkz extends pluginSedLex {
 			<em><?php echo $nb  ; ?></em>
 		</span>
 		<?php
+	}
+	
+	/** ====================================================================================================================================================
+	* Add the buttons if needed
+	* 
+	* @return void
+	*/
+	function the_excerpt($content) {
+		global $post ; 
+		if ($this->get_param('display_in_excerpt')==true)
+			return $content.$this->print_buttons($post) ; 
+		return $content ; 
 	}
 }
 
