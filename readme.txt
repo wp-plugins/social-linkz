@@ -31,6 +31,9 @@ You can choose the buttons to be displayed.
 
 == Changelog ==
 
+= 1.1.4 =
+* Bug correction (when the excerpt is not an excerpt but a get_the_content) thanks to florian  
+
 = 1.1.3 =
 * The buttons may be correctly displayed in the excerpt
 * ZipArchive class has been suppressed and pclzip is used instead
@@ -70,4 +73,4 @@ You can choose the buttons to be displayed.
 Visit http://www.sedlex.fr/cote_geek/
 
  
-InfoVersion:24425d67fdc5ac291bfde1d0bf9b2807
+InfoVersion:b57378250ebecba4179b22229319d2f1

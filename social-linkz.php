@@ -2,7 +2,7 @@
 /*
 Plugin Name: Social Linkz
 Description: <p>Add social links such as Twitter or Facebook at the bottom of every post. </p><p>You can choose the buttons to be Geted. </p><p>This plugin is under GPL licence. </p>
-Version: 1.1.3
+Version: 1.1.4
 Author: SedLex
 Author Email: sedlex@sedlex.fr
 Framework Email: sedlex@sedlex.fr
@@ -21,6 +21,8 @@ class sociallinkz extends pluginSedLex {
 	*/
 	static $instance = false;
 	static $path = false;
+	
+	var $is_excerpt ; 
 
 	protected function _init() {
 		// Configuration
@@ -34,6 +36,7 @@ class sociallinkz extends pluginSedLex {
 		register_deactivation_hook(__FILE__, array($this,'uninstall'));
 		
 		//Parametres supplementaires
+		$this->is_excerpt = false ; 
 		add_filter('the_content', array($this,'print_social_linkz'), 1000);
 		add_action('wp_print_scripts', array( $this, 'google_api'));
 		add_filter('get_the_excerpt', array( $this, 'the_excerpt'));
@@ -242,13 +245,19 @@ class sociallinkz extends pluginSedLex {
 	function print_social_linkz ($content) {
 		global $post ; 
 		
-		
-		// If the_except, we leave
+		// If it is the loop and an the_except is called, we leave
 		if (!is_single()) {
-			return $content ; 
+			if ($this->is_excerpt) {
+				$this->is_excerpt = false ; 
+				return $content ; 
+			}
+			if (!$this->get_param('display_in_excerpt')) {
+				$this->is_excerpt = false ; 
+				return $content ; 			
+			}
 		}
 		
-		
+		$this->is_excerpt = false ; 
 		return $content.$this->print_buttons($post) ; 
 	}
 	
@@ -632,6 +641,7 @@ class sociallinkz extends pluginSedLex {
 	*/
 	function the_excerpt($content) {
 		global $post ; 
+		$this->is_excerpt = true ; 
 		if ($this->get_param('display_in_excerpt')==true)
 			return $content.$this->print_buttons($post) ; 
 		return $content ; 
