@@ -16,6 +16,28 @@ Add social links such as Twitter or Facebook at the bottom of every post.
 
 You can choose the buttons to be displayed. 
 
+= Localizations =
+
+* Espagnol/Argentina translation (by GianFrancoAlarcn)
+* Turk translation (by Hseyinzkan)
+* French translation (by me)
+* Croatian translation (by nikola)
+
+= Features of the framework = 
+
+This plugin use SL framework.
+
+You may translate this plugin with an embedded feature which is very easy to use by any end-users (without any external tools / knowledge).
+
+You may also create a new plugin. You will download, from the plugin, an "hello World" plugin: You just have to fill the blank and follow the comments.
+
+Moreover, all the plugins developped with this framework is able to use astonishing tools, such as :
+
+* embedded SVN client (subversion) to easily commit/update the plugin in wordpress.org repository ; 
+* detailled documentation of all available classes and methodes ; 
+* updating the core with a single click ; 
+* etc.
+
 == Installation ==
 
 1. Upload this folder to your plugin directory (for instance '/wp-content/plugins/')
@@ -30,6 +52,16 @@ You can choose the buttons to be displayed.
 2. The buttons
 
 == Changelog ==
+
+= 1.2.0 =
+* SVN support
+
+= 1.1.6 =
+* The button may be added at the top/bottom of the post
+
+= 1.1.5 =
+* New Croatian translation by nikola
+* Core update
 
 = 1.1.4 =
 * Bug correction (when the excerpt is not an excerpt but a get_the_content) thanks to florian  
@@ -73,4 +105,4 @@ You can choose the buttons to be displayed.
 Visit http://www.sedlex.fr/cote_geek/
 
  
-InfoVersion:b57378250ebecba4179b22229319d2f1
+InfoVersion:c83f92c3ec61228942438bfb4e8b62b4

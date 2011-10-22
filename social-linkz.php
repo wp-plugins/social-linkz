@@ -1,8 +1,8 @@
 <?php
-/*
+/**
 Plugin Name: Social Linkz
 Description: <p>Add social links such as Twitter or Facebook at the bottom of every post. </p><p>You can choose the buttons to be Geted. </p><p>This plugin is under GPL licence. </p>
-Version: 1.1.4
+Version: 1.2.0
 Author: SedLex
 Author Email: sedlex@sedlex.fr
 Framework Email: sedlex@sedlex.fr
@@ -25,9 +25,11 @@ class sociallinkz extends pluginSedLex {
 	var $is_excerpt ; 
 
 	protected function _init() {
+		global $wpdb ; 
 		// Configuration
 		$this->pluginName = 'Social Linkz' ; 
 		$this->tableSQL = "" ; 
+		$this->table_name = $wpdb->prefix . "pluginSL_" . get_class() ; 
 		$this->path = __FILE__ ; 
 		$this->pluginID = get_class() ; 
 		
@@ -59,6 +61,9 @@ class sociallinkz extends pluginSedLex {
 	function get_default_option($option) {
 		switch ($option) {
 			case 'display_in_excerpt' 			: return false ; break ; 
+			
+			case 'display_top_in_post' 			: return false ; break ; 
+			case 'display_bottom_in_post' 			: return true ; break ; 
 			
 			case 'twitter' 						: return true 	; break ; 
 			case 'twitter_count' 						: return false 	; break ; 
@@ -205,6 +210,10 @@ class sociallinkz extends pluginSedLex {
 				$params->add_title(sprintf(__('Display all these buttons in the excerpt ?',$this->pluginID), $title)) ; 
 				$params->add_param('display_in_excerpt', "".sprintf(__('These buttons should be displayed in excerpt:',$this->pluginID), $title)) ; 
 				
+				$params->add_title(sprintf(__('Where do you want to display the buttons in post ?',$this->pluginID), $title)) ; 
+				$params->add_param('display_top_in_post', "".sprintf(__('At the Top:',$this->pluginID), $title)) ; 
+				$params->add_param('display_bottom_in_post', "".sprintf(__('At the Bottom:',$this->pluginID), $title)) ; 
+				
 				$params->flush() ; 
 			$tabs->add_tab(__('Parameters',  $this->pluginID), ob_get_clean() ) ; 	
 			
@@ -258,7 +267,15 @@ class sociallinkz extends pluginSedLex {
 		}
 		
 		$this->is_excerpt = false ; 
-		return $content.$this->print_buttons($post) ; 
+		
+		$return =  $content ; 
+		if ($this->get_param('display_bottom_in_post')) {
+			$return =  $return.$this->print_buttons($post) ;  
+		}
+		if ($this->get_param('display_top_in_post')) {
+			$return =  $this->print_buttons($post).$return ; 
+		}
+		return $return ; 
 	}
 	
 	/** ====================================================================================================================================================
