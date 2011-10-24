@@ -18,6 +18,7 @@ You can choose the buttons to be displayed.
 
 = Localizations =
 
+* Finnish translation (by ProDexorite)
 * Espagnol/Argentina translation (by GianFrancoAlarcn)
 * Turk translation (by Hseyinzkan)
 * French translation (by me)
@@ -52,6 +53,9 @@ Moreover, all the plugins developped with this framework is able to use astonish
 2. The buttons
 
 == Changelog ==
+
+= 1.2.1 =
+* Finnish translation (by ProDexorite)
 
 = 1.2.0 =
 * SVN support
@@ -105,4 +109,4 @@ Moreover, all the plugins developped with this framework is able to use astonish
 Visit http://www.sedlex.fr/cote_geek/
 
  
-InfoVersion:c83f92c3ec61228942438bfb4e8b62b4
+InfoVersion:ae5daa33863c097a9811caee0ad73555
