@@ -109,4 +109,4 @@ Moreover, all the plugins developped with this framework is able to use astonish
 Visit http://www.sedlex.fr/cote_geek/
 
  
-InfoVersion:ae5daa33863c097a9811caee0ad73555
+InfoVersion:8cbd23e46217ada897646756dc7e35b0
