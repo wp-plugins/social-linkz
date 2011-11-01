@@ -54,6 +54,10 @@ Moreover, all the plugins developped with this framework is able to use astonish
 
 == Changelog ==
 
+= 1.2.2 =
+* Espagnol/Guatemala translation (by EnriqueBran)
+* Bug Correction for the official tweet button
+
 = 1.2.1 =
 * Finnish translation (by ProDexorite)
 
@@ -109,4 +113,4 @@ Moreover, all the plugins developped with this framework is able to use astonish
 Visit http://www.sedlex.fr/cote_geek/
 
  
-InfoVersion:8cbd23e46217ada897646756dc7e35b0
+InfoVersion:79b2bc57962f86123436dc127f8d9bc6

@@ -1,8 +1,8 @@
 <?php
 /**
 Plugin Name: Social Linkz
-Description: <p>Add social links such as Twitter or Facebook at the bottom of every post. </p><p>You can choose the buttons to be Geted. </p><p>This plugin is under GPL licence. </p>
-Version: 1.2.1
+Description: <p>Add social links such as Twitter or Facebook at the bottom of every post. </p><p>You can choose the buttons to be displayed. </p><p>This plugin is under GPL licence. </p>
+Version: 1.2.2
 Author: SedLex
 Author Email: sedlex@sedlex.fr
 Framework Email: sedlex@sedlex.fr
@@ -77,7 +77,6 @@ class sociallinkz extends pluginSedLex {
 			case 'linkedin_hosted_count' 		: return false 	; break ; 
 
 			case 'viadeo' 					: return false 	; break ; 
-			//case 'viadeo_count' 					: return false 	; break ; 
 						
 			case 'googleplus_standard' 					: return false 	; break ; 
 			case 'googleplus_standard_count' 					: return false 	; break ; 
@@ -344,7 +343,7 @@ class sociallinkz extends pluginSedLex {
 					$coun = 'horizontal' ; 
 				}
 				?>
-				<a href="http://twitter.com/share" class="twitter-share-button" data-count="<?php echo $coun ; ?>" <?php echo $via ; ?> ><?php echo __('Tweet', $this->pluginID) ; ?></a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+				<a href="http://twitter.com/share" class="twitter-share-button" data-text="<?php echo "[Blog] ".$titre ; ?> - <?php echo $url ; ?>" data-url="<?php echo urlencode($url) ; ?>" data-count="<?php echo $coun ; ?>" <?php echo $via ; ?> ><?php echo __('Tweet', $this->pluginID) ; ?></a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 				<?php
 			}
 
