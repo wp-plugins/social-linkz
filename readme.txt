@@ -54,6 +54,9 @@ Moreover, all the plugins developped with this framework is able to use astonish
 
 == Changelog ==
 
+= 1.2.3 =
+* Release of a Google+ button to post article directly (replace the ugly mobile post method)
+
 = 1.2.2 =
 * Espagnol/Guatemala translation (by EnriqueBran)
 * Bug Correction for the official tweet button
@@ -113,4 +116,4 @@ Moreover, all the plugins developped with this framework is able to use astonish
 Visit http://www.sedlex.fr/cote_geek/
 
  
-InfoVersion:79b2bc57962f86123436dc127f8d9bc6
+InfoVersion:e5803fe5978e1e4121253b05959e879e

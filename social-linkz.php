@@ -2,7 +2,7 @@
 /**
 Plugin Name: Social Linkz
 Description: <p>Add social links such as Twitter or Facebook at the bottom of every post. </p><p>You can choose the buttons to be displayed. </p><p>This plugin is under GPL licence. </p>
-Version: 1.2.2
+Version: 1.2.3
 Author: SedLex
 Author Email: sedlex@sedlex.fr
 Framework Email: sedlex@sedlex.fr
@@ -174,8 +174,7 @@ class sociallinkz extends pluginSedLex {
 				$params->add_title(sprintf(__('Display %s button?',$this->pluginID), $title)) ; 
 				$params->add_param('viadeo', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_viadeo.png'/> ".sprintf(__('The %s button:',$this->pluginID), $title)) ; 
 				$params->add_comment(sprintf(__('To share the post on %s !',$this->pluginID), $title)) ; 
-				//$params->add_param('viadeo_count', sprintf(__('Show the counter of this %s button:',$this->pluginID), $title))  ; 
-
+				
 				$title = "GoogleBuzz&#8482;" ; 
 				$params->add_title(sprintf(__('Display %s button?',$this->pluginID), $title)) ; 
 				$params->add_param('googlebuzz', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_googlebuzz.png'/> ".sprintf(__('The %s button:',$this->pluginID), $title)) ; 
@@ -349,7 +348,7 @@ class sociallinkz extends pluginSedLex {
 
 			if ($this->get_param('googleplus_standard')) {
 				?>
-				<a rel="nofollow" target="_blank" href="https://m.google.com/app/plus/x/?v=compose&content=<?php the_title(); ?>%20-%20<?php echo $long_url ; ?>" onclick="window.open('https://m.google.com/app/plus/x/?v=compose&content=<?php the_title(); ?>%20-%20<?php echo $long_url ; ?>','gplusshare','width=450,height=300,left='+(screen.availWidth/2-225)+',top='+(screen.availHeight/2-150));return false;">
+				<a rel="nofollow" target="_blank" href="https://plusone.google.com/_/+1/confirm?url=<?php echo $long_url ; ?>">
 					<img class="lnk_social_linkz" src="<?php echo WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__)) ; ?>/img/lnk_googleplus.png" alt="Google+" height="24" width="24"/> 
 				</a>
 				<?php
