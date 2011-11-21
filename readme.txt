@@ -54,6 +54,10 @@ Moreover, all the plugins developped with this framework is able to use astonish
 
 == Changelog ==
 
+= 1.2.4 =
+* Add Insight for Facebook
+* Correction of a bug with Firefox8
+
 = 1.2.3 =
 * Release of a Google+ button to post article directly (replace the ugly mobile post method)
 
@@ -116,4 +120,4 @@ Moreover, all the plugins developped with this framework is able to use astonish
 Visit http://www.sedlex.fr/cote_geek/
 
  
-InfoVersion:e5803fe5978e1e4121253b05959e879e
+InfoVersion:418d98e45c87c7bbdeaeb20057974768

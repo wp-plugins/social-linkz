@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2011-10-31T19:52:24+00:00\n"
+"PO-Revision-Date: 2011-11-06T18:22:43+00:00\n"
 "Last-Translator: SedLex <http://www.sedlex.fr/>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -149,12 +149,6 @@ msgstr "Vous ne semblez pas avoir de dépôt Wordpress car %s retourne une erreu
 msgid "The SVN repository is identical to your local plugin! You do not need to update..."
 msgstr "Le dépôt SVN est identique à votre plugin local ! Vous n&#039;avez pas besoin de le mettre à jour ..."
 
-msgid "Cannot check the plugin hash due to HTTP Error occurred during the API request"
-msgstr "Ne peut pas vérifier le hash du plugin à cause d&#039;une erreur HTTP survenue durant la requête API"
-
-msgid "Please note that the plugin released does not match with the local plugin. If you want to release a new version with this local plugin, please modify the Version in %s, and then commit it."
-msgstr "Merci de noter que le plugin déployé ne correspond pas au plugin local. Si vous souhaitez déployer une nouvelle version à partir du plugin local, merci de modifier la Version dans %s et le commiter après."
-
 msgid "(Cannot check the version of the plugin due to HTTP Error occurred during the API request)"
 msgstr "(Ne peut pas vérifier la version du plugin à cause d&#039;une erreur HTTP survenue durant la requête API)"
 
@@ -175,6 +169,9 @@ msgstr "Lent"
 
 msgid "Update the SVN repository with your current local plugin files"
 msgstr "Mettre à jour le dépôt SVN avec les fichiers de votre plugin local"
+
+msgid "Please modify the Version in %s in order to be allowed to commit it"
+msgstr "Merci de modifier la version dans le fichier %s pour autoriser le commit"
 
 msgid "The slow version may be useful if you have issues with the quick version."
 msgstr "La version lente peut être utile si vous rencontrez des difficultés avec la version rapide."

@@ -583,7 +583,7 @@ if (!class_exists('pluginSedLex')) {
 		* @return void
 		*/
 		function sedlex_information() {
-			echo "<a name='top'></a>" ; 
+			
 			global $submenu;
 			if (isset($_POST['showhide_advanced'])) {
 				if ($_POST['show_advanced']=="true") {
@@ -628,6 +628,7 @@ if (!class_exists('pluginSedLex')) {
 			if (isset($_GET['download'])) {
 				$this->getPluginZip($_GET['download']) ; 
 			}
+			echo "<a name='top'></a>" ; 
 			$current_core_used = str_replace(WP_PLUGIN_DIR."/",'',dirname(__FILE__)) ; 
 			
 			if (get_option('SL_framework_show_advanced', false)){

@@ -2,7 +2,7 @@
 /**
 Plugin Name: Social Linkz
 Description: <p>Add social links such as Twitter or Facebook at the bottom of every post. </p><p>You can choose the buttons to be displayed. </p><p>This plugin is under GPL licence. </p>
-Version: 1.2.3
+Version: 1.2.4
 Author: SedLex
 Author Email: sedlex@sedlex.fr
 Framework Email: sedlex@sedlex.fr
@@ -41,6 +41,7 @@ class sociallinkz extends pluginSedLex {
 		$this->is_excerpt = false ; 
 		add_filter('the_content', array($this,'print_social_linkz'), 1000);
 		add_action('wp_print_scripts', array( $this, 'google_api'));
+		add_action('wp_print_scripts', array( $this, 'add_meta_facebook'));
 		add_filter('get_the_excerpt', array( $this, 'the_excerpt'));
 	}
 	/**
@@ -89,6 +90,7 @@ class sociallinkz extends pluginSedLex {
 			case 'googlebuzz_hosted_count'			: return false	; break ; 
 			
 			case 'facebook' 					: return true 	; break ; 
+			case 'facebook_id' 					: return "" 	; break ; 
 			case 'facebook_count' 					: return false 	; break ; 
 			case 'facebook_hosted' 				: return false 	; break ; 
 			case 'facebook_hosted_share'			: return false 	; break ; 
@@ -104,10 +106,21 @@ class sociallinkz extends pluginSedLex {
 	/** ====================================================================================================================================================
 	* Add the Google API for the scripts
 	* 
-	* @return variant of the option
+	* @return void
 	*/
 	function google_api() {
 		wp_enqueue_script('google_plus', 'https://apis.google.com/js/plusone.js');
+	}
+	
+	/** ====================================================================================================================================================
+	* Add the Facebook Insight tags
+	* 
+	* @return void
+	*/
+	function add_meta_facebook() {
+		if ($this->get_param('facebook_id')!="") {
+			echo '<meta property="fb:admins" content="'.$this->get_param('facebook_id').'" />' ; 
+		}
 	}
 	
 	/** ====================================================================================================================================================
@@ -160,7 +173,9 @@ class sociallinkz extends pluginSedLex {
 				$params->add_param('facebook_hosted', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_facebook_hosted.png'/> ".sprintf(__('The official %s button:',$this->pluginID), "Like ".$title)) ; 
 				$params->add_param('facebook_hosted_share', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_facebook_hosted_share.png'/> ".sprintf(__('The official %s button:',$this->pluginID), "Share ".$title)) ; 
 				$params->add_comment(__('The SSL websites may not work properly with this official button... Moreover the rendering is not perfect !',$this->pluginID)) ; 
-
+				$params->add_param('facebook_id', __('Your FaceBook ID to enable Insight:',$this->pluginID)) ; 
+				$params->add_comment(sprintf(__('Insight provides metrics around your content. See %shere%s for futher details. To identify your Facebook ID, please visit the previous link and then click on Statistic of my website',$this->pluginID), "<a href='http://www.facebook.com/insights'>", "</a>")) ; 
+				
 				$title = "LinkedIn&#8482;" ; 
 				$params->add_title(sprintf(__('Display %s button?',$this->pluginID), $title)) ; 
 				$params->add_param('linkedin', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_linkedin.png'/> ".sprintf(__('The %s button:',$this->pluginID), $title)) ; 
@@ -296,8 +311,7 @@ class sociallinkz extends pluginSedLex {
 			if ($this->get_param('facebook')) {
 				?>
 				<a rel="nofollow" target="_blank" href="http://www.facebook.com/sharer.php?u=<?php echo urlencode($long_url) ; ?>&amp;t=<?php echo urlencode($titre) ; ?>" title="<?php echo sprintf(__("Share -%s- on Facebook", $this->pluginID), htmlentities($titre, ENT_QUOTES)) ; ?>">
-					<img class="lnk_social_linkz" src="<?php echo WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__)) ; ?>/img/lnk_facebook.png" alt="Facebook" height="24" width="24"/> 
-				</a>
+					<img class="lnk_social_linkz" src="<?php echo WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__)) ; ?>/img/lnk_facebook.png" alt="Facebook" height="24" width="24"/></a>
 				<?php
 				if ($this->get_param('facebook_count')) {
 					$this->display_bubble($this->get_facebook_counter($long_url)) ; 
@@ -324,8 +338,7 @@ class sociallinkz extends pluginSedLex {
 				
 				?>
 				<a rel="nofollow" target="_blank" href="http://twitter.com/?status=<?php echo str_replace('+','%20',urlencode("[Blog] ".$titre)) ; ?>%20-%20<?php echo urlencode($url) ; ?>.<?php echo str_replace('+','%20',urlencode($via)) ; ?>" title="<?php echo sprintf(__("Share -%s- on Twitter", $this->pluginID), htmlentities($titre, ENT_QUOTES)) ;?>">
-					<img class="lnk_social_linkz" src="<?php echo WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__)) ;  ?>/img/lnk_twitter.png" alt="Twitter" height="24" width="24"/> 
-				</a>
+					<img class="lnk_social_linkz" src="<?php echo WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__)) ;  ?>/img/lnk_twitter.png" alt="Twitter" height="24" width="24"/></a>
 				<?php
 				if ($this->get_param('twitter_count')) {
 					$this->display_bubble($this->get_twitter_counter($long_url)) ; 
@@ -349,8 +362,7 @@ class sociallinkz extends pluginSedLex {
 			if ($this->get_param('googleplus_standard')) {
 				?>
 				<a rel="nofollow" target="_blank" href="https://plusone.google.com/_/+1/confirm?url=<?php echo $long_url ; ?>">
-					<img class="lnk_social_linkz" src="<?php echo WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__)) ; ?>/img/lnk_googleplus.png" alt="Google+" height="24" width="24"/> 
-				</a>
+					<img class="lnk_social_linkz" src="<?php echo WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__)) ; ?>/img/lnk_googleplus.png" alt="Google+" height="24" width="24"/></a>
 				<?php
 				if ($this->get_param('googleplus_standard_count')) {
 					$this->display_bubble($this->get_googleplus_counter($long_url)) ; 
@@ -370,8 +382,7 @@ class sociallinkz extends pluginSedLex {
 			if ($this->get_param('googlebuzz')) {
 				?>
 				<a rel="nofollow" target="_blank" href="http://www.google.com/buzz/post?message=<?php the_title(); ?>&url=<?php echo $long_url ; ?>" >
-					<img class="lnk_social_linkz" src="<?php echo WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__)) ; ?>/img/lnk_googlebuzz.png" alt="Google Buzz" height="24" width="24"/> 
-				</a>
+					<img class="lnk_social_linkz" src="<?php echo WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__)) ; ?>/img/lnk_googlebuzz.png" alt="Google Buzz" height="24" width="24"/></a>
 				<?php
 				if ($this->get_param('googlebuzz_count')) {
 					$this->display_bubble($this->get_googlebuzz_counter($long_url)) ; 
@@ -391,8 +402,7 @@ class sociallinkz extends pluginSedLex {
 			if ($this->get_param('linkedin')) {
 				?>
 				<a rel="nofollow" target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&url=<?php echo urlencode($long_url) ; ?>&title=<?php echo str_replace('+','%20',urlencode("[Blog] ".$titre)) ; ?>&source=<?php echo urlencode(get_bloginfo('name')) ; ?>">
-					<img class="lnk_social_linkz" src="<?php echo WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__)) ;  ?>/img/lnk_linkedin.png" alt="LinkedIn" height="24" width="24"/> 
-				</a>
+					<img class="lnk_social_linkz" src="<?php echo WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__)) ;  ?>/img/lnk_linkedin.png" alt="LinkedIn" height="24" width="24"/></a>
 				<?php
 				if ($this->get_param('linkedin_count')) {
 					$this->display_bubble($this->get_linkedin_counter($long_url)) ; 
@@ -412,16 +422,14 @@ class sociallinkz extends pluginSedLex {
 			if ($this->get_param('viadeo')) {
 				?>
 				<a rel="nofollow" target="_blank" href="http://www.viadeo.com/shareit/share/?url=<?php echo urlencode($long_url) ; ?>&title=<?php echo str_replace('+','%20',urlencode("[Blog] ".$titre)) ; ?>&overview=<?php echo str_replace('+','%20',urlencode("[Blog] ".$titre)) ; ?>">
-					<img class="lnk_social_linkz" src="<?php echo WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__)) ;  ?>/img/lnk_viadeo.png" alt="Viadeo" height="24" width="24"/> 
-				</a>
+					<img class="lnk_social_linkz" src="<?php echo WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__)) ;  ?>/img/lnk_viadeo.png" alt="Viadeo" height="24" width="24"/></a>
 				<?php
 			}
 			
 			if ($this->get_param('stumbleupon')) {
 				?>
 				<a rel="nofollow" target="_blank" href="http://www.stumbleupon.com/submit?url=<?php echo urlencode($long_url) ; ?>&title=<?php echo str_replace('+','%20',urlencode("[Blog] ".$titre)) ; ?>">
-					<img class="lnk_social_linkz" src="<?php echo WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__)) ;  ?>/img/lnk_stumbleupon.png" alt="StumbleUpon" height="24" width="24"/> 
-				</a>
+					<img class="lnk_social_linkz" src="<?php echo WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__)) ;  ?>/img/lnk_stumbleupon.png" alt="StumbleUpon" height="24" width="24"/></a>
 				<?php
 				if ($this->get_param('stumbleupon_count')) {
 					$this->display_bubble($this->get_stumbleupon_counter($long_url)) ; 
@@ -437,8 +445,7 @@ class sociallinkz extends pluginSedLex {
 			if ($this->get_param('print')) {
 				?>
 				<a rel="nofollow" target="_blank" href="#" title="<?php echo __("Print", $this->pluginID) ;?>">
-					<img onclick="window.print();return false;" class="lnk_social_linkz" src="<?php echo WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__)) ; ?>/img/lnk_print.png" alt="Print" height="24" width="24"/> 
-				</a>
+					<img onclick="window.print();return false;" class="lnk_social_linkz" src="<?php echo WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__)) ; ?>/img/lnk_print.png" alt="Print" height="24" width="24"/></a>
 				<?php
 			}
 			?>
