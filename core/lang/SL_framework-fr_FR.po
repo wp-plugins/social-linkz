@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2011-11-06T18:22:43+00:00\n"
+"PO-Revision-Date: 2011-11-22T14:03:24+00:00\n"
 "Last-Translator: SedLex <http://www.sedlex.fr/>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -328,6 +328,15 @@ msgstr "Attention : certains caractères ont été supprimés car ils ne sont pa
 
 msgid "Error: the submitted string does not match the constrains"
 msgstr "Erreur : la chaine de caractère soumise ne respecte pas les contraines imposées"
+
+msgid "Error: the submitted file can not be uploaded"
+msgstr "Erreur : le fichier soumis ne peut pas être téléchargé"
+
+msgid "Error: %s file already exists"
+msgstr "Erreur : le fichier %s existe déjà"
+
+msgid "(If you want to delete this file, please check this box %s)"
+msgstr "(Si vous voulez effacer ce fichier, merci de cocher cette case %s)"
 
 msgid "Some parameters have not been updated due to errors (see below) !"
 msgstr "Des paramètres n&#039;ont pas été mis à jour à cause d&#039;erreurs (voir ci-dessous) !"

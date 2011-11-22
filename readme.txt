@@ -18,6 +18,7 @@ You can choose the buttons to be displayed.
 
 = Localizations =
 
+* Polish translation (by Kajaczek)
 * Finnish translation (by ProDexorite)
 * Espagnol/Argentina translation (by GianFrancoAlarcn)
 * Turk translation (by Hseyinzkan)
@@ -53,6 +54,9 @@ Moreover, all the plugins developped with this framework is able to use astonish
 2. The buttons
 
 == Changelog ==
+
+= 1.2.5 =
+* Polish translation (by Kajaczek)
 
 = 1.2.4 =
 * Add Insight for Facebook
@@ -120,4 +124,4 @@ Moreover, all the plugins developped with this framework is able to use astonish
 Visit http://www.sedlex.fr/cote_geek/
 
  
-InfoVersion:418d98e45c87c7bbdeaeb20057974768
+InfoVersion:c0e8b5f61918a31e9880fd35201748a6
