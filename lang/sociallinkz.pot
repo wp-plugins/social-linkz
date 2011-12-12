@@ -124,56 +124,37 @@ msgid "Parameters"
 msgstr ""
 
 #: social-linkz.php:237
-#: core/templates/my-plugin.php:227
 #@ sociallinkz
 msgid "Manage translations"
 msgstr ""
 
-#: social-linkz.php:240
-#: core/templates/my-plugin.php:230
-#@ sociallinkz
-msgid "This form is an easy way to contact the author and to discuss issues / incompatibilities / etc."
-msgstr ""
-
-#: social-linkz.php:244
-#: core/templates/my-plugin.php:234
+#: social-linkz.php:243
 #@ sociallinkz
 msgid "Give feedback"
 msgstr ""
 
-#: social-linkz.php:247
+#: social-linkz.php:248
 #@ sociallinkz
-msgid "Here is the plugins developped by the author"
+msgid "Other plugins"
 msgstr ""
 
-#: social-linkz.php:250
-#: core/templates/my-plugin.php:243
-#@ sociallinkz
-msgid "Other possible plugins"
-msgstr ""
-
-#: social-linkz.php:313
+#: social-linkz.php:311
 #@ sociallinkz
 msgid "Share -%s- on Facebook"
 msgstr ""
 
-#: social-linkz.php:340
+#: social-linkz.php:338
 #@ sociallinkz
 msgid "Share -%s- on Twitter"
 msgstr ""
 
-#: social-linkz.php:358
+#: social-linkz.php:356
 #@ sociallinkz
 msgid "Tweet"
 msgstr ""
 
-#: social-linkz.php:447
+#: social-linkz.php:445
 #@ sociallinkz
 msgid "Print"
-msgstr ""
-
-#: core/templates/my-plugin.php:237
-#@ sociallinkz
-msgid "Here is the plugins developped by the author:"
 msgstr ""
 
