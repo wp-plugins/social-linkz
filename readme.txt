@@ -1,44 +1,56 @@
-=== Social linkz ===
+=== Social Linkz ===
 
+Author: SedLex
 Contributors: SedLex
 Author URI: http://www.sedlex.fr/
 Plugin URI: http://wordpress.org/extend/plugins/social-linkz/
-Tags: plugin, facebook, google plus, twitter, social, stumbleupon, counter, linkedin
+Tags: social, facebook, twitter, google, buttons
 Requires at least: 3.0
-Tested up to: 3.2
+Tested up to: 3.3.1
 Stable tag: trunk
 
-Add Facebook, Twitter, LinkedIn, Viado, StumbleUpon, Google+, etc. buttons in posts/excerpt in order to share your articles
+Add social links such as Twitter or Facebook at the bottom of every post. 
 
 == Description ==
 
 Add social links such as Twitter or Facebook at the bottom of every post. 
 
-You can choose the buttons to be displayed. 
+You can choose the buttons to be displayed such as : 
 
-= Localizations =
+* Twitter
+* FaceBook
+* LinkedIn
+* Viadeo
+* GoogleBuzz
+* Google+
+* StumbleUpon
+* Print
 
-* Polish translation (by Kajaczek)
-* Finnish translation (by ProDexorite)
-* Espagnol/Argentina translation (by GianFrancoAlarcn)
-* Turk translation (by Hseyinzkan)
-* French translation (by me)
-* Croatian translation (by nikola)
+This plugin is under GPL licence. 
 
-= Features of the framework = 
+= Localization =
 
-This plugin use SL framework.
+* English (United States), default language
+* Spanish (Argentina) translation provided by GianFrancoAlarcn
+* Spanish (Guatemala) translation provided by EnriqueBran
+* Finnish (Finland) translation provided by ProDexorite
+* French (France) translation provided by SedLex
+* Croatian (Croatia) translation provided by nikola
+* Polish (Poland) translation provided by Kajaczek
+* Turkish (Turkey) translation provided by Hseyinzkan
 
-You may translate this plugin with an embedded feature which is very easy to use by any end-users (without any external tools / knowledge).
+= Features of the framework =
 
-You may also create a new plugin. You will download, from the plugin, an "hello World" plugin: You just have to fill the blank and follow the comments.
+This plugin uses the SL framework. This framework eases the creation of new plugins by providing incredible tools and frames.
 
-Moreover, all the plugins developped with this framework is able to use astonishing tools, such as :
+For instance, a new created plugin comes with
 
-* embedded SVN client (subversion) to easily commit/update the plugin in wordpress.org repository ; 
-* detailled documentation of all available classes and methodes ; 
-* updating the core with a single click ; 
+* A translation interface to simplify the localization of the text of the plugin ; 
+* An embedded SVN client (subversion) to easily commit/update the plugin in wordpress.org repository ; 
+* A detailled documentation of all available classes and methodes ; 
 * etc.
+
+Have fun !
 
 == Installation ==
 
@@ -54,6 +66,9 @@ Moreover, all the plugins developped with this framework is able to use astonish
 2. The buttons
 
 == Changelog ==
+
+= 1.3.0 =
+* Major release of the framework
 
 = 1.2.6 =
 * Improve English text thanks to Rene
@@ -127,4 +142,4 @@ Moreover, all the plugins developped with this framework is able to use astonish
 Visit http://www.sedlex.fr/cote_geek/
 
  
-InfoVersion:8b9a1470f644c9223b5e0b96d1e59c02
+InfoVersion:b7bbba3cf2c6db0985b67dbd88bb14b4

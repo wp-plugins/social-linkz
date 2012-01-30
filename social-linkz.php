@@ -1,8 +1,9 @@
 <?php
 /**
 Plugin Name: Social Linkz
-Description: <p>Add social links such as Twitter or Facebook at the bottom of every post. </p><p>You can choose the buttons to be displayed. </p><p>This plugin is under GPL licence. </p>
-Version: 1.2.6
+Plugin Tag: social, facebook, twitter, google, buttons
+Description: <p>Add social links such as Twitter or Facebook at the bottom of every post. </p><p>You can choose the buttons to be displayed such as : </p><ul><li>Twitter</li><li>FaceBook</li><li>LinkedIn</li><li>Viadeo</li><li>GoogleBuzz</li><li>Google+</li><li>StumbleUpon</li><li>Print</li></ul><p>This plugin is under GPL licence. </p>
+Version: 1.3.0
 Author: SedLex
 Author Email: sedlex@sedlex.fr
 Framework Email: sedlex@sedlex.fr
