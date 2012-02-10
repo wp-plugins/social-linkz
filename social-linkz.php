@@ -2,8 +2,8 @@
 /**
 Plugin Name: Social Linkz
 Plugin Tag: social, facebook, twitter, google, buttons
-Description: <p>Add social links such as Twitter or Facebook at the bottom of every post. </p><p>You can choose the buttons to be displayed such as : </p><ul><li>Twitter</li><li>FaceBook</li><li>LinkedIn</li><li>Viadeo</li><li>GoogleBuzz</li><li>Google+</li><li>StumbleUpon</li><li>Print</li></ul><p>This plugin is under GPL licence. </p>
-Version: 1.3.0
+Description: <p>Add social links such as Twitter or Facebook in each post. </p><p>You can choose the buttons to be displayed such as : </p><ul><li>Twitter</li><li>FaceBook</li><li>LinkedIn</li><li>Viadeo</li><li>GoogleBuzz</li><li>Google+</li><li>StumbleUpon</li><li>Pinterest</li><li>Print</li></ul><p>This plugin is under GPL licence. </p>
+Version: 1.3.1
 Author: SedLex
 Author Email: sedlex@sedlex.fr
 Framework Email: sedlex@sedlex.fr
@@ -72,6 +72,9 @@ class sociallinkz extends pluginSedLex {
 			case 'twitter_hosted' 				: return false 	; break ; 
 			case 'twitter_hosted_count' 		: return false 	; break ; 
 			case 'name_twitter'					: return "" 	; break ; 
+			
+			case 'pinterest_hosted' 				: return false 	; break ; 
+			case 'pinterest_hosted_count' 		: return false 	; break ;
 			
 			case 'linkedin' 					: return false 	; break ; 
 			case 'linkedin_count' 					: return false 	; break ; 
@@ -216,11 +219,16 @@ class sociallinkz extends pluginSedLex {
 				$params->add_param('stumbleupon_count', sprintf(__('Show the counter of this %s button:',$this->pluginID), $title)) ; 
 				$params->add_param('stumbleupon_hosted', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_stumbleupon_hosted.png'/> ".sprintf(__('The official %s button:',$this->pluginID), $title)) ; 
 				
+				$title = "Pinterest&#8482;" ; 
+				$params->add_title(sprintf(__('Display %s button?',$this->pluginID), $title)) ; 
+				$params->add_param('pinterest_hosted', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_pinterest_hosted.jpg'/> ".sprintf(__('The %s button:',$this->pluginID), $title)) ; 
+				$params->add_comment(sprintf(__('To share the post on %s !',$this->pluginID), $title)) ; 
+				$params->add_param('pinterest_hosted_count', sprintf(__('Show the counter of this %s button:',$this->pluginID), $title)) ; 
+				
 				$title = "Print" ; 
 				$params->add_title(sprintf(__('Display %s button?',$this->pluginID), $title)) ; 
 				$params->add_param('print', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_print.png'/> ".sprintf(__('The %s button:',$this->pluginID), $title)) ; 
-				
-				 
+			 
 				$params->add_title(sprintf(__('Display all these buttons in the excerpt ?',$this->pluginID), $title)) ; 
 				$params->add_param('display_in_excerpt', "".sprintf(__('These buttons should be displayed in excerpt:',$this->pluginID), $title)) ; 
 				
@@ -247,8 +255,6 @@ class sociallinkz extends pluginSedLex {
 				$trans = new otherPlugins("sedLex", array('wp-pirates-search')) ; 
 				$trans->list_plugins() ; 
 			$tabs->add_tab(__('Other plugins',  $this->pluginID), ob_get_clean() , WP_PLUGIN_URL.'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__))."core/img/tab_plug.png") ; 	
-			
-
 			
 			echo $tabs->flush() ; 					
 			
@@ -441,6 +447,17 @@ class sociallinkz extends pluginSedLex {
 				<?php
 			}
 			
+			
+			if ($this->get_param('pinterest_hosted')) {
+				$coun = "none" ; 
+				if ($this->get_param('pinterest_hosted_count')) {
+					$coun = 'horizontal' ; 
+				}
+				?>
+				<a href="http://pinterest.com/pin/create/button/?url<?php echo urlencode($url) ; ?>" class="pin-it-button" count-layout="<?php echo $coun ; ?>">Pin It</a><script type="text/javascript" src="http://assets.pinterest.com/js/pinit.js"></script>
+				<?php
+			}
+			
 			if ($this->get_param('print')) {
 				?>
 				<a rel="nofollow" target="_blank" href="#" title="<?php echo __("Print", $this->pluginID) ;?>">
@@ -455,8 +472,6 @@ class sociallinkz extends pluginSedLex {
 		return $content ; 
 	}
 	
-
-
 	
 	/** ====================================================================================================================================================
 	* Get  twitter counter

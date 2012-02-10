@@ -4,7 +4,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2011-09-05T10:09:30+00:00\n"
+"PO-Revision-Date: 2012-02-02T16:08:26+00:00\n"
+"Last-Translator: OsmanERDOAN <http://www.osmanerdogan.com>\n"
 "Last-Translator: Hseyinzkan <huseyinozkan75@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -21,7 +22,7 @@ msgstr ""
 "X-Textdomain-Support: yes\n"
 
 msgid "This plugin help you sharing on the social network by adding facebook or twitter buttons."
-msgstr "Bu plugin sosyal ağda paylaşıma yardımcı olmak için facebook ve twitter düğmelerini ekler."
+msgstr "Bu eklenti sosyal ağda paylaşıma yardımcı olmak için facebook ve twitter düğmelerini ekler."
 
 msgid "Display %s button?"
 msgstr "%s düğmesi gösterilsin mi?"
@@ -47,23 +48,38 @@ msgstr "Resmi %s düğmesinin sayacını göster"
 msgid "Your %s pseudo:"
 msgstr "%s takma adınız:"
 
+msgid "Your FaceBook ID to enable Insight:"
+msgstr "Facebook istatistikleri için Facebook ID&#039;nizi yazınız."
+
+msgid "Insight provides metrics around your content. See %shere%s for futher details. To identify your Facebook ID, please visit the previous link and then click on Statistic of my website"
+msgstr ""
+
+msgid "Display all these buttons in the excerpt ?"
+msgstr "Düğmeleri alıntı yaparak bu şekilde gösterilsin mi?"
+
+msgid "These buttons should be displayed in excerpt:"
+msgstr "Düğmeler bu şekilde gösterilecektir:"
+
+msgid "Where do you want to display the buttons in post ?"
+msgstr "Düğmeler yazının neresinde çıksın?"
+
+msgid "At the Top:"
+msgstr "Yazı üstünde çıksın"
+
+msgid "At the Bottom:"
+msgstr "Yazı altında çıksın"
+
 msgid "Parameters"
 msgstr "Parametreler"
 
 msgid "Manage translations"
 msgstr "Çevirileri yönet"
 
-msgid "This form is an easy way to contact the author and to discuss issues / incompatibilities / etc."
-msgstr "Bu form yazarla iletişim kurmak ve sorunları / uyumsuzlukları / vs. tartışmak için kolay bir yoldur."
-
 msgid "Give feedback"
 msgstr "Geri besleme veriniz"
 
-msgid "Here is the plugins developped by the author"
-msgstr "Yazar tarafından geliştirilmiş pluginler burada"
-
-msgid "Other possible plugins"
-msgstr "Diğer olası pluginler"
+msgid "Other plugins"
+msgstr "Diğer eklentiler"
 
 msgid "Share -%s- on Facebook"
 msgstr "Facebook&#039;da -%s- paylaş"
@@ -76,4 +92,7 @@ msgstr "Tweet"
 
 msgid "Print"
 msgstr "Yazdır"
+
+msgid "The file %s cannot be deleted. You should have a problem with file permissions or security restrictions."
+msgstr "%s bu dosya silinemiyor. Yazım izinleri veya güvenlik ile ilgili bir sorun yaşanmaktadır."
 

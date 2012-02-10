@@ -9,11 +9,11 @@ Requires at least: 3.0
 Tested up to: 3.3.1
 Stable tag: trunk
 
-Add social links such as Twitter or Facebook at the bottom of every post. 
+Add social links such as Twitter or Facebook in each post. 
 
 == Description ==
 
-Add social links such as Twitter or Facebook at the bottom of every post. 
+Add social links such as Twitter or Facebook in each post. 
 
 You can choose the buttons to be displayed such as : 
 
@@ -24,6 +24,7 @@ You can choose the buttons to be displayed such as :
 * GoogleBuzz
 * Google+
 * StumbleUpon
+* Pinterest
 * Print
 
 This plugin is under GPL licence. 
@@ -37,7 +38,7 @@ This plugin is under GPL licence.
 * French (France) translation provided by SedLex
 * Croatian (Croatia) translation provided by nikola
 * Polish (Poland) translation provided by Kajaczek
-* Turkish (Turkey) translation provided by Hseyinzkan
+* Turkish (Turkey) translation provided by OsmanERDOAN, Hseyinzkan
 
 = Features of the framework =
 
@@ -66,6 +67,9 @@ Have fun !
 2. The buttons
 
 == Changelog ==
+
+= 1.3.1 = 
+* Add Pinterest button
 
 = 1.3.0 =
 * Major release of the framework
@@ -142,4 +146,4 @@ Have fun !
 Visit http://www.sedlex.fr/cote_geek/
 
  
-InfoVersion:b7bbba3cf2c6db0985b67dbd88bb14b4
+InfoVersion:2c792ac8cf1c890a6279317b21b283b6
