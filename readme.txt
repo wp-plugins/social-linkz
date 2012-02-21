@@ -37,6 +37,7 @@ This plugin is under GPL licence.
 * Finnish (Finland) translation provided by ProDexorite
 * French (France) translation provided by SedLex
 * Croatian (Croatia) translation provided by nikola
+* Japanese (Japan) translation provided by Toshi
 * Polish (Poland) translation provided by Kajaczek
 * Turkish (Turkey) translation provided by OsmanERDOAN, Hseyinzkan
 
@@ -67,6 +68,9 @@ Have fun !
 2. The buttons
 
 == Changelog ==
+
+= 1.3.2 = 
+* Add translations
 
 = 1.3.1 = 
 * Add Pinterest button
@@ -146,4 +150,4 @@ Have fun !
 Visit http://www.sedlex.fr/cote_geek/
 
  
-InfoVersion:2c792ac8cf1c890a6279317b21b283b6
+InfoVersion:4b66aec8f1270f27e7a17b62e2953f43
