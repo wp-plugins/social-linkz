@@ -69,6 +69,9 @@ Have fun !
 
 == Changelog ==
 
+= 1.3.3 = 
+* Issues with UTF8  text corrected
+
 = 1.3.2 = 
 * Add translations
 
@@ -150,4 +153,4 @@ Have fun !
 Visit http://www.sedlex.fr/cote_geek/
 
  
-InfoVersion:4b66aec8f1270f27e7a17b62e2953f43
+InfoVersion:ee717e2a491506463e9d99ae72286f2d

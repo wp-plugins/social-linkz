@@ -3,7 +3,8 @@
 Plugin Name: Social Linkz
 Plugin Tag: social, facebook, twitter, google, buttons
 Description: <p>Add social links such as Twitter or Facebook in each post. </p><p>You can choose the buttons to be displayed such as : </p><ul><li>Twitter</li><li>FaceBook</li><li>LinkedIn</li><li>Viadeo</li><li>GoogleBuzz</li><li>Google+</li><li>StumbleUpon</li><li>Pinterest</li><li>Print</li></ul><p>This plugin is under GPL licence. </p>
-Version: 1.3.2
+Version: 1.3.3
+
 Author: SedLex
 Author Email: sedlex@sedlex.fr
 Framework Email: sedlex@sedlex.fr
@@ -315,7 +316,7 @@ class sociallinkz extends pluginSedLex {
 			
 			if ($this->get_param('facebook')) {
 				?>
-				<a rel="nofollow" target="_blank" href="http://www.facebook.com/sharer.php?u=<?php echo urlencode($long_url) ; ?>&amp;t=<?php echo urlencode($titre) ; ?>" title="<?php echo sprintf(__("Share -%s- on Facebook", $this->pluginID), htmlentities($titre, ENT_QUOTES)) ; ?>">
+				<a rel="nofollow" target="_blank" href="http://www.facebook.com/sharer.php?u=<?php echo urlencode($long_url) ; ?>&amp;t=<?php echo urlencode($titre) ; ?>" title="<?php echo sprintf(__("Share -%s- on %s", $this->pluginID), htmlentities($titre, ENT_QUOTES,'UTF-8'), "Facebook") ; ?>">
 					<img class="lnk_social_linkz" src="<?php echo WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__)) ; ?>/img/lnk_facebook.png" alt="Facebook" height="24" width="24"/></a>
 				<?php
 				if ($this->get_param('facebook_count')) {
@@ -342,7 +343,7 @@ class sociallinkz extends pluginSedLex {
 				}
 				
 				?>
-				<a rel="nofollow" target="_blank" href="http://twitter.com/?status=<?php echo str_replace('+','%20',urlencode("[Blog] ".$titre)) ; ?>%20-%20<?php echo urlencode($url) ; ?>.<?php echo str_replace('+','%20',urlencode($via)) ; ?>" title="<?php echo sprintf(__("Share -%s- on Twitter", $this->pluginID), htmlentities($titre, ENT_QUOTES)) ;?>">
+				<a rel="nofollow" target="_blank" href="http://twitter.com/?status=<?php echo str_replace('+','%20',urlencode("[Blog] ".$titre)) ; ?>%20-%20<?php echo urlencode($url) ; ?>.<?php echo str_replace('+','%20',urlencode($via)) ; ?>" title="<?php echo sprintf(__("Share -%s- on %s", $this->pluginID), htmlentities($titre, ENT_QUOTES,'UTF-8'), "Twitter") ; ?>">
 					<img class="lnk_social_linkz" src="<?php echo WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__)) ;  ?>/img/lnk_twitter.png" alt="Twitter" height="24" width="24"/></a>
 				<?php
 				if ($this->get_param('twitter_count')) {
@@ -366,7 +367,7 @@ class sociallinkz extends pluginSedLex {
 
 			if ($this->get_param('googleplus_standard')) {
 				?>
-				<a rel="nofollow" target="_blank" href="https://plusone.google.com/_/+1/confirm?url=<?php echo $long_url ; ?>">
+				<a rel="nofollow" target="_blank" href="https://plusone.google.com/_/+1/confirm?url=<?php echo $long_url ; ?>" title="<?php echo sprintf(__("Share -%s- on %s", $this->pluginID), htmlentities($titre, ENT_QUOTES,'UTF-8'), "Google+") ; ?>">
 					<img class="lnk_social_linkz" src="<?php echo WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__)) ; ?>/img/lnk_googleplus.png" alt="Google+" height="24" width="24"/></a>
 				<?php
 				if ($this->get_param('googleplus_standard_count')) {
@@ -386,7 +387,7 @@ class sociallinkz extends pluginSedLex {
 			
 			if ($this->get_param('googlebuzz')) {
 				?>
-				<a rel="nofollow" target="_blank" href="http://www.google.com/buzz/post?message=<?php the_title(); ?>&url=<?php echo $long_url ; ?>" >
+				<a rel="nofollow" target="_blank" href="http://www.google.com/buzz/post?message=<?php the_title(); ?>&url=<?php echo $long_url ; ?>" title="<?php echo sprintf(__("Share -%s- on %s", $this->pluginID), htmlentities($titre, ENT_QUOTES,'UTF-8'), "GoogleBuzz") ; ?>" >
 					<img class="lnk_social_linkz" src="<?php echo WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__)) ; ?>/img/lnk_googlebuzz.png" alt="Google Buzz" height="24" width="24"/></a>
 				<?php
 				if ($this->get_param('googlebuzz_count')) {
@@ -406,7 +407,7 @@ class sociallinkz extends pluginSedLex {
 			}
 			if ($this->get_param('linkedin')) {
 				?>
-				<a rel="nofollow" target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&url=<?php echo urlencode($long_url) ; ?>&title=<?php echo str_replace('+','%20',urlencode("[Blog] ".$titre)) ; ?>&source=<?php echo urlencode(get_bloginfo('name')) ; ?>">
+				<a rel="nofollow" target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&url=<?php echo urlencode($long_url) ; ?>&title=<?php echo str_replace('+','%20',urlencode("[Blog] ".$titre)) ; ?>&source=<?php echo urlencode(get_bloginfo('name')) ; ?>" title="<?php echo sprintf(__("Share -%s- on %s", $this->pluginID), htmlentities($titre, ENT_QUOTES,'UTF-8'), "LinkedIn") ; ?>">
 					<img class="lnk_social_linkz" src="<?php echo WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__)) ;  ?>/img/lnk_linkedin.png" alt="LinkedIn" height="24" width="24"/></a>
 				<?php
 				if ($this->get_param('linkedin_count')) {
@@ -426,14 +427,14 @@ class sociallinkz extends pluginSedLex {
 			
 			if ($this->get_param('viadeo')) {
 				?>
-				<a rel="nofollow" target="_blank" href="http://www.viadeo.com/shareit/share/?url=<?php echo urlencode($long_url) ; ?>&title=<?php echo str_replace('+','%20',urlencode("[Blog] ".$titre)) ; ?>&overview=<?php echo str_replace('+','%20',urlencode("[Blog] ".$titre)) ; ?>">
+				<a rel="nofollow" target="_blank" href="http://www.viadeo.com/shareit/share/?url=<?php echo urlencode($long_url) ; ?>&title=<?php echo str_replace('+','%20',urlencode("[Blog] ".$titre)) ; ?>&overview=<?php echo str_replace('+','%20',urlencode("[Blog] ".$titre)) ; ?>" title="<?php echo sprintf(__("Share -%s- on %s", $this->pluginID), htmlentities($titre, ENT_QUOTES,'UTF-8'), "Viadeo") ; ?>">
 					<img class="lnk_social_linkz" src="<?php echo WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__)) ;  ?>/img/lnk_viadeo.png" alt="Viadeo" height="24" width="24"/></a>
 				<?php
 			}
 			
 			if ($this->get_param('stumbleupon')) {
 				?>
-				<a rel="nofollow" target="_blank" href="http://www.stumbleupon.com/submit?url=<?php echo urlencode($long_url) ; ?>&title=<?php echo str_replace('+','%20',urlencode("[Blog] ".$titre)) ; ?>">
+				<a rel="nofollow" target="_blank" href="http://www.stumbleupon.com/submit?url=<?php echo urlencode($long_url) ; ?>&title=<?php echo str_replace('+','%20',urlencode("[Blog] ".$titre)) ; ?>" title="<?php echo sprintf(__("Share -%s- on %s", $this->pluginID), htmlentities($titre, ENT_QUOTES,'UTF-8'), "StumbleUpon") ; ?>">
 					<img class="lnk_social_linkz" src="<?php echo WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__)) ;  ?>/img/lnk_stumbleupon.png" alt="StumbleUpon" height="24" width="24"/></a>
 				<?php
 				if ($this->get_param('stumbleupon_count')) {
