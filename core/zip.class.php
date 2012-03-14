@@ -369,6 +369,9 @@ if (!class_exists("SL_Zip")) {
 			
 				// We add the local header in the zip files
 				if (strlen($local_file_header) + filesize($path . basename ($splitfilename,".zip") . ".z" . sprintf("%02d",$disk_number))<=$chunk_size) {
+					// We get the index of the file
+					$relative_offset_in_disk = filesize($path . basename ($splitfilename,".zip") . ".z" . sprintf("%02d",$disk_number)) ; 
+
 					$r = @file_put_contents($path . basename ($splitfilename,".zip") . ".z" . sprintf("%02d",$disk_number) ,$local_file_header, FILE_APPEND) ; 
 					if ($r===FALSE) {
 						if (!Utils::rm_rec($path."/in_progress")) {
@@ -379,6 +382,9 @@ if (!class_exists("SL_Zip")) {
 				// If the local header will be split, we create a new disk
 				} else {
 					$disk_number ++ ; 
+					// We get the index of the file
+					$relative_offset_in_disk = 0 ; 
+					
 					$pathToReturn[] = $path . basename ($splitfilename,".zip") . ".z" . sprintf("%02d",$disk_number) ;
 					$r = @file_put_contents($path . basename ($splitfilename,".zip") . ".z" . sprintf("%02d",$disk_number) ,$local_file_header) ; 
 					if ($r===FALSE) {
@@ -490,7 +496,7 @@ if (!class_exists("SL_Zip")) {
 				$central_file_header .= pack('v', $disk_number_of_local_header-1); 	// 2 bytes disk number start
 				$central_file_header .= pack('v', 0) ; 								// 2 bytes internal file attribute
 				$central_file_header .= pack('V', 32) ; 							// 4 bytes external file attribute
-				$central_file_header .= pack('V', $data_segments_len%$chunk_size);	// 4 bytes relative offset of local header
+				$central_file_header .= pack('V', $relative_offset_in_disk);	// 4 bytes relative offset of local header
 				$central_file_header .= $newfilename  ; 							// variable size filename
 				$central_file_header .= ""  ;  										// variable size extra fields 
 				$central_file_header .= "" ; 										// variable size file comment

@@ -37,6 +37,7 @@ This plugin is under GPL licence.
 * Finnish (Finland) translation provided by ProDexorite
 * French (France) translation provided by SedLex
 * Croatian (Croatia) translation provided by nikola
+* Italian (Italy) translation provided by BRENDON-75, BRENDON-75
 * Japanese (Japan) translation provided by Toshi
 * Polish (Poland) translation provided by Kajaczek
 * Turkish (Turkey) translation provided by OsmanERDOAN, Hseyinzkan
@@ -68,6 +69,9 @@ Have fun !
 2. The buttons
 
 == Changelog ==
+
+= 1.3.4 = 
+* Bug with the excerpt corrected 
 
 = 1.3.3 = 
 * Issues with UTF8  text corrected
@@ -153,4 +157,4 @@ Have fun !
 Visit http://www.sedlex.fr/cote_geek/
 
  
-InfoVersion:ee717e2a491506463e9d99ae72286f2d
+InfoVersion:f8705546a573c26e01d1ff1fca60dc4a

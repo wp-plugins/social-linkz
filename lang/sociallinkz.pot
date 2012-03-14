@@ -142,22 +142,23 @@ msgstr ""
 msgid "Other plugins"
 msgstr ""
 
-#: social-linkz.php:318
+#: social-linkz.php:311
+#: social-linkz.php:338
+#: social-linkz.php:362
+#: social-linkz.php:382
+#: social-linkz.php:402
+#: social-linkz.php:422
+#: social-linkz.php:429
 #@ sociallinkz
-msgid "Share -%s- on Facebook"
+msgid "Share -%s- on %s"
 msgstr ""
 
-#: social-linkz.php:345
-#@ sociallinkz
-msgid "Share -%s- on Twitter"
-msgstr ""
-
-#: social-linkz.php:363
+#: social-linkz.php:356
 #@ sociallinkz
 msgid "Tweet"
 msgstr ""
 
-#: social-linkz.php:463
+#: social-linkz.php:456
 #@ sociallinkz
 msgid "Print"
 msgstr ""
