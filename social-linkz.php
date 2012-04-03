@@ -3,7 +3,7 @@
 Plugin Name: Social Linkz
 Plugin Tag: social, facebook, twitter, google, buttons
 Description: <p>Add social links such as Twitter or Facebook in each post. </p><p>You can choose the buttons to be displayed such as : </p><ul><li>Twitter</li><li>FaceBook</li><li>LinkedIn</li><li>Viadeo</li><li>GoogleBuzz</li><li>Google+</li><li>StumbleUpon</li><li>Pinterest</li><li>Print</li></ul><p>This plugin is under GPL licence. </p>
-Version: 1.3.4
+Version: 1.3.5
 Author: SedLex
 Author Email: sedlex@sedlex.fr
 Framework Email: sedlex@sedlex.fr
@@ -447,7 +447,7 @@ class sociallinkz extends pluginSedLex {
 					$coun = 'horizontal' ; 
 				}
 				?>
-				<a href="http://pinterest.com/pin/create/button/?url<?php echo urlencode($url) ; ?>" class="pin-it-button" count-layout="<?php echo $coun ; ?>">Pin It</a><script type="text/javascript" src="http://assets.pinterest.com/js/pinit.js"></script>
+				<a href="http://pinterest.com/pin/create/button/?url=<?php echo urlencode($url) ; ?>&description=<?php echo str_replace('+','%20',urlencode($titre)) ; ?>" class="pin-it-button" count-layout="<?php echo $coun ; ?>"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a><script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
 				<?php
 			}
 			
