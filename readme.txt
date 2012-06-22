@@ -6,7 +6,7 @@ Author URI: http://www.sedlex.fr/
 Plugin URI: http://wordpress.org/extend/plugins/social-linkz/
 Tags: social, facebook, twitter, google, buttons
 Requires at least: 3.0
-Tested up to: 3.3.1
+Tested up to: 3.4
 Stable tag: trunk
 
 Add social links such as Twitter or Facebook in each post. 
@@ -29,8 +29,13 @@ You can choose the buttons to be displayed such as :
 
 This plugin is under GPL licence. 
 
+= Multisite - Wordpress MU =
+
+This plugin works with multisite installation.
+
 = Localization =
 
+* German (Germany) translation provided by Olly, FarChris
 * English (United States), default language
 * Spanish (Argentina) translation provided by GianFrancoAlarcn
 * Spanish (Spain) translation provided by sesi, AlexSancho
@@ -40,9 +45,10 @@ This plugin is under GPL licence.
 * Croatian (Croatia) translation provided by nikola
 * Italian (Italy) translation provided by BRENDON-75, BRENDON-75
 * Japanese (Japan) translation provided by Toshi
-* Norwegian (BokmÃ¥l) (Norway) translation provided by Hkon, Hakon
-* Norwegian (BokmÃ¥l) (Norway) translation provided by Hakon, Hkon
+* Norwegian (Bokmal) (Norway) translation provided by Hkon, Hakon
+* Norwegian (Bokmal) (Norway) translation provided by Hakon, Hkon
 * Polish (Poland) translation provided by Kajaczek
+* Portuguese (Brazil) translation provided by 
 * Turkish (Turkey) translation provided by OsmanERDOAN, Hseyinzkan
 
 = Features of the framework =
@@ -73,6 +79,10 @@ Have fun !
 
 == Changelog ==
 
+= 1.3.6 = 
+* The buttons may be managed for pages independently from posts 
+* Pinterest bug corrected
+
 = 1.3.5 = 
 * The PinteRest API has changed and the bug is then corrected
 
@@ -91,68 +101,38 @@ Have fun !
 = 1.3.0 =
 * Major release of the framework
 
-= 1.2.6 =
+= 1.2.0 -&gt; 1.2.6 =
 * Improve English text thanks to Rene
-
-= 1.2.5 =
 * Polish translation (by Kajaczek)
-
-= 1.2.4 =
 * Add Insight for Facebook
 * Correction of a bug with Firefox8
-
-= 1.2.3 =
 * Release of a Google+ button to post article directly (replace the ugly mobile post method)
-
-= 1.2.2 =
 * Espagnol/Guatemala translation (by EnriqueBran)
 * Bug Correction for the official tweet button
-
-= 1.2.1 =
 * Finnish translation (by ProDexorite)
-
-= 1.2.0 =
 * SVN support
 
-= 1.1.6 =
+= 1.1.0 -&gt; 1.1.6 =
 * The button may be added at the top/bottom of the post
-
-= 1.1.5 =
 * New Croatian translation by nikola
 * Core update
-
-= 1.1.4 =
 * Bug correction (when the excerpt is not an excerpt but a get_the_content) thanks to florian  
-
-= 1.1.3 =
 * The buttons may be correctly displayed in the excerpt
 * ZipArchive class has been suppressed and pclzip is used instead
-
-= 1.1.2 =
 * New translation for Espagnol (Argentina) by GianFrancoAlarcn
 * New translation for Turk by Hseyinzkan
 * Big thanks to them!
-
-= 1.1.1 =
 * Ensure that folders and files permissions are correct for an adequate behavior
-
-= 1.1.0 =
 * Major release
 * Adding hosted/non hosted button
 * Support added for StumbleUpon (on the request of REX)
 * Support added for LinkedIn
 * Counters have been added
 
-= 1.0.4 =
+= 1.0.0 -&gt; 1.0.4 =
 * Update the framework (3.0)
-
-= 1.0.3 =
 * Add the google+ features
-
-= 1.0.2 =
 * Remove all french sentences hard coded in the code and preparation for the i8n
-
-= 1.0.1 =
 * First release in the wild web (enjoy)
 * Basic support for facebook, twitter
 
@@ -163,4 +143,4 @@ Have fun !
 Visit http://www.sedlex.fr/cote_geek/
 
  
-InfoVersion:84b5a25b4c5fb4294e10f7bedb0ffbc6
+InfoVersion:00c699018ac78ec53d760315d90010e8

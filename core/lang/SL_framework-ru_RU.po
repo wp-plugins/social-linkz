@@ -4,12 +4,13 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2012-03-11T15:15:21+00:00\n"
+"PO-Revision-Date: 2012-04-21T19:22:40+00:00\n"
 "Last-Translator: Limych <http://khrolenok.ru/>\n"
 "Last-Translator: Pacifik <http://www.androiddeveloper.ru>\n"
 "Last-Translator: Slawka <http://eth0.org.ru>\n"
 "Last-Translator: alexmv <>\n"
 "Last-Translator: rad96 <rad@kontur.tk>\n"
+"Last-Translator: vyachek <vyachek@op.pl>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -563,4 +564,46 @@ msgstr "Пожалуйста, см. ниже:"
 
 msgid "Update the SVN repository %s with your current local plugin files (slower version)"
 msgstr "Обновление SVN репозитория %s с текущих локальных файлов плагина (медленный вариант)"
+
+msgid "The file %s cannot be read. You should have a problem with file permissions or security restrictions."
+msgstr "Файл %s нельзя прочитать. У вас не достаточно прав для этого."
+
+msgid "The file %s cannot be deleted. You should have a problem with file permissions or security restrictions."
+msgstr "Файл %s нельзя удалить. У вас не достаточно прав для этого."
+
+msgid "The folder %s cannot be opened. You should have a problem with folder permissions or security restrictions."
+msgstr "Папка %s не может быть открыта. У вас не достаточно прав для этого."
+
+msgid "Some parameters have not been updated due to errors (see below)!"
+msgstr "Некоторые параметры не были изменены по причине ошибки (смотри дальше)!"
+
+msgid "Parameters have been updated (but with some warnings)!"
+msgstr "Параметры изменены (но с замечаниями)!"
+
+msgid "Parameters have been updated successfully!"
+msgstr "Параметры удачно изменены!"
+
+msgid "Translations available for this plugin (i.e. %s)"
+msgstr "Для этого плагина доступен перевод (в.т.ч. %)"
+
+msgid "Plugin"
+msgstr "Плагин"
+
+msgid "Delete"
+msgstr "Удалить"
+
+msgid "Import"
+msgstr "Импорт"
+
+msgid "New translations are available"
+msgstr "Доступен новый перевод"
+
+msgid "To replace?"
+msgstr "Заменить?"
+
+msgid "The translations files do not exists ... it is strange!"
+msgstr "Файлы перевода не найдены... и это странно!"
+
+msgid "This plugin is available in %d languages."
+msgstr "Этот плагин доступен в % переводах"
 

@@ -3,7 +3,9 @@
 Plugin Name: Social Linkz
 Plugin Tag: social, facebook, twitter, google, buttons
 Description: <p>Add social links such as Twitter or Facebook in each post. </p><p>You can choose the buttons to be displayed such as : </p><ul><li>Twitter</li><li>FaceBook</li><li>LinkedIn</li><li>Viadeo</li><li>GoogleBuzz</li><li>Google+</li><li>StumbleUpon</li><li>Pinterest</li><li>Print</li></ul><p>This plugin is under GPL licence. </p>
-Version: 1.3.5
+Version: 1.3.6
+
+
 Author: SedLex
 Author Email: sedlex@sedlex.fr
 Framework Email: sedlex@sedlex.fr
@@ -35,7 +37,8 @@ class sociallinkz extends pluginSedLex {
 		
 		//Init et des-init
 		register_activation_hook(__FILE__, array($this,'install'));
-		register_deactivation_hook(__FILE__, array($this,'uninstall'));
+		register_deactivation_hook(__FILE__, array($this,'deactivate'));
+		register_uninstall_hook(__FILE__, array($this,'uninstall_removedata'));
 		
 		//Parametres supplementaires
 		$this->excerpt_called = false ; 
@@ -66,7 +69,10 @@ class sociallinkz extends pluginSedLex {
 			
 			case 'display_top_in_post' 			: return false ; break ; 
 			case 'display_bottom_in_post' 			: return true ; break ; 
-			
+
+			case 'display_top_in_page' 			: return false ; break ; 
+			case 'display_bottom_in_page' 			: return true ; break ; 
+
 			case 'twitter' 						: return true 	; break ; 
 			case 'twitter_count' 						: return false 	; break ; 
 			case 'twitter_hosted' 				: return false 	; break ; 
@@ -75,6 +81,7 @@ class sociallinkz extends pluginSedLex {
 			
 			case 'pinterest_hosted' 				: return false 	; break ; 
 			case 'pinterest_hosted_count' 		: return false 	; break ;
+			case 'pinterest_hosted_defaultimage' 		: return "[file]/social-linkz/" 	; break ;
 			
 			case 'linkedin' 					: return false 	; break ; 
 			case 'linkedin_count' 					: return false 	; break ; 
@@ -224,7 +231,9 @@ class sociallinkz extends pluginSedLex {
 				$params->add_param('pinterest_hosted', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_pinterest_hosted.jpg'/> ".sprintf(__('The %s button:',$this->pluginID), $title)) ; 
 				$params->add_comment(sprintf(__('To share the post on %s !',$this->pluginID), $title)) ; 
 				$params->add_param('pinterest_hosted_count', sprintf(__('Show the counter of this %s button:',$this->pluginID), $title)) ; 
-				
+				$params->add_param('pinterest_hosted_defaultimage', __('Default image:',$this->pluginID)) ; 
+				$params->add_comment(sprintf(__('%s requires that an image is pinned. By default, the plugin will take the first image in the post but if there is not any image, this image will be used.',$this->pluginID), $title)) ; 
+
 				$title = "Print" ; 
 				$params->add_title(sprintf(__('Display %s button?',$this->pluginID), $title)) ; 
 				$params->add_param('print', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_print.png'/> ".sprintf(__('The %s button:',$this->pluginID), $title)) ; 
@@ -235,7 +244,11 @@ class sociallinkz extends pluginSedLex {
 				$params->add_title(sprintf(__('Where do you want to display the buttons in post ?',$this->pluginID), $title)) ; 
 				$params->add_param('display_top_in_post', "".sprintf(__('At the Top:',$this->pluginID), $title)) ; 
 				$params->add_param('display_bottom_in_post', "".sprintf(__('At the Bottom:',$this->pluginID), $title)) ; 
-				
+
+				$params->add_title(sprintf(__('Where do you want to display the buttons in page ?',$this->pluginID), $title)) ; 
+				$params->add_param('display_top_in_page', "".sprintf(__('At the Top:',$this->pluginID), $title)) ; 
+				$params->add_param('display_bottom_in_page', "".sprintf(__('At the Bottom:',$this->pluginID), $title)) ; 
+
 				$params->flush() ; 
 			$tabs->add_tab(__('Parameters',  $this->pluginID), ob_get_clean() , WP_PLUGIN_URL.'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__))."core/img/tab_param.png") ; 	
 			
@@ -273,11 +286,26 @@ class sociallinkz extends pluginSedLex {
 		global $post ; 
 		// If it is the loop and an the_except is called, we leave
 		if (! is_single()) {
-			if (($this->get_param('display_in_excerpt')) && (!$this->excerpt_called)) {
-				return $content.$this->print_buttons($post) ; 
+			// If page 
+			if (is_page()) {
+				$return =  $content ; 
+				if ($this->get_param('display_bottom_in_page')) {
+					$return =  $return.$this->print_buttons($post) ;  
+				}
+				if ($this->get_param('display_top_in_page')) {
+					$return =  $this->print_buttons($post).$return ; 
+				}
+				return $return; 	
+			// else
+			} else {
+				// if post
+				if (($this->get_param('display_in_excerpt')) && (!$this->excerpt_called)) {
+					return $content.$this->print_buttons($post) ; 
+				}
+				return $content ; 
 			}
-			return $content ; 
 		} else {
+
 			$return =  $content ; 
 			if ($this->get_param('display_bottom_in_post')) {
 				$return =  $return.$this->print_buttons($post) ;  
@@ -286,6 +314,7 @@ class sociallinkz extends pluginSedLex {
 				$return =  $this->print_buttons($post).$return ; 
 			}
 			return $return ; 
+
 		}
 	}
 	
@@ -442,12 +471,23 @@ class sociallinkz extends pluginSedLex {
 			
 			
 			if ($this->get_param('pinterest_hosted')) {
+				// Get all image of the post
+				$img = $this->get_first_image(get_the_ID()) ; 
+				if ($img == "") {
+					if ($this->get_param('pinterest_hosted_defaultimage')!=$this->get_default_option('pinterest_hosted_defaultimage')) {
+						$upload = wp_upload_dir() ;
+						$img = $upload['baseurl']."/".$this->get_param('pinterest_hosted_defaultimage') ; 
+					} else {
+						$img = WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/no_image.png" ; 
+					}
+				} 
+				
 				$coun = "none" ; 
 				if ($this->get_param('pinterest_hosted_count')) {
 					$coun = 'horizontal' ; 
 				}
 				?>
-				<a href="http://pinterest.com/pin/create/button/?url=<?php echo urlencode($url) ; ?>&description=<?php echo str_replace('+','%20',urlencode($titre)) ; ?>" class="pin-it-button" count-layout="<?php echo $coun ; ?>"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a><script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
+				<a href="http://pinterest.com/pin/create/button/?url=<?php echo urlencode($url) ; ?>&media=<?php echo urlencode($img) ; ?>&description=<?php echo str_replace('+','%20',urlencode($titre)) ; ?>" class="pin-it-button" count-layout="<?php echo $coun ; ?>"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a><script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
 				<?php
 			}
 			
@@ -475,18 +515,26 @@ class sociallinkz extends pluginSedLex {
 	function get_twitter_counter($url) {
 		$counter = $this->get_param('counter_twitter'.url_to_postid($url)) ; 
 		// update every 30min
-		if ((is_array($counter))&&($counter['date']+(30*60)>time())) {
+		if ((is_array($counter))&&($counter['date']+(30*60)>time())&&(is_numeric($counter['count']))) {
 			$nb = $counter['count']; 
 		} else {
 			$result = wp_remote_get('http://urls.api.twitter.com/1/urls/count.json?url=' .  $url ); 
+			$old_counter = 0 ; 
+			if (is_array($counter)) {
+				$old_counter = explode(" ", $counter['count']) ; 
+				$old_counter = $old_counter[0] ; 
+			}
 			if ( is_wp_error($result) ) {
-				$nb = "?" ;
+				$nb = trim(intval($old_counter)." *") ;
 			} else {
 				$res = @json_decode($result['body'], true);
 				if (isset($res['count'])) {
-					$nb =  $res['count'];
+					if (intval($res['count'])>intval($old_counter))
+						$nb =  $res['count'];
+					else 
+						$nb = intval($old_counter) ; 
 				} else {
-					$nb =  "??" ; 
+					$nb =  trim(intval($old_counter)." ?") ;
 				}
 			}	
 			$this->set_param('counter_twitter'.url_to_postid($url), array('date'=>time(), 'count'=>$nb)) ; 
@@ -503,22 +551,29 @@ class sociallinkz extends pluginSedLex {
 	function get_facebook_counter($url) {
 		$counter = $this->get_param('counter_facebook'.url_to_postid($url)) ; 
 		// update every 30min
-		if ((is_array($counter))&&($counter['date']+(30*60)>time())) {
+		if ((is_array($counter))&&($counter['date']+(30*60)>time())&&(is_numeric($counter['count']))) {
 			$nb = $counter['count'] ; 
 		} else {
 			$result = wp_remote_get('http://graph.facebook.com/?ids=' .  $url ); 
+			$old_counter = 0 ; 
+			if (is_array($counter)) {
+				$old_counter = explode(" ", $counter['count']) ; 
+				$old_counter = $old_counter[0] ; 
+			}
 			if ( is_wp_error($result) ) {
-				$nb = "?" ;
+				$nb = trim(intval($old_counter)." *") ;
 			} else {
-				
 				$res = @json_decode($result['body'], true);
 				if (isset($res[$url]['shares'])) {
-					$nb =  $res[$url]['shares'];
+					if (intval($res[$url]['shares'])>intval($old_counter))
+						$nb =  $res[$url]['shares'];
+					else 
+						$nb = intval($old_counter) ; 
 				} else {
 					if (isset($res[$url]['id'])){
-						$nb = "0" ; 
+						$nb =  intval($old_counter) ; 
 					} else {
-						$nb =  "??" ; 
+						$nb =  trim(intval($old_counter)." ?") ;
 					}
 				}
 			}
@@ -536,20 +591,27 @@ class sociallinkz extends pluginSedLex {
 	function get_linkedin_counter($url) {
 		$counter = $this->get_param('counter_linkedin'.url_to_postid($url)) ; 
 		// update every 30min
-		if ((is_array($counter))&&($counter['date']+(30*60)>time())) {
+		if ((is_array($counter))&&($counter['date']+(30*60)>time())&&(is_numeric($counter['count']))) {
 			$nb = $counter['count'] ; 
 		} else {
 			$result = wp_remote_get('http://www.linkedin.com/cws/share-count?url=' .  $url ); 
+			$old_counter = 0 ; 
+			if (is_array($counter)) {
+				$old_counter = explode(" ", $counter['count']) ; 
+				$old_counter = $old_counter[0] ; 
+			}
 			if ( is_wp_error($result) ) {
-				$nb = "?" ;
+				$nb = trim(intval($old_counter)." *") ;
 			} else {
-				//IN.Tags.Share.handleCount({"count":0,"url":"http://www.sedlex.fr/cas-pratiques/les-donnees-a-conserver-pour-les-hebergeurs/"}
 				if (!(preg_match('/IN.Tags.Share.handleCount\({"count":(\d+),/i',$result['body'],$tmp))) {
-					$nb = "??" ; 
+					$nb =  trim(intval($old_counter)." ?") ;
 				} else {
-					$nb = $tmp[1] ; 
+					if (intval($tmp[1]) >intval($old_counter))
+						$nb =  $tmp[1] ;
+					else 
+						$nb = intval($old_counter) ; 
 				}
-			}	
+			}
 			$this->set_param('counter_linkedin'.url_to_postid($url), array('date'=>time(), 'count'=>$nb)) ; 
 		}
 		return $nb ; 
@@ -564,20 +626,28 @@ class sociallinkz extends pluginSedLex {
 	function get_googleplus_counter($url) {
 		$counter = $this->get_param('counter_googleplus'.url_to_postid($url)) ; 
 		// update every 30min
-		if ((is_array($counter))&&($counter['date']+(30*60)>time())) {
+		if ((is_array($counter))&&($counter['date']+(30*60)>time())&&(is_numeric($counter['count']))) {
 			$nb = $counter['count'] ; 
 		} else {
 			$nb=0 ; 
 			$post_data = '[{"method":"pos.plusones.get","id":"p","params":{"nolog":true,"id":"' .  $url . '","source":"widget","userId":"@viewer","groupId":"@self"},"jsonrpc":"2.0","key":"p","apiVersion":"v1"}]' ; 
 			$result = wp_remote_post("https://clients6.google.com/rpc?key=AIzaSyCKSbrvQasunBoV16zDH9R33D88CeLr9gQ", array( 'headers' => array('content-type' => 'application/json'), 'body' => $post_data ) );
+			$old_counter = 0 ; 
+			if (is_array($counter)) {
+				$old_counter = explode(" ", $counter['count']) ; 
+				$old_counter = $old_counter[0] ; 
+			}
 			if ( is_wp_error($result) ) {
-				$nb = "?" ;
+				$nb =  trim(intval($old_counter)." *") ;
 			} else {
 				$res = @json_decode($result['body'], true);
 				if (isset($res[0]['result']['metadata']['globalCounts']['count'])) {
-					$nb =  $res[0]['result']['metadata']['globalCounts']['count'];
+					if (intval($res[0]['result']['metadata']['globalCounts']['count']) >intval($old_counter))
+						$nb =  $res[0]['result']['metadata']['globalCounts']['count'] ;
+					else 
+						$nb = intval($old_counter) ; 
 				} else {
-					$nb =  "??" ; 
+					$nb =  trim(intval($old_counter)." ?") ;
 				}
 			}
 			$this->set_param('counter_googleplus'.url_to_postid($url), array('date'=>time(), 'count'=>$nb)) ; 
@@ -594,20 +664,28 @@ class sociallinkz extends pluginSedLex {
 	function get_googlebuzz_counter($url) {
 		$counter = $this->get_param('counter_googlebuzz'.url_to_postid($url)) ; 
 		// update every 30min
-		if ((is_array($counter))&&($counter['date']+(30*60)>time())) {
+		if ((is_array($counter))&&($counter['date']+(30*60)>time())&&(is_numeric($counter['count']))) {
 			$nb = $counter['count'] ; 
 		} else {
 			$nb=0 ; 
 			$result = wp_remote_get("https://www.googleapis.com/buzz/v1/activities/count?alt=json&url=".$url );
+			$old_counter = 0 ; 
+			if (is_array($counter)) {
+				$old_counter = explode(" ", $counter['count']) ; 
+				$old_counter = $old_counter[0] ; 
+			}
 			if ( is_wp_error($result) ) {
-				$nb = "?" ;
+				$nb =  trim(intval($old_counter)." *") ;
 			} else {
 				$res = @json_decode($result['body'], true);
 				//print_r($res) ; 
 				if (isset($res['data']['counts']['count'])) {
-					$nb = $res['data']['counts']['count'] ; 
+					if (intval($res['data']['counts']['count']) >intval($old_counter))
+						$nb =  $res['data']['counts']['count'] ;
+					else 
+						$nb = intval($old_counter) ; 					
 				} else {
-					$nb =  "??" ; 
+					$nb =  trim(intval($old_counter)." ?") ;
 				}
 			}
 			$this->set_param('counter_googlebuzz'.url_to_postid($url), array('date'=>time(), 'count'=>$nb)) ; 
@@ -625,22 +703,29 @@ class sociallinkz extends pluginSedLex {
 	function get_stumbleupon_counter($url) {
 		$counter = $this->get_param('counter_stumbleupon'.url_to_postid($url)) ; 
 		// update every 30min
-		if ((is_array($counter))&&($counter['date']+(30*60)>time())) {
+		if ((is_array($counter))&&($counter['date']+(30*60)>time())&&(is_numeric($counter['count']))) {
 			$nb = $counter['count'] ; 
 		} else {
 			$result = wp_remote_get('http://www.stumbleupon.com/services/1.01/badge.getinfo?url='.$url ); 
+			$old_counter = 0 ; 
+			if (is_array($counter)) {
+				$old_counter = explode(" ", $counter['count']) ; 
+				$old_counter = $old_counter[0] ; 
+			}
 			if ( is_wp_error($result) ) {
-				$nb = "?" ;
+				$nb =  trim($old_counter." *") ;
 			} else {
 				$res = @json_decode($result['body'], true);
 				if (isset($res['result']['views'])) {
-					$nb =  $res['result']['views'];
+					if (intval($res['result']['views'])>intval($old_counter))
+						$nb =  $res['result']['views'] ;
+					else 
+						$nb = intval($old_counter) ; 		
 				} else {
 					if ((isset($res['result']['in_index'])) && ($res['result']['in_index']==false)){
-						$nb =  "0" ; 
+						$nb = intval($old_counter) ; 	
 					} else {
-						$nb =  "??" ; 
-						print_r($res) ; 
+						$nb =  trim(intval($old_counter)." ?") ;
 					}
 				}
 			}
@@ -681,6 +766,32 @@ class sociallinkz extends pluginSedLex {
 			return $content.$this->print_buttons($post) ; 
 		}
 		return $content ; 
+	}
+	
+	/** ====================================================================================================================================================
+	* Get the URL of the first image of the post
+	* 
+	* @return string the URL of the image (empty, if there is none)
+	*/
+	function get_first_image ($postID) {					
+		$args = array(
+		'numberposts' => 1,
+		'order'=> 'ASC',
+		'post_mime_type' => 'image',
+		'post_parent' => $postID,
+		'post_status' => null,
+		'post_type' => 'attachment'
+		);
+		
+		$attachments = get_children( $args );
+				
+		if ($attachments) {
+			foreach($attachments as $attachment) {
+				return wp_get_attachment_url( $attachment->ID , 'full');
+			}
+		} else {
+			return "" ; 
+		}
 	}
 }
 
