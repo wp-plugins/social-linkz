@@ -4,8 +4,9 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2012-03-14T18:09:57+00:00\n"
+"PO-Revision-Date: 2012-06-22T22:20:49+00:00\n"
 "Last-Translator: SedLex <http://www.sedlex.fr/>\n"
+"Last-Translator: JP <http://architectedelalumiere.fr>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -88,4 +89,13 @@ msgstr "Tweeter"
 
 msgid "Print"
 msgstr "Imprimer"
+
+msgid "Default image:"
+msgstr "Image par défaut"
+
+msgid "%s requires that an image is pinned. By default, the plugin will take the first image in the post but if there is not any image, this image will be used."
+msgstr "requiert qu&#039;une image soit épinglée. Par défaut, le plugin utilisera la première image de l&#039;article, mais si il n&#039;y a pas d&#039;image, celle-ci sera utilisée"
+
+msgid "Where do you want to display the buttons in page ?"
+msgstr "Où voulez-vous que les boutons soient affichés dans l&#039;article ?"
 
