@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2012-03-14T20:29:38+00:00\n"
+"PO-Revision-Date: 2012-06-23T20:24:05+00:00\n"
 "Last-Translator: BRENDON-75 <info@keytoplay.it>\n"
 "Last-Translator: BRENDON-75 <http://www.keytoplay.it/>\n"
 "Language-Team: \n"
@@ -22,7 +22,7 @@ msgstr ""
 "X-Textdomain-Support: yes\n"
 
 msgid "This plugin help you sharing on the social network by adding facebook or twitter buttons."
-msgstr "Questo Plugin ti aiuterà a condividere i tuoi contenuti sui Social Network."
+msgstr "Questo plugin ti aiuterà a condividere i tuoi contenuti sui Social Network."
 
 msgid "Display %s button?"
 msgstr "Mostrare il bottone %s?"
@@ -40,7 +40,7 @@ msgid "The official %s button:"
 msgstr "Il bottone ufficiale %s:"
 
 msgid "The SSL websites may not work properly with this official button... Moreover the rendering is not perfect !"
-msgstr "I siti con SSL potrebbero non funzionare correttamente con questo bottone ufficiale... In più il rendering non sarà perfetto !"
+msgstr "I siti con SSL potrebbero non funzionare correttamente con questo bottone ufficiale... Inoltre il rendering non sarà perfetto !"
 
 msgid "Show the counter of this official %s button:"
 msgstr "Mostra il contatore sul bottone ufficiale %s:"
@@ -76,10 +76,10 @@ msgid "Manage translations"
 msgstr "Gestisci traduzioni"
 
 msgid "Give feedback"
-msgstr "Feedback"
+msgstr "Assegna feedback"
 
 msgid "Other plugins"
-msgstr "Altri Plugin"
+msgstr "Altri plugins"
 
 msgid "Share -%s- on Facebook"
 msgstr "Condividi -%s- su Facebook"
@@ -95,4 +95,13 @@ msgstr "Stampa"
 
 msgid "Share -%s- on %s"
 msgstr "Condividi -%s- su %s"
+
+msgid "Default image:"
+msgstr "Immagine predefinita:"
+
+msgid "%s requires that an image is pinned. By default, the plugin will take the first image in the post but if there is not any image, this image will be used."
+msgstr "%s richiede che un&#039;immagine sia pinnata. Di default, il plugin prenderà la prima immagine presente nell&#039;articolo, se non ci sono immagini verrà utilizzata questa."
+
+msgid "Where do you want to display the buttons in page ?"
+msgstr "In quale parte dell&#039;immagine vuoi mostrare questi bottoni?"
 
