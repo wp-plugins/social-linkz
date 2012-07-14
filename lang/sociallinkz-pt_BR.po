@@ -4,7 +4,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2012-04-20T18:59:26+00:00\n"
+"PO-Revision-Date: 2012-06-27T18:52:42+00:00\n"
+"Last-Translator: AndrVasconcellos <www.andrevasconcellos.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,78 +20,81 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Textdomain-Support: yes\n"
 
-msgid "This plugin help you sharing on the social network by adding facebook or twitter buttons."
-msgstr ""
-
-msgid "Display %s button?"
-msgstr ""
-
-msgid "The %s button:"
-msgstr ""
-
 msgid "To share the post on %s !"
 msgstr "Compartilhar"
 
+msgid "This plugin help you sharing on the social network by adding facebook or twitter buttons."
+msgstr "Este plugin irá ajudá-lo a compartilhar nas redes sociais adicionando botões do facebook ou twitter."
+
+msgid "Display %s button?"
+msgstr "Exibir o botão %s?"
+
+msgid "The %s button:"
+msgstr "O botão %s:"
+
 msgid "Show the counter of this %s button:"
-msgstr ""
+msgstr "Exibir o contador do botão %s:"
 
 msgid "The official %s button:"
-msgstr ""
+msgstr "Botão oficial do %s:"
 
 msgid "The SSL websites may not work properly with this official button... Moreover the rendering is not perfect !"
-msgstr ""
+msgstr "Os sites SSL podem não funcionar corretamente com este botão oficial... Além disso, a renderização não é perfeita!"
 
 msgid "Show the counter of this official %s button:"
-msgstr ""
+msgstr "Exibir o contador do botão oficial do %s:"
 
 msgid "Your %s pseudo:"
-msgstr ""
+msgstr "Seu apelido do %s:"
 
 msgid "Your FaceBook ID to enable Insight:"
-msgstr ""
+msgstr "Seu ID do Facebook para habilitar o Insight:"
 
 msgid "Insight provides metrics around your content. See %shere%s for futher details. To identify your Facebook ID, please visit the previous link and then click on Statistic of my website"
-msgstr ""
+msgstr "O Insight fornece métricas em torno do seu conteúdo. Veja %shere% para mais detalhes. Para identificar sua ID do FaceBook, por favor, visite o link anterior e clique em Estatísticas do meu site."
+
+msgid "Default image:"
+msgstr "Imagem padrão:"
+
+msgid "%s requires that an image is pinned. By default, the plugin will take the first image in the post but if there is not any image, this image will be used."
+msgstr "%s requere que uma imagem seja anexada. Po definição, o plugin vai usar a primeira imagem do post caso nenhuma imagem seja selecionada."
 
 msgid "Display all these buttons in the excerpt ?"
-msgstr ""
+msgstr "Exibir todos esses botões no resumo?"
 
 msgid "These buttons should be displayed in excerpt:"
-msgstr ""
+msgstr "Estes botões devem ser exibidos no resumo:"
 
 msgid "Where do you want to display the buttons in post ?"
-msgstr ""
+msgstr "Onde você deseja exibir os botões no post?"
 
 msgid "At the Top:"
-msgstr ""
+msgstr "No topo:"
 
 msgid "At the Bottom:"
-msgstr ""
+msgstr "Embaixo:"
+
+msgid "Where do you want to display the buttons in page ?"
+msgstr "Onde você deseja exibir os botões na página?"
 
 msgid "Parameters"
-msgstr ""
+msgstr "Parâmetros"
 
 msgid "Manage translations"
-msgstr ""
+msgstr "Administrar traduções"
 
 msgid "Give feedback"
-msgstr ""
+msgstr "Enviar comentário"
 
 msgid "Other plugins"
-msgstr ""
+msgstr "Outros plugins"
 
-msgid "Share -%s- on Facebook"
-msgstr ""
-
-msgid "Share -%s- on Twitter"
-msgstr ""
+msgid "Share -%s- on %s"
+msgstr "Compartilhar -%s%- no %s"
 
 msgid "Tweet"
-msgstr ""
+msgstr "Tweet"
 
 msgid "Print"
-msgstr ""
-
-msgid "The file %s cannot be deleted. You should have a problem with file permissions or security restrictions."
-msgstr ""
+msgstr "Imprimir"
 
