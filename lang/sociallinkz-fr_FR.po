@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2012-06-22T22:20:49+00:00\n"
+"PO-Revision-Date: 2012-07-19T12:47:13+00:00\n"
 "Last-Translator: SedLex <http://www.sedlex.fr/>\n"
 "Last-Translator: JP <http://architectedelalumiere.fr>\n"
 "Language-Team: \n"
@@ -54,20 +54,44 @@ msgstr "Votre identifiant FaceBook pour activer Insight :"
 msgid "Insight provides metrics around your content. See %shere%s for futher details. To identify your Facebook ID, please visit the previous link and then click on Statistic of my website"
 msgstr "Insight fournit des graphiques à propos de vos pages. Regardez %sici%s pour plus de détails. Pour connaitre votre identifiant FaceBook, visitez la page précédente et cliquez sur Statistiques de votre site Web."
 
-msgid "Display all these buttons in the excerpt ?"
+msgid "Default image:"
+msgstr "Image par défaut"
+
+msgid "%s requires that an image is pinned. By default, the plugin will take the first image in the post but if there is not any image, this image will be used."
+msgstr "requiert qu&#039;une image soit épinglée. Par défaut, le plugin utilisera la première image de l&#039;article, mais si il n&#039;y a pas d&#039;image, celle-ci sera utilisée"
+
+msgid "Display all these buttons in the excerpt?"
 msgstr "Afficher les boutons dans les extraits ?"
 
 msgid "These buttons should be displayed in excerpt:"
 msgstr "Ces boutons doivent être affiché dans les extraits :"
 
-msgid "Where do you want to display the buttons in post ?"
-msgstr "Où voulez-vous que les boutons soient affichés dans l&#039;article ?"
+msgid "Where do you want to display the buttons in post?"
+msgstr "Où voulez-vous que les boutons soient affichés dans l&#039;article ? "
 
 msgid "At the Top:"
 msgstr "En haut :"
 
 msgid "At the Bottom:"
 msgstr "En bas :"
+
+msgid "Where do you want to display the buttons in page?"
+msgstr "Où voulez-vous que les boutons soient affichés dans la page ?"
+
+msgid "Advanced options"
+msgstr ""
+
+msgid "HTML:"
+msgstr ""
+
+msgid "Default HTML is : %s with %s the displayed buttons"
+msgstr ""
+
+msgid "CSS:"
+msgstr ""
+
+msgid "Default CSS is : %s"
+msgstr ""
 
 msgid "Parameters"
 msgstr "Paramètres"
@@ -89,13 +113,4 @@ msgstr "Tweeter"
 
 msgid "Print"
 msgstr "Imprimer"
-
-msgid "Default image:"
-msgstr "Image par défaut"
-
-msgid "%s requires that an image is pinned. By default, the plugin will take the first image in the post but if there is not any image, this image will be used."
-msgstr "requiert qu&#039;une image soit épinglée. Par défaut, le plugin utilisera la première image de l&#039;article, mais si il n&#039;y a pas d&#039;image, celle-ci sera utilisée"
-
-msgid "Where do you want to display the buttons in page ?"
-msgstr "Où voulez-vous que les boutons soient affichés dans l&#039;article ?"
 

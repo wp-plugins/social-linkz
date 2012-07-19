@@ -1,181 +1,206 @@
 Content-Transfer-Encoding: 8bit
 
-#: social-linkz.php:153
+#: social-linkz.php:178
 #@ sociallinkz
 msgid "This plugin help you sharing on the social network by adding facebook or twitter buttons."
 msgstr ""
 
-#: social-linkz.php:170
-#: social-linkz.php:180
-#: social-linkz.php:191
-#: social-linkz.php:200
+#: social-linkz.php:195
 #: social-linkz.php:205
-#: social-linkz.php:214
-#: social-linkz.php:223
+#: social-linkz.php:216
+#: social-linkz.php:225
 #: social-linkz.php:230
-#: social-linkz.php:238
+#: social-linkz.php:239
+#: social-linkz.php:248
+#: social-linkz.php:255
+#: social-linkz.php:263
 #@ sociallinkz
 msgid "Display %s button?"
 msgstr ""
 
-#: social-linkz.php:171
-#: social-linkz.php:181
-#: social-linkz.php:192
-#: social-linkz.php:201
+#: social-linkz.php:196
 #: social-linkz.php:206
-#: social-linkz.php:215
-#: social-linkz.php:224
+#: social-linkz.php:217
+#: social-linkz.php:226
 #: social-linkz.php:231
-#: social-linkz.php:239
+#: social-linkz.php:240
+#: social-linkz.php:249
+#: social-linkz.php:256
+#: social-linkz.php:264
 #@ sociallinkz
 msgid "The %s button:"
 msgstr ""
 
-#: social-linkz.php:172
-#: social-linkz.php:182
-#: social-linkz.php:193
-#: social-linkz.php:202
+#: social-linkz.php:197
 #: social-linkz.php:207
-#: social-linkz.php:216
-#: social-linkz.php:225
+#: social-linkz.php:218
+#: social-linkz.php:227
 #: social-linkz.php:232
+#: social-linkz.php:241
+#: social-linkz.php:250
+#: social-linkz.php:257
 #@ sociallinkz
 msgid "To share the post on %s !"
 msgstr ""
 
-#: social-linkz.php:173
-#: social-linkz.php:183
-#: social-linkz.php:194
+#: social-linkz.php:198
 #: social-linkz.php:208
-#: social-linkz.php:217
-#: social-linkz.php:226
+#: social-linkz.php:219
 #: social-linkz.php:233
+#: social-linkz.php:242
+#: social-linkz.php:251
+#: social-linkz.php:258
 #@ sociallinkz
 msgid "Show the counter of this %s button:"
 msgstr ""
 
-#: social-linkz.php:174
-#: social-linkz.php:184
-#: social-linkz.php:185
-#: social-linkz.php:195
+#: social-linkz.php:199
 #: social-linkz.php:209
-#: social-linkz.php:218
-#: social-linkz.php:227
+#: social-linkz.php:210
+#: social-linkz.php:220
+#: social-linkz.php:234
+#: social-linkz.php:243
+#: social-linkz.php:252
 #@ sociallinkz
 msgid "The official %s button:"
 msgstr ""
 
-#: social-linkz.php:175
-#: social-linkz.php:186
-#: social-linkz.php:196
-#: social-linkz.php:210
-#: social-linkz.php:219
+#: social-linkz.php:200
+#: social-linkz.php:211
+#: social-linkz.php:221
+#: social-linkz.php:235
+#: social-linkz.php:244
 #@ sociallinkz
 msgid "The SSL websites may not work properly with this official button... Moreover the rendering is not perfect !"
 msgstr ""
 
-#: social-linkz.php:176
-#: social-linkz.php:197
-#: social-linkz.php:211
-#: social-linkz.php:220
+#: social-linkz.php:201
+#: social-linkz.php:222
+#: social-linkz.php:236
+#: social-linkz.php:245
 #@ sociallinkz
 msgid "Show the counter of this official %s button:"
 msgstr ""
 
-#: social-linkz.php:177
+#: social-linkz.php:202
 #@ sociallinkz
 msgid "Your %s pseudo:"
 msgstr ""
 
-#: social-linkz.php:187
+#: social-linkz.php:212
 #@ sociallinkz
 msgid "Your FaceBook ID to enable Insight:"
 msgstr ""
 
-#: social-linkz.php:188
+#: social-linkz.php:213
 #@ sociallinkz
 msgid "Insight provides metrics around your content. See %shere%s for futher details. To identify your Facebook ID, please visit the previous link and then click on Statistic of my website"
 msgstr ""
 
-#: social-linkz.php:234
+#: social-linkz.php:259
 #@ sociallinkz
 msgid "Default image:"
 msgstr ""
 
-#: social-linkz.php:235
+#: social-linkz.php:260
 #@ sociallinkz
 msgid "%s requires that an image is pinned. By default, the plugin will take the first image in the post but if there is not any image, this image will be used."
 msgstr ""
 
-#: social-linkz.php:241
+#: social-linkz.php:266
 #@ sociallinkz
-msgid "Display all these buttons in the excerpt ?"
+msgid "Display all these buttons in the excerpt?"
 msgstr ""
 
-#: social-linkz.php:242
+#: social-linkz.php:267
 #@ sociallinkz
 msgid "These buttons should be displayed in excerpt:"
 msgstr ""
 
-#: social-linkz.php:244
+#: social-linkz.php:269
 #@ sociallinkz
-msgid "Where do you want to display the buttons in post ?"
+msgid "Where do you want to display the buttons in post?"
 msgstr ""
 
-#: social-linkz.php:245
-#: social-linkz.php:249
+#: social-linkz.php:270
+#: social-linkz.php:274
 #@ sociallinkz
 msgid "At the Top:"
 msgstr ""
 
-#: social-linkz.php:246
-#: social-linkz.php:250
+#: social-linkz.php:271
+#: social-linkz.php:275
 #@ sociallinkz
 msgid "At the Bottom:"
 msgstr ""
 
-#: social-linkz.php:248
+#: social-linkz.php:273
 #@ sociallinkz
-msgid "Where do you want to display the buttons in page ?"
+msgid "Where do you want to display the buttons in page?"
 msgstr ""
 
-#: social-linkz.php:253
+#: social-linkz.php:277
+#@ sociallinkz
+msgid "Advanced options"
+msgstr ""
+
+#: social-linkz.php:278
+#@ sociallinkz
+msgid "HTML:"
+msgstr ""
+
+#: social-linkz.php:280
+#@ sociallinkz
+msgid "Default HTML is : %s with %s the displayed buttons"
+msgstr ""
+
+#: social-linkz.php:281
+#@ sociallinkz
+msgid "CSS:"
+msgstr ""
+
+#: social-linkz.php:283
+#@ sociallinkz
+msgid "Default CSS is : %s"
+msgstr ""
+
+#: social-linkz.php:286
 #@ sociallinkz
 msgid "Parameters"
 msgstr ""
 
-#: social-linkz.php:259
+#: social-linkz.php:292
 #@ sociallinkz
 msgid "Manage translations"
 msgstr ""
 
-#: social-linkz.php:265
+#: social-linkz.php:298
 #@ sociallinkz
 msgid "Give feedback"
 msgstr ""
 
-#: social-linkz.php:270
+#: social-linkz.php:303
 #@ sociallinkz
 msgid "Other plugins"
 msgstr ""
 
-#: social-linkz.php:340
-#: social-linkz.php:367
-#: social-linkz.php:391
-#: social-linkz.php:411
-#: social-linkz.php:431
-#: social-linkz.php:451
-#: social-linkz.php:458
+#: social-linkz.php:372
+#: social-linkz.php:399
+#: social-linkz.php:423
+#: social-linkz.php:443
+#: social-linkz.php:463
+#: social-linkz.php:483
+#: social-linkz.php:490
 #@ sociallinkz
 msgid "Share -%s- on %s"
 msgstr ""
 
-#: social-linkz.php:385
+#: social-linkz.php:417
 #@ sociallinkz
 msgid "Tweet"
 msgstr ""
 
-#: social-linkz.php:485
+#: social-linkz.php:528
 #@ sociallinkz
 msgid "Print"
 msgstr ""

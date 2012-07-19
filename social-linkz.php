@@ -3,7 +3,7 @@
 Plugin Name: Social Linkz
 Plugin Tag: social, facebook, twitter, google, buttons
 Description: <p>Add social links such as Twitter or Facebook in each post. </p><p>You can choose the buttons to be displayed such as : </p><ul><li>Twitter</li><li>FaceBook</li><li>LinkedIn</li><li>Viadeo</li><li>GoogleBuzz</li><li>Google+</li><li>StumbleUpon</li><li>Pinterest</li><li>Print</li></ul><p>This plugin is under GPL licence. </p>
-Version: 1.3.6
+Version: 1.3.7
 
 
 Author: SedLex
@@ -43,6 +43,7 @@ class sociallinkz extends pluginSedLex {
 		//Parametres supplementaires
 		$this->excerpt_called = false ; 
 		add_filter('the_content', array($this,'print_social_linkz'), 1000);
+		add_action('wp_print_styles', array( $this, 'addcss'), 1);
 		add_action('wp_print_scripts', array( $this, 'google_api'));
 		add_action('wp_print_scripts', array( $this, 'add_meta_facebook'));
 		add_filter('get_the_excerpt', array( $this, 'the_excerpt'),1000000);
@@ -110,6 +111,21 @@ class sociallinkz extends pluginSedLex {
 			case 'stumbleupon_count' 					: return false 	; break ; 
 			case 'stumbleupon_hosted'				: return false 	; break ; 
 			case 'print'	 					: return true 	; break ; 
+
+			case 'html'	 					: return "*<div class='social_linkz'>
+   %buttons%
+</div>" 	; break ; 
+			case 'css'	 					: return "*.social_linkz { 
+	padding: 5px 0 10px 0 ; 
+	border-bottom-width: 0px;
+	border-bottom-style: none;
+}
+
+.social_linkz a { 
+	text-decoration: none;		
+	border-bottom-width: 0px;
+	border-bottom-style: none;
+}" 	; break ; 
 		}
 		return null ;
 	}
@@ -132,6 +148,15 @@ class sociallinkz extends pluginSedLex {
 		if ($this->get_param('facebook_id')!="") {
 			echo '<meta property="fb:admins" content="'.$this->get_param('facebook_id').'" />' ; 
 		}
+	}
+	
+	/** ====================================================================================================================================================
+	* Add CSS
+	* 
+	* @return void
+	*/
+	function addcss() {
+		$this->add_inline_css($this->get_param('css')) ; 
 	}
 	
 	/** ====================================================================================================================================================
@@ -238,16 +263,24 @@ class sociallinkz extends pluginSedLex {
 				$params->add_title(sprintf(__('Display %s button?',$this->pluginID), $title)) ; 
 				$params->add_param('print', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_print.png'/> ".sprintf(__('The %s button:',$this->pluginID), $title)) ; 
 			 
-				$params->add_title(sprintf(__('Display all these buttons in the excerpt ?',$this->pluginID), $title)) ; 
-				$params->add_param('display_in_excerpt', "".sprintf(__('These buttons should be displayed in excerpt:',$this->pluginID), $title)) ; 
+				$params->add_title(__('Display all these buttons in the excerpt?',$this->pluginID)) ; 
+				$params->add_param('display_in_excerpt', "".__('These buttons should be displayed in excerpt:',$this->pluginID)) ; 
 				
-				$params->add_title(sprintf(__('Where do you want to display the buttons in post ?',$this->pluginID), $title)) ; 
-				$params->add_param('display_top_in_post', "".sprintf(__('At the Top:',$this->pluginID), $title)) ; 
-				$params->add_param('display_bottom_in_post', "".sprintf(__('At the Bottom:',$this->pluginID), $title)) ; 
+				$params->add_title(__('Where do you want to display the buttons in post?',$this->pluginID)) ; 
+				$params->add_param('display_top_in_post', "".__('At the Top:',$this->pluginID)) ; 
+				$params->add_param('display_bottom_in_post', "".__('At the Bottom:',$this->pluginID)) ; 
 
-				$params->add_title(sprintf(__('Where do you want to display the buttons in page ?',$this->pluginID), $title)) ; 
+				$params->add_title(__('Where do you want to display the buttons in page?',$this->pluginID)) ; 
 				$params->add_param('display_top_in_page', "".sprintf(__('At the Top:',$this->pluginID), $title)) ; 
 				$params->add_param('display_bottom_in_page', "".sprintf(__('At the Bottom:',$this->pluginID), $title)) ; 
+
+				$params->add_title(__('Advanced options',$this->pluginID)) ; 
+				$params->add_param('html', __('HTML:',$this->pluginID)) ; 
+				$default = str_replace("*", "", str_replace(" ", "&nbsp;", str_replace("\n", "<br>", str_replace(">", "&gt;", str_replace("<", "&lt;", $this->get_default_option('html'))))))."<br/>" ; 
+				$params->add_comment(sprintf(__('Default HTML is : %s with %s the displayed buttons',$this->pluginID), "<br/>"."<code>".$default."</code>", "<code>%buttons%</code>")) ; 
+				$params->add_param('css', __('CSS:',$this->pluginID)) ; 
+				$default = str_replace("*", "", str_replace(" ", "&nbsp;", str_replace("\n", "<br>", str_replace(">", "&gt;", str_replace("<", "&lt;", $this->get_default_option('css'))))))."<br/>" ; 
+				$params->add_comment(sprintf(__('Default CSS is : %s',$this->pluginID), "<br/>"."<code>".$default."</code>")) ; 
 
 				$params->flush() ; 
 			$tabs->add_tab(__('Parameters',  $this->pluginID), ob_get_clean() , WP_PLUGIN_URL.'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__))."core/img/tab_param.png") ; 	
@@ -332,7 +365,6 @@ class sociallinkz extends pluginSedLex {
 		
 		ob_start() ; 
 		?>
-		<div class="social_linkz">
 			<?php
 			
 			if ($this->get_param('facebook')) {
@@ -498,11 +530,10 @@ class sociallinkz extends pluginSedLex {
 				<?php
 			}
 			?>
-		</div>
 		<?php
 		$content = ob_get_contents();
 		ob_end_clean();
-		return $content ; 
+		return str_replace('%buttons%', $content, $this->get_param('html')) ; 
 	}
 	
 	

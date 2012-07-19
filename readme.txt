@@ -41,14 +41,15 @@ This plugin works with multisite installation.
 * Spanish (Spain) translation provided by sesi, AlexSancho
 * Spanish (Guatemala) translation provided by EnriqueBran
 * Finnish (Finland) translation provided by ProDexorite
-* French (France) translation provided by SedLex
+* French (France) translation provided by SedLex, JP
 * Croatian (Croatia) translation provided by nikola
 * Italian (Italy) translation provided by BRENDON-75, BRENDON-75
 * Japanese (Japan) translation provided by Toshi
 * Norwegian (Bokmal) (Norway) translation provided by Hkon, Hakon
 * Norwegian (Bokmal) (Norway) translation provided by Hakon, Hkon
+* Dutch (Netherlands) translation provided by HermanTimmermans
 * Polish (Poland) translation provided by Kajaczek
-* Portuguese (Brazil) translation provided by 
+* Portuguese (Brazil) translation provided by AndrVasconcellos
 * Turkish (Turkey) translation provided by OsmanERDOAN, Hseyinzkan
 
 = Features of the framework =
@@ -78,6 +79,9 @@ Have fun !
 2. The buttons
 
 == Changelog ==
+
+= 1.3.7 = 
+* CSS and HTML may be customized
 
 = 1.3.6 = 
 * The buttons may be managed for pages independently from posts 
@@ -143,4 +147,4 @@ Have fun !
 Visit http://www.sedlex.fr/cote_geek/
 
  
-InfoVersion:f319fd89744049980431890e852817ec
+InfoVersion:4ae19f1d59862e6c2fc59959bf3dd8c3

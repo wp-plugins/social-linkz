@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2012-05-08T15:31:31+00:00\n"
+"PO-Revision-Date: 2012-07-19T12:46:13+00:00\n"
 "Last-Translator: Olly <regge@online.de>\n"
 "Last-Translator: FarChris <http://www.pinsight.de>\n"
 "Language-Team: \n"
@@ -54,13 +54,19 @@ msgstr "Deine Facebook ID um Insights zu aktivieren:"
 msgid "Insight provides metrics around your content. See %shere%s for futher details. To identify your Facebook ID, please visit the previous link and then click on Statistic of my website"
 msgstr "Insight bietet Metriken rund um deine Inhalte. Siehe %shier%s für weitere Details. Um deine Facebook-ID zu identifizieren, besuche bitte den vorherigen Link und klicke dann auf Statistik meiner Website"
 
-msgid "Display all these buttons in the excerpt ?"
+msgid "Default image:"
+msgstr ""
+
+msgid "%s requires that an image is pinned. By default, the plugin will take the first image in the post but if there is not any image, this image will be used."
+msgstr ""
+
+msgid "Display all these buttons in the excerpt?"
 msgstr "Sollen alle Buttons im Textauschnitt (excerpt) angezeigt werden?"
 
 msgid "These buttons should be displayed in excerpt:"
 msgstr "Diese Buttons sollten im Textauschnitt (excerpt) angezeigt werden:"
 
-msgid "Where do you want to display the buttons in post ?"
+msgid "Where do you want to display the buttons in post?"
 msgstr "Wo sollen die Buttons im Beitragangezeigt werden?"
 
 msgid "At the Top:"
@@ -68,6 +74,24 @@ msgstr "Im oberen Teil:"
 
 msgid "At the Bottom:"
 msgstr "Im unteren Teil:"
+
+msgid "Where do you want to display the buttons in page?"
+msgstr "Wo sollen die Buttons im Beitragangezeigt werden?"
+
+msgid "Advanced options"
+msgstr ""
+
+msgid "HTML:"
+msgstr ""
+
+msgid "Default HTML is : %s with %s the displayed buttons"
+msgstr ""
+
+msgid "CSS:"
+msgstr ""
+
+msgid "Default CSS is : %s"
+msgstr ""
 
 msgid "Parameters"
 msgstr "Parameter"
