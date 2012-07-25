@@ -26,6 +26,7 @@ You can choose the buttons to be displayed such as :
 * StumbleUpon
 * Pinterest
 * Print
+* Mail
 
 This plugin is under GPL licence. 
 
@@ -43,7 +44,7 @@ This plugin works with multisite installation.
 * Finnish (Finland) translation provided by ProDexorite
 * French (France) translation provided by SedLex, JP
 * Croatian (Croatia) translation provided by nikola
-* Italian (Italy) translation provided by BRENDON-75, BRENDON-75
+* Italian (Italy) translation provided by BRENDON-75, BRENDON-75, StefanoBontempi
 * Japanese (Japan) translation provided by Toshi
 * Norwegian (Bokmal) (Norway) translation provided by Hkon, Hakon
 * Norwegian (Bokmal) (Norway) translation provided by Hakon, Hkon
@@ -80,29 +81,18 @@ Have fun !
 
 == Changelog ==
 
-= 1.3.7 = 
-* CSS and HTML may be customized
+= 1.4.0 =
+* Add a mail button 
 
-= 1.3.6 = 
+=1.3.0 -&gt; 1.3.7 = 
+* CSS and HTML may be customized
 * The buttons may be managed for pages independently from posts 
 * Pinterest bug corrected
-
-= 1.3.5 = 
 * The PinteRest API has changed and the bug is then corrected
-
-= 1.3.4 = 
 * Bug with the excerpt corrected 
-
-= 1.3.3 = 
 * Issues with UTF8  text corrected
-
-= 1.3.2 = 
 * Add translations
-
-= 1.3.1 = 
 * Add Pinterest button
-
-= 1.3.0 =
 * Major release of the framework
 
 = 1.2.0 -&gt; 1.2.6 =
@@ -147,4 +137,4 @@ Have fun !
 Visit http://www.sedlex.fr/cote_geek/
 
  
-InfoVersion:2b4cc92ab6c2d6ed04feb5e664b5d99f
+InfoVersion:74b0a4f2bd398044ed7069f774883b35

@@ -3,7 +3,7 @@
 Plugin Name: Social Linkz
 Plugin Tag: social, facebook, twitter, google, buttons
 Description: <p>Add social links such as Twitter or Facebook in each post. </p><p>You can choose the buttons to be displayed such as : </p><ul><li>Twitter</li><li>FaceBook</li><li>LinkedIn</li><li>Viadeo</li><li>GoogleBuzz</li><li>Google+</li><li>StumbleUpon</li><li>Pinterest</li><li>Print</li></ul><p>This plugin is under GPL licence. </p>
-Version: 1.3.7
+Version: 1.4.0
 
 
 Author: SedLex
@@ -28,6 +28,7 @@ class sociallinkz extends pluginSedLex {
 
 	protected function _init() {
 		global $wpdb ; 
+		global $do_not_show_inSocialLinkz ; 
 		// Configuration
 		$this->pluginName = 'Social Linkz' ; 
 		$this->tableSQL = "" ; 
@@ -44,10 +45,14 @@ class sociallinkz extends pluginSedLex {
 		$this->excerpt_called = false ; 
 		add_filter('the_content', array($this,'print_social_linkz'), 1000);
 		add_action('wp_print_styles', array( $this, 'addcss'), 1);
-		add_action('wp_print_scripts', array( $this, 'google_api'));
-		add_action('wp_print_scripts', array( $this, 'add_meta_facebook'));
+		add_action('wp_print_scripts', array($this,'header_init'));
 		add_filter('get_the_excerpt', array( $this, 'the_excerpt'),1000000);
 		add_filter('get_the_excerpt', array( $this, 'the_excerpt_ante'),2);
+		
+		add_action( 'wp_ajax_nopriv_emailSocialLinkz', array( $this, 'emailSocialLinkz'));
+		add_action( 'wp_ajax_emailSocialLinkz', array( $this, 'emailSocialLinkz'));
+		
+		$do_not_show_inSocialLinkz = false ; 
 	}
 	/**
 	 * Function to instantiate our class and make it a singleton
@@ -110,7 +115,13 @@ class sociallinkz extends pluginSedLex {
 			case 'stumbleupon' 					: return false 	; break ; 
 			case 'stumbleupon_count' 					: return false 	; break ; 
 			case 'stumbleupon_hosted'				: return false 	; break ; 
+			
 			case 'print'	 					: return true 	; break ; 
+			
+			case 'mail'	 					: return false 	; break ; 
+			case 'mail_max'	 					: return 5 	; break ; 
+			case 'mail_address'					: return  get_option('admin_email') ; break ; 
+			case 'mail_name'						: return get_bloginfo('name'); break ; 
 
 			case 'html'	 					: return "*<div class='social_linkz'>
    %buttons%
@@ -131,22 +142,47 @@ class sociallinkz extends pluginSedLex {
 	}
 
 	/** ====================================================================================================================================================
-	* Add the Google API for the scripts
+	* Add the Google API for the scripts, Facebook Insight tags
 	* 
 	* @return void
 	*/
-	function google_api() {
+	function header_init() {
+		//Google API for the scripts
 		wp_enqueue_script('google_plus', 'https://apis.google.com/js/plusone.js');
-	}
-	
-	/** ====================================================================================================================================================
-	* Add the Facebook Insight tags
-	* 
-	* @return void
-	*/
-	function add_meta_facebook() {
+		//Facebook Insight tags
 		if ($this->get_param('facebook_id')!="") {
 			echo '<meta property="fb:admins" content="'.$this->get_param('facebook_id').'" />' ; 
+		}
+		if ($this->get_param('mail')) {
+			// jquery
+			wp_enqueue_script('jquery');   
+		
+			ob_start() ; 
+			?>
+				function sendEmailSocialLinkz(md5, id) { 
+					jQuery("#wait_mail"+md5).show();
+					jQuery("#emailSocialLinkz"+md5).attr('disabled', 'disabled');
+					
+					listemail = jQuery("#emailSocialLinkz"+md5).val();
+					nom = jQuery("#nameSocialLinkz"+md5).val();
+					
+					var arguments = {
+						action: 'emailSocialLinkz', 
+						id_article: id,
+						name: nom, 
+						list_emails: listemail
+					} 
+					var ajaxurl2 = "<?php echo admin_url()."admin-ajax.php"?>" ; 
+					//POST the data and append the results to the results div
+					jQuery.post(ajaxurl2, arguments, function(response) {
+						jQuery("#innerdialog"+md5).html(response);
+					});    
+				}
+		
+			<?php 
+			
+			$java = ob_get_clean() ; 
+			$this->add_inline_js($java) ; 
 		}
 	}
 	
@@ -193,17 +229,17 @@ class sociallinkz extends pluginSedLex {
 				$params = new parametersSedLex($this, 'tab-parameters') ; 
 				$title = "Twitter&#8482;" ; 
 				$params->add_title(sprintf(__('Display %s button?',$this->pluginID), $title)) ; 
-				$params->add_param('twitter', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_twitter.png'/> ".sprintf(__('The %s button:',$this->pluginID), $title)) ; 
+				$params->add_param('twitter', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_twitter.png'/> ".sprintf(__('The %s button:',$this->pluginID), $title),"","",array('twitter_count')) ; 
 				$params->add_comment(sprintf(__('To share the post on %s !',$this->pluginID), $title))  ; 
 				$params->add_param('twitter_count', sprintf(__('Show the counter of this %s button:',$this->pluginID), $title))  ; 
-				$params->add_param('twitter_hosted', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_twitter_hosted.png'/> ".sprintf(__('The official %s button:',$this->pluginID), $title))  ; 
+				$params->add_param('twitter_hosted', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_twitter_hosted.png'/> ".sprintf(__('The official %s button:',$this->pluginID), $title),"","",array('twitter_hosted_count'))  ; 
 				$params->add_comment(__('The SSL websites may not work properly with this official button... Moreover the rendering is not perfect !',$this->pluginID)) ; 
 				$params->add_param('twitter_hosted_count', sprintf(__('Show the counter of this official %s button:',$this->pluginID), $title) ) ; 
 				$params->add_param('name_twitter', sprintf(__('Your %s pseudo:',$this->pluginID), $title)) ; 
 				
 				$title = "FaceBook&#8482;" ; 
 				$params->add_title(sprintf(__('Display %s button?',$this->pluginID), $title)) ; 
-				$params->add_param('facebook', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_facebook.png'/> ".sprintf(__('The %s button:',$this->pluginID), $title)) ; 
+				$params->add_param('facebook', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_facebook.png'/> ".sprintf(__('The %s button:',$this->pluginID), $title),"","",array('facebook_count')) ; 
 				$params->add_comment(sprintf(__('To share the post on %s !',$this->pluginID), $title)) ; 
 				$params->add_param('facebook_count', sprintf(__('Show the counter of this %s button:',$this->pluginID), $title)) ; 
 				$params->add_param('facebook_hosted', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_facebook_hosted.png'/> ".sprintf(__('The official %s button:',$this->pluginID), "Like ".$title)) ; 
@@ -214,10 +250,10 @@ class sociallinkz extends pluginSedLex {
 				
 				$title = "LinkedIn&#8482;" ; 
 				$params->add_title(sprintf(__('Display %s button?',$this->pluginID), $title)) ; 
-				$params->add_param('linkedin', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_linkedin.png'/> ".sprintf(__('The %s button:',$this->pluginID), $title)) ; 
+				$params->add_param('linkedin', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_linkedin.png'/> ".sprintf(__('The %s button:',$this->pluginID), $title),"","",array('linkedin_count')) ; 
 				$params->add_comment(sprintf(__('To share the post on %s !',$this->pluginID), $title)) ; 
 				$params->add_param('linkedin_count', sprintf(__('Show the counter of this %s button:',$this->pluginID), $title))  ; 
-				$params->add_param('linkedin_hosted', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_linkedin_hosted.png'/> ".sprintf(__('The official %s button:',$this->pluginID), $title)) ; 
+				$params->add_param('linkedin_hosted', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_linkedin_hosted.png'/> ".sprintf(__('The official %s button:',$this->pluginID), $title),"","",array('linkedin_hosted_count')) ; 
 				$params->add_comment(__('The SSL websites may not work properly with this official button... Moreover the rendering is not perfect !',$this->pluginID)) ; 
 				$params->add_param('linkedin_hosted_count', sprintf(__('Show the counter of this official %s button:',$this->pluginID), $title) ) ; 
 
@@ -228,32 +264,32 @@ class sociallinkz extends pluginSedLex {
 				
 				$title = "GoogleBuzz&#8482;" ; 
 				$params->add_title(sprintf(__('Display %s button?',$this->pluginID), $title)) ; 
-				$params->add_param('googlebuzz', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_googlebuzz.png'/> ".sprintf(__('The %s button:',$this->pluginID), $title)) ; 
+				$params->add_param('googlebuzz', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_googlebuzz.png'/> ".sprintf(__('The %s button:',$this->pluginID), $title),"","",array('googlebuzz_count')) ; 
 				$params->add_comment(sprintf(__('To share the post on %s !',$this->pluginID), $title)) ; 
 				$params->add_param('googlebuzz_count', sprintf(__('Show the counter of this %s button:',$this->pluginID), $title))  ; 
-				$params->add_param('googlebuzz_hosted', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_googlebuzz_hosted.png'/> ".sprintf(__('The official %s button:',$this->pluginID), $title)) ; 
+				$params->add_param('googlebuzz_hosted', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_googlebuzz_hosted.png'/> ".sprintf(__('The official %s button:',$this->pluginID), $title),"","",array('googlebuzz_hosted_count')) ; 
 				$params->add_comment(__('The SSL websites may not work properly with this official button... Moreover the rendering is not perfect !',$this->pluginID)) ; 
 				$params->add_param('googlebuzz_hosted_count', sprintf(__('Show the counter of this official %s button:',$this->pluginID), $title) ) ; 
 				
 				$title = "Google+&#8482;" ; 
 				$params->add_title(sprintf(__('Display %s button?',$this->pluginID), $title)) ; 
-				$params->add_param('googleplus_standard', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_googleplus.png'/> ".sprintf(__('The %s button:',$this->pluginID), $title)) ; 
+				$params->add_param('googleplus_standard', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_googleplus.png'/> ".sprintf(__('The %s button:',$this->pluginID), $title),"","",array('googleplus_standard_count')) ; 
 				$params->add_comment(sprintf(__('To share the post on %s !',$this->pluginID), $title)) ; 
 				$params->add_param('googleplus_standard_count', sprintf(__('Show the counter of this %s button:',$this->pluginID), $title)) ; 
-				$params->add_param('googleplus', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_googleplus_hosted.png'/> ".sprintf(__('The official %s button:',$this->pluginID), $title)) ; 
+				$params->add_param('googleplus', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_googleplus_hosted.png'/> ".sprintf(__('The official %s button:',$this->pluginID), $title),"","",array('googleplus_count')) ; 
 				$params->add_comment(__('The SSL websites may not work properly with this official button... Moreover the rendering is not perfect !',$this->pluginID)) ; 
 				$params->add_param('googleplus_count', sprintf(__('Show the counter of this official %s button:',$this->pluginID), $title) ) ; 
 				
 				$title = "StumbleUpon&#8482;" ; 
 				$params->add_title(sprintf(__('Display %s button?',$this->pluginID), $title)) ; 
-				$params->add_param('stumbleupon', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_stumbleupon.png'/> ".sprintf(__('The %s button:',$this->pluginID), $title)) ; 
+				$params->add_param('stumbleupon', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_stumbleupon.png'/> ".sprintf(__('The %s button:',$this->pluginID), $title),"","",array('stumbleupon_count')) ; 
 				$params->add_comment(sprintf(__('To share the post on %s !',$this->pluginID), $title)) ; 
 				$params->add_param('stumbleupon_count', sprintf(__('Show the counter of this %s button:',$this->pluginID), $title)) ; 
 				$params->add_param('stumbleupon_hosted', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_stumbleupon_hosted.png'/> ".sprintf(__('The official %s button:',$this->pluginID), $title)) ; 
 				
 				$title = "Pinterest&#8482;" ; 
 				$params->add_title(sprintf(__('Display %s button?',$this->pluginID), $title)) ; 
-				$params->add_param('pinterest_hosted', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_pinterest_hosted.jpg'/> ".sprintf(__('The %s button:',$this->pluginID), $title)) ; 
+				$params->add_param('pinterest_hosted', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_pinterest_hosted.jpg'/> ".sprintf(__('The %s button:',$this->pluginID), $title),"","",array('pinterest_hosted_count', 'pinterest_hosted_defaultimage')) ; 
 				$params->add_comment(sprintf(__('To share the post on %s !',$this->pluginID), $title)) ; 
 				$params->add_param('pinterest_hosted_count', sprintf(__('Show the counter of this %s button:',$this->pluginID), $title)) ; 
 				$params->add_param('pinterest_hosted_defaultimage', __('Default image:',$this->pluginID)) ; 
@@ -262,7 +298,16 @@ class sociallinkz extends pluginSedLex {
 				$title = "Print" ; 
 				$params->add_title(sprintf(__('Display %s button?',$this->pluginID), $title)) ; 
 				$params->add_param('print', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_print.png'/> ".sprintf(__('The %s button:',$this->pluginID), $title)) ; 
-			 
+
+				$title = "Mail" ; 
+				$params->add_title(sprintf(__('Display %s button?',$this->pluginID), $title)) ; 
+				$params->add_param('mail', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_mail.png'/> ".sprintf(__('The %s button:',$this->pluginID), $title),"","",array('mail_max', 'mail_address', 'mail_name')) ; 
+				$params->add_param('mail_max', __('The maximum number of emails for each mailing:',$this->pluginID)) ; 
+				$params->add_param('mail_name', __('The name used to send the email:',$this->pluginID)) ; 
+				$params->add_param('mail_address', __('The mail address used to send the email:',$this->pluginID)) ; 
+				$address = explode("/", home_url('/')) ; 
+				$params->add_comment(sprintf(__('You may use the admin email %s, a noreply address such as %s or any other email',$this->pluginID), "<code>".get_option('admin_email')."</code>","<code>noreply@".str_replace("www.", "", $address[2])."</code>")) ; 
+				
 				$params->add_title(__('Display all these buttons in the excerpt?',$this->pluginID)) ; 
 				$params->add_param('display_in_excerpt', "".__('These buttons should be displayed in excerpt:',$this->pluginID)) ; 
 				
@@ -358,11 +403,15 @@ class sociallinkz extends pluginSedLex {
 	*/
 	
 	function print_buttons($post) {
+		global $do_not_show_inSocialLinkz ; 
 	
 		$url = wp_get_shortlink($post->ID) ; 
 		$long_url = get_permalink($post->ID) ; 
 		$titre = $post->post_title ; 
 		
+		if ($do_not_show_inSocialLinkz) {
+			return ; 
+		}
 		ob_start() ; 
 		?>
 			<?php
@@ -527,6 +576,26 @@ class sociallinkz extends pluginSedLex {
 				?>
 				<a rel="nofollow" target="_blank" href="#" title="<?php echo __("Print", $this->pluginID) ;?>">
 					<img onclick="window.print();return false;" class="lnk_social_linkz" src="<?php echo WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__)) ; ?>/img/lnk_print.png" alt="Print" height="24" width="24"/></a>
+				<?php
+			}
+			
+			if ($this->get_param('mail')) {
+				?>
+				<a rel="nofollow" target="_blank" href="#" title="<?php echo __("Mail", $this->pluginID) ;?>">
+					<img onclick="openEmailSocialLinkz('<?php echo md5($long_url) ?>');return false;" class="lnk_social_linkz" src="<?php echo WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__)) ; ?>/img/lnk_mail.png" alt="Mail" height="24" width="24"/></a>
+				<div id="mask<?php echo md5($long_url) ?>" class="social_mask"></div>
+				<div id="dialog<?php echo md5($long_url) ?>" class="social_window">
+					<div id="innerdialog<?php echo md5($long_url) ?>">
+						<h3><?php echo __("Send this article by email", $this->pluginID) ;?></h3>
+						<p class='textEmailSocialLinkz'><?php echo __("What is you name?", $this->pluginID) ;?></p>
+						<p><input name="nameSocialLinkz<?php echo md5($long_url) ?>" id="nameSocialLinkz<?php echo md5($long_url) ?>" /></p>
+						<p class='textEmailSocialLinkz'><?php echo sprintf(__("Please indicate below the emails to which you want to send this article: %s", $this->pluginID), "<b>".$titre."</b>") ;?></p>
+						<p><textarea name="emailSocialLinkz<?php echo md5($long_url) ?>" id="emailSocialLinkz<?php echo md5($long_url) ?>" rows="5"></textarea></p>
+						<p class='closeEmailSocialLinkz'><?php echo sprintf(__("Enter one email per line. No more than %s emails.", $this->pluginID), $this->get_param('mail_max')) ;?></p>
+						<p class='sendEmailSocialLinkz'><a href="#" title="<?php echo __("Close", $this->pluginID) ;?>" onclick="sendEmailSocialLinkz('<?php echo md5($long_url) ?>', <? echo $post->ID ?>);return false;"><span class='sendEmailSocialLinkz'><?php echo __("Send", $this->pluginID) ;?></span></a></p>
+					</div>
+					<p class='closeEmailSocialLinkz'><a href="#" title="<?php echo __("Close", $this->pluginID) ;?>" onclick="closeEmailSocialLinkz('<?php echo md5($long_url) ?>');return false;"><span class='closeEmailSocialLinkz'><?php echo __("Close", $this->pluginID) ;?></span></a></p>
+				</div>
 				<?php
 			}
 			?>
@@ -823,6 +892,72 @@ class sociallinkz extends pluginSedLex {
 		} else {
 			return "" ; 
 		}
+	}
+	
+	/** ====================================================================================================================================================
+	* Send an article by email
+	* 
+	* @return void
+	*/
+
+	function emailSocialLinkz() {
+		global $post ; 
+		global $do_not_show_inSocialLinkz; 
+		if (!$this->get_param('mail')) {
+			echo "ERROR: Sending has been disabled" ; 
+			die() ; 
+		}
+		
+		$id = preg_replace("/[^0-9]/", "", $_POST['id_article']) ;
+		
+		$name = trim(preg_replace("[:.,;()]", " ", strip_tags($_POST['name'])));
+		$emails = explode("\n", $_POST['list_emails']) ; 
+		echo "<h2>".__('Sending Report', $this->pluginID)."</h2>" ; 
+		$nb = 0 ; 
+		
+		if ($name=="") {
+			echo "<p>".sprintf(__('Sorry, but you have not provided a name. Please refresh the current page and then retry.', $this->pluginID), $email)."</p>" ; 
+		}
+		
+		$content = "<p>".sprintf(__('%s has recommended this article to you: %s', $this->pluginID), "<b>$name</b>", '"<i>'.get_the_title($id).'</i>"')."</p>" ; 
+		$content .= "<p>".__('Here is an extract of the article:', $this->pluginID)."</p>" ; 
+		$post = get_post($id) ; 
+		setup_postdata($post);
+		$do_not_show_inSocialLinkz = true ; 
+		$content .= "<p style='font-style:italic;border:1px #AAAAAA solid;margin:10px; left-margin:40px;padding:10px;background-color:#DDDDDD;'>".get_the_excerpt()."</p>" ; 
+		$do_not_show_inSocialLinkz = false ; 
+		
+		$subject = html_entity_decode(sprintf(__('%s has recommended this article to you: %s', $this->pluginID), $name, '"'.get_the_title($id).'"')); 
+		$subject = preg_replace_callback("/(&#[0-9]+;)/", array($this,'transformHTMLEntitiesWithDash'), $subject); 
+		
+		foreach ($emails as $email) {
+			if ($nb>=$this->get_param('mail_max'))
+				die() ; 
+			$email = trim($email) ; 
+			$email = filter_var($email, FILTER_VALIDATE_EMAIL) ; 
+			if ($email !== FALSE) {
+				$nb++ ; 
+				
+				$headers= 	"MIME-Version: 1.0\n" .
+						"From: ".$this->get_param('mail_name')." <".$this->get_param('mail_address').">\n" .
+						"Content-Type: text/html; charset=\"". get_option('blog_charset') . "\"\n";
+					
+				$result = wp_mail($email, $subject , $content, $headers);
+				
+				if ($result) {
+					echo "<p>".sprintf(__('Email successfully sent to %s', $this->pluginID), $email)."</p>" ; 
+				} else {
+					echo "<p>".sprintf(__('Wordpress is unable to send an email to %s', $this->pluginID), $email)."</p>" ; 
+					//echo "<p> DEBUG: <code>".$email.", ".$subject.", ".$content.", ".$headers."</code></p>" ; 
+					die() ; 
+				}
+			} 
+		}
+		die() ; 
+	}
+	
+	function transformHTMLEntitiesWithDash($m) { 
+		return mb_convert_encoding($m[1], "UTF-8", "HTML-ENTITIES"); 
 	}
 }
 

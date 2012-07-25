@@ -37,3 +37,48 @@ img.lnk_social_linkz {
 	position: relative;
 	z-index:10000;
 }
+
+.social_mask{
+	position:fixed;
+	z-index:90000;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	background-color:#000;
+	display:none;
+}
+
+.social_window {
+	position:fixed;
+	width:440px;
+	height:400px;
+	display:none;
+	z-index:99999;
+	padding:20px;
+	background-color:#FFF;
+}
+
+.social_window h2 {
+	font-size:130%;
+	font-weight:bold;
+}
+
+.social_window textarea {
+	width:90%;
+}
+
+.textEmailSocialLinkz {
+	text-align:left ;
+}
+
+.closeEmailSocialLinkz {
+	text-align:right ;
+	font-size:80%;
+}
+
+.sendEmailSocialLinkz {
+	font-size:115%;
+	font-weight:bold;
+	text-align:left ;
+}
