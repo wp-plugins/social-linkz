@@ -4,9 +4,10 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2012-07-19T12:47:13+00:00\n"
+"PO-Revision-Date: 2012-07-27T06:08:37+00:00\n"
 "Last-Translator: SedLex <http://www.sedlex.fr/>\n"
 "Last-Translator: JP <http://architectedelalumiere.fr>\n"
+"Last-Translator: ChristopheReverd <http://www.cedit.ca>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -58,7 +59,19 @@ msgid "Default image:"
 msgstr "Image par défaut"
 
 msgid "%s requires that an image is pinned. By default, the plugin will take the first image in the post but if there is not any image, this image will be used."
-msgstr "requiert qu&#039;une image soit épinglée. Par défaut, le plugin utilisera la première image de l&#039;article, mais si il n&#039;y a pas d&#039;image, celle-ci sera utilisée"
+msgstr "%s requiert qu&#039;une image soit épinglée. Par défaut, le plugin utilisera la première image de l&#039;article, mais si il n&#039;y a pas d&#039;image, celle-ci sera utilisée"
+
+msgid "The maximum number of emails for each mailing:"
+msgstr "Nombre maximum de destinataires pour chaque envoi:"
+
+msgid "The name used to send the email:"
+msgstr "Nom à utiliser lors de l&#039;envoi du courriel:"
+
+msgid "The mail address used to send the email:"
+msgstr "Adresse de courriel utilisée lors de l&#039;envoi du courriel:"
+
+msgid "You may use the admin email %s, a noreply address such as %s or any other email"
+msgstr "Vous pouvez utiliser l&#039;adresse de courriel de l&#039;administrateur %s, l&#039;adresse d&#039;un automate telle que %s ou n&#039;importe quelle autre adresse à votre convenance"
 
 msgid "Display all these buttons in the excerpt?"
 msgstr "Afficher les boutons dans les extraits ?"
@@ -67,7 +80,7 @@ msgid "These buttons should be displayed in excerpt:"
 msgstr "Ces boutons doivent être affiché dans les extraits :"
 
 msgid "Where do you want to display the buttons in post?"
-msgstr "Où voulez-vous que les boutons soient affichés dans l&#039;article ? "
+msgstr "Où voulez-vous que les boutons soient affichés dans l&#039;article ?"
 
 msgid "At the Top:"
 msgstr "En haut :"
@@ -79,19 +92,19 @@ msgid "Where do you want to display the buttons in page?"
 msgstr "Où voulez-vous que les boutons soient affichés dans la page ?"
 
 msgid "Advanced options"
-msgstr ""
+msgstr "Options avancées"
 
 msgid "HTML:"
-msgstr ""
+msgstr "HTML:"
 
 msgid "Default HTML is : %s with %s the displayed buttons"
-msgstr ""
+msgstr "Le code HTML par défaut est : %s avec les %s buttons affichés"
 
 msgid "CSS:"
-msgstr ""
+msgstr "CSS:"
 
 msgid "Default CSS is : %s"
-msgstr ""
+msgstr "Le fichier CSS par défaut est : %s"
 
 msgid "Parameters"
 msgstr "Paramètres"
@@ -113,4 +126,43 @@ msgstr "Tweeter"
 
 msgid "Print"
 msgstr "Imprimer"
+
+msgid "Mail"
+msgstr "Courriel"
+
+msgid "Send this article by email"
+msgstr "Envoyer cet article par courriel"
+
+msgid "What is you name?"
+msgstr "Quel est votre nom?"
+
+msgid "Please indicate below the emails to which you want to send this article: %s"
+msgstr "Veuillez indiquer ci-dessous les adresses courriel de ceux à qui vous souhaitez envoyer cet article: %s"
+
+msgid "Enter one email per line. No more than %s emails."
+msgstr "Entrez une adresse courriel par ligne sans dépasser un total de %s."
+
+msgid "Close"
+msgstr "Fermer"
+
+msgid "Send"
+msgstr "Envoyer"
+
+msgid "Sending Report"
+msgstr "Transmission du rapport"
+
+msgid "Sorry, but you have not provided a name. Please refresh the current page and then retry."
+msgstr "Désolé, mais vous n&#039;avez pas mentionné de nom. Veuillez actualiser la page actuelle et essayer à nouveau."
+
+msgid "%s has recommended this article to you: %s"
+msgstr "%s vous recommande cet article: %s"
+
+msgid "Here is an extract of the article:"
+msgstr "Voici un extrait de l&#039;article:"
+
+msgid "Email successfully sent to %s"
+msgstr "Courriel envoyé avec succès à %s"
+
+msgid "Wordpress is unable to send an email to %s"
+msgstr "Wordpress ne peut envoyer un courriel à %s"
 
