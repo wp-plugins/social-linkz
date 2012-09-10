@@ -26,7 +26,6 @@ You can choose the buttons to be displayed such as :
 * StumbleUpon
 * Pinterest
 * Print
-* Mail
 
 This plugin is under GPL licence. 
 
@@ -39,10 +38,10 @@ This plugin works with multisite installation.
 * German (Germany) translation provided by Olly, FarChris
 * English (United States), default language
 * Spanish (Argentina) translation provided by GianFrancoAlarcn
-* Spanish (Spain) translation provided by sesi, AlexSancho
+* Spanish (Spain) translation provided by sesi, AlexSancho, fco
 * Spanish (Guatemala) translation provided by EnriqueBran
 * Finnish (Finland) translation provided by ProDexorite
-* French (France) translation provided by SedLex, JP
+* French (France) translation provided by SedLex, JP, ChristopheReverd
 * Croatian (Croatia) translation provided by nikola
 * Italian (Italy) translation provided by BRENDON-75, BRENDON-75, StefanoBontempi
 * Japanese (Japan) translation provided by Toshi
@@ -80,6 +79,9 @@ Have fun !
 2. The buttons
 
 == Changelog ==
+
+= 1.4.1 =
+* Add a tinyMCE button and a shortcode to put buttons wherever you want
 
 = 1.4.0 =
 * Add a mail button 
@@ -137,4 +139,4 @@ Have fun !
 Visit http://www.sedlex.fr/cote_geek/
 
  
-InfoVersion:2c913c04ac5be2a889deafb968f30519
+InfoVersion:2e1312e733e2bd7e43800ec25e2c354b

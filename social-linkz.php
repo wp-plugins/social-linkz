@@ -3,7 +3,8 @@
 Plugin Name: Social Linkz
 Plugin Tag: social, facebook, twitter, google, buttons
 Description: <p>Add social links such as Twitter or Facebook in each post. </p><p>You can choose the buttons to be displayed such as : </p><ul><li>Twitter</li><li>FaceBook</li><li>LinkedIn</li><li>Viadeo</li><li>GoogleBuzz</li><li>Google+</li><li>StumbleUpon</li><li>Pinterest</li><li>Print</li></ul><p>This plugin is under GPL licence. </p>
-Version: 1.4.0
+Version: 1.4.1
+
 
 
 Author: SedLex
@@ -49,6 +50,8 @@ class sociallinkz extends pluginSedLex {
 		add_filter('get_the_excerpt', array( $this, 'the_excerpt'),1000000);
 		add_filter('get_the_excerpt', array( $this, 'the_excerpt_ante'),2);
 		
+		add_shortcode( 'sociallinkz', array( $this, 'display_button_shortcode' ) );
+
 		add_action( 'wp_ajax_nopriv_emailSocialLinkz', array( $this, 'emailSocialLinkz'));
 		add_action( 'wp_ajax_emailSocialLinkz', array( $this, 'emailSocialLinkz'));
 		
@@ -64,6 +67,20 @@ class sociallinkz extends pluginSedLex {
 		return self::$instance;
 	}
 
+	/** ====================================================================================================================================================
+	* Add a button in the TinyMCE Editor
+	*
+	* To add a new button, copy the commented lines a plurality of times (and uncomment them)
+	* 
+	* @return array of buttons
+	*/
+	
+	function add_tinymce_buttons() {
+		$buttons = array() ; 
+		$buttons[] = array(__('Add SocialLinkz buttons', $this->pluginID), '[sociallinkz]', '', WP_PLUGIN_URL.'/'.str_replace(basename( __FILE__),"",plugin_basename( __FILE__)).'img/sociallinkz_button.png') ; 
+		return $buttons ; 
+	}
+	
 	/** ====================================================================================================================================================
 	* Define the default option value of the plugin
 	* 
@@ -394,6 +411,17 @@ class sociallinkz extends pluginSedLex {
 			return $return ; 
 
 		}
+	}
+	
+	/** ====================================================================================================================================================
+	* Shortcode to Print the buttons
+	* 
+	* @return void
+	*/
+
+	function display_button_shortcode( $_atts, $text ) {
+		global $post ; 
+		return $this->print_buttons($post) ; 
 	}
 	
 	/** ====================================================================================================================================================
