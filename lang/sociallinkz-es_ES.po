@@ -4,10 +4,11 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2012-08-14T06:53:33+00:00\n"
+"PO-Revision-Date: 2012-09-13T06:01:53+00:00\n"
 "Last-Translator: sesi <http://www.dandoporculo.com>\n"
 "Last-Translator: AlexSancho <alex@alexsancho.name>\n"
 "Last-Translator: fco <www.guzol.cl>\n"
+"Last-Translator: JavierLaChica <www.granadaonline.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -102,4 +103,73 @@ msgstr "Enviar Reporte"
 
 msgid "Email successfully sent to %s"
 msgstr "Correo enviado a %s"
+
+msgid "Default image:"
+msgstr "Imagen por defecto"
+
+msgid "%s requires that an image is pinned. By default, the plugin will take the first image in the post but if there is not any image, this image will be used."
+msgstr "%s requiere que una imagen sea pineada. Por defecto, el plugin cogerá la primera imagen del artículo pero si éste no tiene imagen,esta imagen será usada."
+
+msgid "The maximum number of emails for each mailing:"
+msgstr "Nº máximo de correos por cada mailing"
+
+msgid "The name used to send the email:"
+msgstr "Nombre usado para enviar el correo"
+
+msgid "The mail address used to send the email:"
+msgstr "Dirección usada para enviar el correo:"
+
+msgid "You may use the admin email %s, a noreply address such as %s or any other email"
+msgstr "Puedes usar el correo de administrador %s, un buzón  noreply en vez de %s u otro correo"
+
+msgid "Display all these buttons in the excerpt?"
+msgstr "¿Mostrar estos botones en el extracto?"
+
+msgid "Where do you want to display the buttons in post?"
+msgstr "¿En que parte del articulo quieres mostrar los botones?"
+
+msgid "Where do you want to display the buttons in page?"
+msgstr "¿En que parte de la página quieres mostrar los botones?"
+
+msgid "Advanced options"
+msgstr "Opciones avanzadas"
+
+msgid "HTML:"
+msgstr "HTML:"
+
+msgid "Default HTML is : %s with %s the displayed buttons"
+msgstr "Por defecto el HTML es: %s con %s mostrado en los botones"
+
+msgid "CSS:"
+msgstr "CSS:"
+
+msgid "Default CSS is : %s"
+msgstr "Opciones por defecto CSS son: %s"
+
+msgid "Mail"
+msgstr "Correo"
+
+msgid "Send this article by email"
+msgstr "Enviar este artículo por correo"
+
+msgid "What is you name?"
+msgstr "¿ Cual es tu nombre?"
+
+msgid "Please indicate below the emails to which you want to send this article: %s"
+msgstr "Por favor indique antes los correos a los que quiere enviar este artículo: %s"
+
+msgid "Enter one email per line. No more than %s emails."
+msgstr "Entre un correo por línea. No más de %s correos."
+
+msgid "Sorry, but you have not provided a name. Please refresh the current page and then retry."
+msgstr "Perdón pero no ha dado un nombre, Por favor, refresque la página y re inténtelo."
+
+msgid "%s has recommended this article to you: %s"
+msgstr "%s ha recomendado este artículo para ti: %s"
+
+msgid "Here is an extract of the article:"
+msgstr "Este es un extracto del artículo:"
+
+msgid "Wordpress is unable to send an email to %s"
+msgstr "Wordpress no puede enviar un correo a %s"
 
