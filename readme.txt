@@ -80,6 +80,9 @@ Have fun !
 
 == Changelog ==
 
+= 1.4.2 =
+* Correct a bug with some installation and the button
+
 = 1.4.1 =
 * Add a tinyMCE button and a shortcode to put buttons wherever you want
 
@@ -139,4 +142,4 @@ Have fun !
 Visit http://www.sedlex.fr/cote_geek/
 
  
-InfoVersion:4aa960b368d2cf274a1ca686a85c8450
+InfoVersion:11858bf921942dce4e65978c2839cc34
