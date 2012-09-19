@@ -4,9 +4,10 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2012-07-19T12:46:13+00:00\n"
+"PO-Revision-Date: 2012-09-18T12:34:32+00:00\n"
 "Last-Translator: Olly <regge@online.de>\n"
 "Last-Translator: FarChris <http://www.pinsight.de>\n"
+"Last-Translator: Susann <dclifestyle.de>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -54,12 +55,6 @@ msgstr "Deine Facebook ID um Insights zu aktivieren:"
 msgid "Insight provides metrics around your content. See %shere%s for futher details. To identify your Facebook ID, please visit the previous link and then click on Statistic of my website"
 msgstr "Insight bietet Metriken rund um deine Inhalte. Siehe %shier%s für weitere Details. Um deine Facebook-ID zu identifizieren, besuche bitte den vorherigen Link und klicke dann auf Statistik meiner Website"
 
-msgid "Default image:"
-msgstr ""
-
-msgid "%s requires that an image is pinned. By default, the plugin will take the first image in the post but if there is not any image, this image will be used."
-msgstr ""
-
 msgid "Display all these buttons in the excerpt?"
 msgstr "Sollen alle Buttons im Textauschnitt (excerpt) angezeigt werden?"
 
@@ -77,21 +72,6 @@ msgstr "Im unteren Teil:"
 
 msgid "Where do you want to display the buttons in page?"
 msgstr "Wo sollen die Buttons im Beitragangezeigt werden?"
-
-msgid "Advanced options"
-msgstr ""
-
-msgid "HTML:"
-msgstr ""
-
-msgid "Default HTML is : %s with %s the displayed buttons"
-msgstr ""
-
-msgid "CSS:"
-msgstr ""
-
-msgid "Default CSS is : %s"
-msgstr ""
 
 msgid "Parameters"
 msgstr "Parameter"
@@ -113,4 +93,58 @@ msgstr "Twittern"
 
 msgid "Print"
 msgstr "Drucken"
+
+msgid "Default image:"
+msgstr "Automatisches Bild"
+
+msgid "%s requires that an image is pinned. By default, the plugin will take the first image in the post but if there is not any image, this image will be used."
+msgstr "Bei Pinterest muss ein Bild gepinnt werden. Dieses Plugin nimmt automatisch das erste Bild im Beitrag. Wenn dort  aber keines ist, wird dieses hier benutzt."
+
+msgid "The maximum number of emails for each mailing:"
+msgstr "Die maximale Anzahl von Mails pro Mailing"
+
+msgid "The name used to send the email:"
+msgstr "Dieser Name soll zum Senden der Mail benutzt werden:"
+
+msgid "The mail address used to send the email:"
+msgstr "Diese Mail-Adresse zum Senden der Mail verwenden:"
+
+msgid "Advanced options"
+msgstr "Erweiterte Optionen"
+
+msgid "Send this article by email"
+msgstr "Versende diesen Artikel per email"
+
+msgid "What is you name?"
+msgstr "Wie ist dein Name"
+
+msgid "Please indicate below the emails to which you want to send this article: %s"
+msgstr "Bitte geben unten die Mail-Adressen ein, denen du diesen Artikel senden möchtest."
+
+msgid "Enter one email per line. No more than %s emails."
+msgstr "Gebe eine Mail-Adresse pro Zeile ein. Nicht mehr als %s emails."
+
+msgid "Close"
+msgstr "Schließen"
+
+msgid "Send"
+msgstr "Senden"
+
+msgid "Sending Report"
+msgstr "Sendebericht"
+
+msgid "Sorry, but you have not provided a name. Please refresh the current page and then retry."
+msgstr "Entschuldige, aber du hast keinen Namen eingegeben. Bitte aktualisiere diese Seite und versuche es dann noch einmal."
+
+msgid "%s has recommended this article to you: %s"
+msgstr "%s empfiehlt dir diesen Artikel: %s"
+
+msgid "Here is an extract of the article:"
+msgstr "Hier ist ein Ausschnitt aus dem Artikel:"
+
+msgid "Email successfully sent to %s"
+msgstr "Email erfolgreich gesendet an %s"
+
+msgid "Wordpress is unable to send an email to %s"
+msgstr "Wordpress kann diese Email nicht an %s senden."
 

@@ -3,7 +3,7 @@
 Plugin Name: Social Linkz
 Plugin Tag: social, facebook, twitter, google, buttons
 Description: <p>Add social links such as Twitter or Facebook in each post. </p><p>You can choose the buttons to be displayed such as : </p><ul><li>Twitter</li><li>FaceBook</li><li>LinkedIn</li><li>Viadeo</li><li>GoogleBuzz</li><li>Google+</li><li>StumbleUpon</li><li>Pinterest</li><li>Print</li></ul><p>This plugin is under GPL licence. </p>
-Version: 1.4.2
+Version: 1.4.3
 
 
 
@@ -45,6 +45,7 @@ class sociallinkz extends pluginSedLex {
 		//Parametres supplementaires
 		$this->excerpt_called = false ; 
 		add_filter('the_content', array($this,'print_social_linkz'), 1000);
+		
 		add_action('wp_print_styles', array( $this, 'addcss'), 1);
 		add_action('wp_print_scripts', array($this,'header_init'));
 		add_filter('get_the_excerpt', array( $this, 'the_excerpt'),1000000);
@@ -95,7 +96,7 @@ class sociallinkz extends pluginSedLex {
 
 			case 'display_top_in_page' 			: return false ; break ; 
 			case 'display_bottom_in_page' 			: return true ; break ; 
-
+			
 			case 'twitter' 						: return true 	; break ; 
 			case 'twitter_count' 						: return false 	; break ; 
 			case 'twitter_hosted' 				: return false 	; break ; 
@@ -335,7 +336,7 @@ class sociallinkz extends pluginSedLex {
 				$params->add_title(__('Where do you want to display the buttons in page?',$this->pluginID)) ; 
 				$params->add_param('display_top_in_page', "".sprintf(__('At the Top:',$this->pluginID), $title)) ; 
 				$params->add_param('display_bottom_in_page', "".sprintf(__('At the Bottom:',$this->pluginID), $title)) ; 
-
+				
 				$params->add_title(__('Advanced options',$this->pluginID)) ; 
 				$params->add_param('html', __('HTML:',$this->pluginID)) ; 
 				$default = str_replace("*", "", str_replace(" ", "&nbsp;", str_replace("\n", "<br>", str_replace(">", "&gt;", str_replace("<", "&lt;", $this->get_default_option('html'))))))."<br/>" ; 
@@ -412,7 +413,7 @@ class sociallinkz extends pluginSedLex {
 
 		}
 	}
-	
+		
 	/** ====================================================================================================================================================
 	* Shortcode to Print the buttons
 	* 
@@ -615,7 +616,7 @@ class sociallinkz extends pluginSedLex {
 				<div id="dialog<?php echo md5($long_url) ?>" class="social_window">
 					<div id="innerdialog<?php echo md5($long_url) ?>">
 						<h3><?php echo __("Send this article by email", $this->pluginID) ;?></h3>
-						<p class='textEmailSocialLinkz'><?php echo __("What is you name?", $this->pluginID) ;?></p>
+						<p class='textEmailSocialLinkz'><?php echo __("What is your name?", $this->pluginID) ;?></p>
 						<p><input name="nameSocialLinkz<?php echo md5($long_url) ?>" id="nameSocialLinkz<?php echo md5($long_url) ?>" /></p>
 						<p class='textEmailSocialLinkz'><?php echo sprintf(__("Please indicate below the emails to which you want to send this article: %s", $this->pluginID), "<b>".$titre."</b>") ;?></p>
 						<p><textarea name="emailSocialLinkz<?php echo md5($long_url) ?>" id="emailSocialLinkz<?php echo md5($long_url) ?>" rows="5"></textarea></p>

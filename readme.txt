@@ -80,6 +80,10 @@ Have fun !
 
 == Changelog ==
 
+= 1.4.3 =
+* English correction
+* New icon for twitter
+
 = 1.4.2 =
 * Correct a bug with some installation and the button
 
@@ -142,4 +146,4 @@ Have fun !
 Visit http://www.sedlex.fr/cote_geek/
 
  
-InfoVersion:11858bf921942dce4e65978c2839cc34
+InfoVersion:645cf3ba0d512304eba1cf69df96af0f

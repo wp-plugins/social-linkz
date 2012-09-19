@@ -67,7 +67,6 @@ if (!class_exists('pluginSedLex')) {
 			add_action('wp_ajax_set_translation', array('translationSL','set_translation')) ; 
 			add_action('wp_ajax_update_languages_wp_init', array('translationSL','update_languages_wp_init')) ; 
 			add_action('wp_ajax_update_languages_wp_list', array('translationSL','update_languages_wp_list')) ; 
-			add_action('wp_ajax_importTranslation', array('translationSL','importTranslation')) ; 
 			add_action('wp_ajax_seeTranslation', array('translationSL','seeTranslation')) ; 
 			add_action('wp_ajax_deleteTranslation', array('translationSL','deleteTranslation')) ; 
 			add_action('wp_ajax_mergeTranslationDifferences', array('translationSL','mergeTranslationDifferences')) ; 
