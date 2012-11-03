@@ -4,8 +4,9 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2012-06-24T21:53:54+00:00\n"
+"PO-Revision-Date: 2012-10-18T21:52:09+00:00\n"
 "Last-Translator: HermanTimmermans <forumsx@gmail.com>\n"
+"Last-Translator: Jens <facebookverwijderen.nl>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,37 +22,37 @@ msgstr ""
 "X-Textdomain-Support: yes\n"
 
 msgid "This plugin help you sharing on the social network by adding facebook or twitter buttons."
-msgstr "Deze plugin helpt u te delen op sociale netwerken door facebook of twitter buttons toe te voegen. "
+msgstr "Deze plugin helpt u te delen op sociale netwerken door facebook of twitter buttons toe te voegen."
 
 msgid "Display %s button?"
-msgstr "Toon %s button? "
+msgstr "Toon %s button?"
 
 msgid "The %s button:"
-msgstr "De %s button: "
+msgstr "De %s button:"
 
 msgid "To share the post on %s !"
-msgstr "Om de post te delen op %s ! "
+msgstr "Om de post te delen op %s !"
 
 msgid "Show the counter of this %s button:"
-msgstr "Toon de teller van deze %s button: "
+msgstr "Toon de teller van deze %s button:"
 
 msgid "The official %s button:"
-msgstr "De officiële %s button: "
+msgstr "De officiële %s button:"
 
 msgid "The SSL websites may not work properly with this official button... Moreover the rendering is not perfect !"
-msgstr "De  SSL websites werken mogelijk niet helemaal correct met deze officiële button... Wellicht is de rendering is niet perfect ! "
+msgstr "De  SSL websites werken mogelijk niet helemaal correct met deze officiële button... Wellicht is de rendering is niet perfect !"
 
 msgid "Show the counter of this official %s button:"
-msgstr "Toon de teller van deze officiële %s button: "
+msgstr "Toon de teller van deze officiële %s button:"
 
 msgid "Your %s pseudo:"
-msgstr "Uw %s pseudo: "
+msgstr "Uw %s pseudo:"
 
 msgid "Your FaceBook ID to enable Insight:"
-msgstr "Uw FaceBook ID om Insightte activeren: "
+msgstr "Uw FaceBook ID om Insightte activeren:"
 
 msgid "Insight provides metrics around your content. See %shere%s for futher details. To identify your Facebook ID, please visit the previous link and then click on Statistic of my website"
-msgstr "Insight verschaft data over uw content. Kijk %shier%s voor meer details. Om uw Facebook ID te identificeren, ga a.u.b. naar de voorgaande link en klik op Statistics van mijn website "
+msgstr "Insight verschaft data over uw content. Kijk %shier%s voor meer details. Om uw Facebook ID te identificeren, ga a.u.b. naar de voorgaande link en klik op Statistics van mijn website"
 
 msgid "Default image:"
 msgstr "Standaard afbeelding:"
@@ -63,10 +64,10 @@ msgid "Display all these buttons in the excerpt ?"
 msgstr "Al deze buttons in de samenvatting weergeven?"
 
 msgid "These buttons should be displayed in excerpt:"
-msgstr "Deze buttons zouden in de samenvatting worden weergegeven: "
+msgstr "Deze buttons zouden in de samenvatting worden weergegeven:"
 
 msgid "Where do you want to display the buttons in post ?"
-msgstr "Waar wilt u de buttons in de post tonen? "
+msgstr "Waar wilt u de buttons in de post tonen?"
 
 msgid "At the Top:"
 msgstr "Bovenaan:"
@@ -75,26 +76,38 @@ msgid "At the Bottom:"
 msgstr "Onderaan:"
 
 msgid "Where do you want to display the buttons in page ?"
-msgstr "Waar wilt u de buttons in de pagina tonen? "
+msgstr "Waar wilt u de buttons in de pagina tonen?"
 
 msgid "Parameters"
-msgstr "Parameters "
+msgstr "Parameters"
 
 msgid "Manage translations"
 msgstr "Manage vertalingen"
 
 msgid "Give feedback"
-msgstr "Geef feedback "
+msgstr "Geef feedback"
 
 msgid "Other plugins"
 msgstr "Andere plugins"
 
 msgid "Share -%s- on %s"
-msgstr "Deel -%s- op %s "
+msgstr "Deel -%s- op %s"
 
 msgid "Tweet"
-msgstr "Tweet "
+msgstr "Tweet"
 
 msgid "Print"
-msgstr "Print "
+msgstr "Print"
+
+msgid "Add SocialLinkz buttons"
+msgstr "Voeg SocialLinkz buttons toe"
+
+msgid "The maximum number of emails for each mailing:"
+msgstr "Het maximaal aantal emails voor iedere mailing:"
+
+msgid "The name used to send the email:"
+msgstr "De naam van de verzender van de email:"
+
+msgid "The mail address used to send the email:"
+msgstr "Het emailadres waarmee de email wordt verstuurd:"
 

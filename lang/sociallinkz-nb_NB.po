@@ -4,9 +4,10 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2012-03-21T07:03:24+00:00\n"
+"PO-Revision-Date: 2012-10-10T05:16:22+00:00\n"
 "Last-Translator: Hkon <hakon.fanebust@hotmail.com>\n"
 "Last-Translator: Hakon <hakon.fanebust@hotmail.com>\n"
+"Last-Translator: MohamedBoyeJalloJamboria <mbjalj@online.no>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -89,4 +90,34 @@ msgstr "Twitre"
 
 msgid "Print"
 msgstr "Skriv ut"
+
+msgid "Please indicate below the emails to which you want to send this article: %s"
+msgstr "Angi nedenfor e-poster dem som du ønsker å sende denne artikkelen:% s"
+
+msgid "Enter one email per line. No more than %s emails."
+msgstr "Angi én e-post per linje. Ikke mer enn% s e-poster."
+
+msgid "Close"
+msgstr "slutt"
+
+msgid "Send"
+msgstr "sende"
+
+msgid "Sending Report"
+msgstr "sende Rapporter"
+
+msgid "Sorry, but you have not provided a name. Please refresh the current page and then retry."
+msgstr "Beklager, men du har ikke gitt et navn. Vennligst oppdater gjeldende side og deretter prøve på nytt."
+
+msgid "%s has recommended this article to you: %s"
+msgstr "%s har anbefalt denne artikkelen til deg: %s"
+
+msgid "Here is an extract of the article:"
+msgstr "Her er et utdrag av artikkelen:"
+
+msgid "Email successfully sent to %s"
+msgstr "E-post sendt til % s"
+
+msgid "Wordpress is unable to send an email to %s"
+msgstr "Wordpress er ikke  i stand til å sende en e-post til% s"
 

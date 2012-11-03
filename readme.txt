@@ -6,7 +6,7 @@ Author URI: http://www.sedlex.fr/
 Plugin URI: http://wordpress.org/extend/plugins/social-linkz/
 Tags: social, facebook, twitter, google, buttons
 Requires at least: 3.0
-Tested up to: 3.4
+Tested up to: 3.4.2
 Stable tag: trunk
 
 Add social links such as Twitter or Facebook in each post. 
@@ -35,19 +35,19 @@ This plugin works with multisite installation.
 
 = Localization =
 
-* German (Germany) translation provided by Olly, FarChris
+* German (Germany) translation provided by Olly, FarChris, Susann
 * English (United States), default language
-* Spanish (Argentina) translation provided by GianFrancoAlarcn
-* Spanish (Spain) translation provided by sesi, AlexSancho, fco
+* Spanish (Argentina) translation provided by GianFrancoAlarcn, Sunombre
+* Spanish (Spain) translation provided by sesi, AlexSancho, fco, JavierLaChica
 * Spanish (Guatemala) translation provided by EnriqueBran
 * Finnish (Finland) translation provided by ProDexorite
 * French (France) translation provided by SedLex, JP, ChristopheReverd
 * Croatian (Croatia) translation provided by nikola
 * Italian (Italy) translation provided by BRENDON-75, BRENDON-75, StefanoBontempi
 * Japanese (Japan) translation provided by Toshi
-* Norwegian (Bokmal) (Norway) translation provided by Hkon, Hakon
+* Norwegian (Bokmal) (Norway) translation provided by Hkon, Hakon, MohamedBoyeJalloJamboria
 * Norwegian (Bokmal) (Norway) translation provided by Hakon, Hkon
-* Dutch (Netherlands) translation provided by HermanTimmermans
+* Dutch (Netherlands) translation provided by HermanTimmermans, Jens
 * Polish (Poland) translation provided by Kajaczek
 * Portuguese (Brazil) translation provided by AndrVasconcellos
 * Turkish (Turkey) translation provided by OsmanERDOAN, Hseyinzkan
@@ -79,6 +79,10 @@ Have fun !
 2. The buttons
 
 == Changelog ==
+
+= 1.4.4 =
+* New url for Google +
+* New API for LinkedIn
 
 = 1.4.3 =
 * English correction
@@ -146,4 +150,4 @@ Have fun !
 Visit http://www.sedlex.fr/cote_geek/
 
  
-InfoVersion:645cf3ba0d512304eba1cf69df96af0f
+InfoVersion:f1ca41807e69ff058980532bdbf3ec84

@@ -244,7 +244,7 @@ msgstr ""
 
 #: social-linkz.php:619
 #@ sociallinkz
-msgid "What is you name?"
+msgid "What is your name?"
 msgstr ""
 
 #: social-linkz.php:621

@@ -3,7 +3,8 @@
 Plugin Name: Social Linkz
 Plugin Tag: social, facebook, twitter, google, buttons
 Description: <p>Add social links such as Twitter or Facebook in each post. </p><p>You can choose the buttons to be displayed such as : </p><ul><li>Twitter</li><li>FaceBook</li><li>LinkedIn</li><li>Viadeo</li><li>GoogleBuzz</li><li>Google+</li><li>StumbleUpon</li><li>Pinterest</li><li>Print</li></ul><p>This plugin is under GPL licence. </p>
-Version: 1.4.3
+Version: 1.4.4
+
 
 
 
@@ -498,7 +499,7 @@ class sociallinkz extends pluginSedLex {
 
 			if ($this->get_param('googleplus_standard')) {
 				?>
-				<a rel="nofollow" target="_blank" href="https://plusone.google.com/_/+1/confirm?url=<?php echo $long_url ; ?>" title="<?php echo sprintf(__("Share -%s- on %s", $this->pluginID), htmlentities($titre, ENT_QUOTES, 'UTF-8'), "Googe+") ; ?>">
+				<a rel="nofollow" target="_blank" href="https://plus.google.com/share?url=<?php echo $long_url ; ?>" title="<?php echo sprintf(__("Share -%s- on %s", $this->pluginID), htmlentities($titre, ENT_QUOTES, 'UTF-8'), "Googe+") ; ?>">
 					<img class="lnk_social_linkz" src="<?php echo WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__)) ; ?>/img/lnk_googleplus.png" alt="Google+" height="24" width="24"/></a>
 				<?php
 				if ($this->get_param('googleplus_standard_count')) {
@@ -723,7 +724,7 @@ class sociallinkz extends pluginSedLex {
 		if ((is_array($counter))&&($counter['date']+(30*60)>time())&&(is_numeric($counter['count']))) {
 			$nb = $counter['count'] ; 
 		} else {
-			$result = wp_remote_get('http://www.linkedin.com/cws/share-count?url=' .  $url ); 
+			$result = wp_remote_get('http://www.linkedin.com/countserv/count/share?url=' .  $url ); 
 			$old_counter = 0 ; 
 			if (is_array($counter)) {
 				$old_counter = explode(" ", $counter['count']) ; 
