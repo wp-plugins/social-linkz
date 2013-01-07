@@ -6,7 +6,7 @@ Author URI: http://www.sedlex.fr/
 Plugin URI: http://wordpress.org/extend/plugins/social-linkz/
 Tags: social, facebook, twitter, google, buttons
 Requires at least: 3.0
-Tested up to: 3.4.2
+Tested up to: 3.5
 Stable tag: trunk
 
 Add social links such as Twitter or Facebook in each post. 
@@ -21,11 +21,14 @@ You can choose the buttons to be displayed such as :
 * FaceBook
 * LinkedIn
 * Viadeo
-* GoogleBuzz
 * Google+
 * StumbleUpon
 * Pinterest
 * Print
+
+If you want to add the buttons in a very specific location, your may edit your theme and insert $this-&gt;print_buttons($post); (be sure that $post refer to the current post). 
+
+It is also possible to add a widget to display buttons. 
 
 This plugin is under GPL licence. 
 
@@ -42,6 +45,7 @@ This plugin works with multisite installation.
 * Spanish (Guatemala) translation provided by EnriqueBran
 * Finnish (Finland) translation provided by ProDexorite
 * French (France) translation provided by SedLex, JP, ChristopheReverd
+* Galician (Spain) translation provided by prios
 * Croatian (Croatia) translation provided by nikola
 * Italian (Italy) translation provided by BRENDON-75, BRENDON-75, StefanoBontempi
 * Japanese (Japan) translation provided by Toshi
@@ -80,18 +84,17 @@ Have fun !
 
 == Changelog ==
 
-= 1.4.4 =
+= 1.5.0 =
+* Change the method to store the counters
+* Improve the detection
+* Add the hosted viadeo buttons
+
+= 1.4.0 -&gt; 1.4.4 =
 * New url for Google +
 * New API for LinkedIn
-
-= 1.4.3 =
 * English correction
 * New icon for twitter
-
-= 1.4.2 =
 * Correct a bug with some installation and the button
-
-= 1.4.1 =
 * Add a tinyMCE button and a shortcode to put buttons wherever you want
 
 = 1.4.0 =
@@ -150,4 +153,4 @@ Have fun !
 Visit http://www.sedlex.fr/cote_geek/
 
  
-InfoVersion:f1ca41807e69ff058980532bdbf3ec84
+InfoVersion:c789698f775a4df24c3d4da8b3c9edb0

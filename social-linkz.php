@@ -2,12 +2,8 @@
 /**
 Plugin Name: Social Linkz
 Plugin Tag: social, facebook, twitter, google, buttons
-Description: <p>Add social links such as Twitter or Facebook in each post. </p><p>You can choose the buttons to be displayed such as : </p><ul><li>Twitter</li><li>FaceBook</li><li>LinkedIn</li><li>Viadeo</li><li>GoogleBuzz</li><li>Google+</li><li>StumbleUpon</li><li>Pinterest</li><li>Print</li></ul><p>This plugin is under GPL licence. </p>
-Version: 1.4.4
-
-
-
-
+Description: <p>Add social links such as Twitter or Facebook in each post. </p><p>You can choose the buttons to be displayed such as : </p><ul><li>Twitter</li><li>FaceBook</li><li>LinkedIn</li><li>Viadeo</li><li>Google+</li><li>StumbleUpon</li><li>Pinterest</li><li>Print</li></ul><p>If you want to add the buttons in a very specific location, your may edit your theme and insert <code>$this->print_buttons($post);</code> (be sure that <code>$post</code> refer to the current post). </p><p>It is also possible to add a widget to display buttons. </p><p>This plugin is under GPL licence. </p>
+Version: 1.5.0
 Author: SedLex
 Author Email: sedlex@sedlex.fr
 Framework Email: sedlex@sedlex.fr
@@ -25,7 +21,7 @@ class sociallinkz extends pluginSedLex {
 	* @return void
 	*/
 	static $instance = false;
-	static $path = false;
+	var $path = false;
 	
 
 	protected function _init() {
@@ -33,7 +29,7 @@ class sociallinkz extends pluginSedLex {
 		global $do_not_show_inSocialLinkz ; 
 		// Configuration
 		$this->pluginName = 'Social Linkz' ; 
-		$this->tableSQL = "" ; 
+		$this->tableSQL = "id mediumint(9) NOT NULL AUTO_INCREMENT, id_post mediumint(9) NOT NULL, counters MEDIUMTEXT DEFAULT '', date_maj DATETIME, UNIQUE KEY id (id)" ; 
 		$this->table_name = $wpdb->prefix . "pluginSL_" . get_class() ; 
 		$this->path = __FILE__ ; 
 		$this->pluginID = get_class() ; 
@@ -41,23 +37,20 @@ class sociallinkz extends pluginSedLex {
 		//Init et des-init
 		register_activation_hook(__FILE__, array($this,'install'));
 		register_deactivation_hook(__FILE__, array($this,'deactivate'));
-		register_uninstall_hook(__FILE__, array($this,'uninstall_removedata'));
+		register_uninstall_hook(__FILE__, array('sociallinkz','uninstall_removedata'));
 		
 		//Parametres supplementaires
-		$this->excerpt_called = false ; 
-		add_filter('the_content', array($this,'print_social_linkz'), 1000);
-		
-		add_action('wp_print_styles', array( $this, 'addcss'), 1);
-		add_action('wp_print_scripts', array($this,'header_init'));
-		add_filter('get_the_excerpt', array( $this, 'the_excerpt'),1000000);
-		add_filter('get_the_excerpt', array( $this, 'the_excerpt_ante'),2);
-		
 		add_shortcode( 'sociallinkz', array( $this, 'display_button_shortcode' ) );
 
-		add_action( 'wp_ajax_nopriv_emailSocialLinkz', array( $this, 'emailSocialLinkz'));
+		add_action( 'wp_ajax_nopriv_forceUpdateSocialLinkz', array( $this, 'forceUpdateSocialLinkz'));
+		add_action( 'wp_ajax_forceUpdateSocialLinkz', array( $this, 'forceUpdateSocialLinkz'));
+		
 		add_action( 'wp_ajax_emailSocialLinkz', array( $this, 'emailSocialLinkz'));
 		
+		wp_register_sidebar_widget('social_linkz', 'Social Linkz', array( $this, '_sidebar_widget'), array('description' => __('Display the social buttons as a widget.', $this->pluginID)));
+		
 		$do_not_show_inSocialLinkz = false ; 
+		
 	}
 	/**
 	 * Function to instantiate our class and make it a singleton
@@ -67,6 +60,73 @@ class sociallinkz extends pluginSedLex {
 			self::$instance = new self;
 		}
 		return self::$instance;
+	}
+	
+	/**====================================================================================================================================================
+	* To display the widget.
+	*
+	* @return void
+	*/
+	
+	public function _sidebar_widget() {
+		$id = url_to_postid($_SERVER['REQUEST_URI']) ; 
+		if ($id==0) {
+			$post_art = new stdClass() ;
+			$post_art->ID = 0 ; 
+			echo $this->print_buttons($post_art) ; 
+		} else {
+			$post_art = get_post($id) ; 
+			echo $this->print_buttons($post_art) ; 
+		} 
+	}
+	
+	/**====================================================================================================================================================
+	* Function called when the plugin is activated
+	* For instance, you can do stuff regarding the update of the format of the database if needed
+	* If you do not need this function, you may delete it.
+	*
+	* @return void
+	*/
+	
+	public function _update() {
+		SL_Debug::log(get_class(), "Update the plugin." , 4) ; 
+		// Delete the former counter ...
+		$names = $this->get_name_params() ; 
+		foreach($names as $n) {
+			if (strpos($n, "counter_")===0) {
+				$this->del_param($n) ; 
+			}
+		}
+	}	
+	/** ====================================================================================================================================================
+	* In order to uninstall the plugin, few things are to be done ... 
+	* (do not modify this function)
+	* 
+	* @return void
+	*/
+	
+	public function uninstall_removedata () {
+		global $wpdb ;
+		// DELETE OPTIONS
+		delete_option('sociallinkz'.'_options') ;
+		if (is_multisite()) {
+			delete_site_option('sociallinkz'.'_options') ;
+		}
+		
+		// DELETE SQL
+		if (function_exists('is_multisite') && is_multisite()){
+			$old_blog = $wpdb->blogid;
+			$old_prefix = $wpdb->prefix ; 
+			// Get all blog ids
+			$blogids = $wpdb->get_col($wpdb->prepare("SELECT blog_id FROM ".$wpdb->blogs));
+			foreach ($blogids as $blog_id) {
+				switch_to_blog($blog_id);
+				$wpdb->query("DROP TABLE ".str_replace($old_prefix, $wpdb->prefix, $wpdb->prefix . "pluginSL_" . 'sociallinkz')) ; 
+			}
+			switch_to_blog($old_blog);
+		} else {
+			$wpdb->query("DROP TABLE ".$wpdb->prefix . "pluginSL_" . 'sociallinkz' ) ; 
+		}
 	}
 
 	/** ====================================================================================================================================================
@@ -114,17 +174,14 @@ class sociallinkz extends pluginSedLex {
 			case 'linkedin_hosted_count' 		: return false 	; break ; 
 
 			case 'viadeo' 					: return false 	; break ; 
+			case 'viadeo_hosted' 					: return false 	; break ; 
+			case 'viadeo_hosted_count' 		: return false 	; break ; 
 						
 			case 'googleplus_standard' 					: return false 	; break ; 
 			case 'googleplus_standard_count' 					: return false 	; break ; 
 			case 'googleplus' 					: return true 	; break ; 
 			case 'googleplus_count' 			: return true 	; break ; 
 
-			case 'googlebuzz' 					: return false 	; break ; 
-			case 'googlebuzz_count' 			: return false	; break ; 
-			case 'googlebuzz_hosted'			: return false	; break ; 
-			case 'googlebuzz_hosted_count'			: return false	; break ; 
-			
 			case 'facebook' 					: return true 	; break ; 
 			case 'facebook_id' 					: return "" 	; break ; 
 			case 'facebook_count' 					: return false 	; break ; 
@@ -142,6 +199,8 @@ class sociallinkz extends pluginSedLex {
 			case 'mail_address'					: return  get_option('admin_email') ; break ; 
 			case 'mail_name'						: return get_bloginfo('name'); break ; 
 
+			case 'refresh_time'						: return 10; break ; 
+
 			case 'html'	 					: return "*<div class='social_linkz'>
    %buttons%
 </div>" 	; break ; 
@@ -156,16 +215,25 @@ class sociallinkz extends pluginSedLex {
 	border-bottom-width: 0px;
 	border-bottom-style: none;
 }" 	; break ; 
+
+			case 'exclude' : return "*" 		; break ; 
+
 		}
 		return null ;
 	}
 
 	/** ====================================================================================================================================================
-	* Add the Google API for the scripts, Facebook Insight tags
-	* 
+	* Init javascript for the public side
+	* If you want to load a script, please type :
+	* 	<code>wp_enqueue_script( 'jsapi', 'https://www.google.com/jsapi');</code> or 
+	*	<code>wp_enqueue_script('my_plugin_script', plugins_url('/script.js', __FILE__));</code>
+	*	<code>$this->add_inline_js($js_text);</code>
+	*	<code>$this->add_js($js_url_file);</code>
+	*
 	* @return void
 	*/
-	function header_init() {
+	
+	function _public_js_load() {	
 		//Google API for the scripts
 		wp_enqueue_script('google_plus', 'https://apis.google.com/js/plusone.js');
 		//Facebook Insight tags
@@ -203,14 +271,22 @@ class sociallinkz extends pluginSedLex {
 			$java = ob_get_clean() ; 
 			$this->add_inline_js($java) ; 
 		}
+		
+		ob_start() ; 
+		
+		
 	}
 	
 	/** ====================================================================================================================================================
-	* Add CSS
-	* 
+	* Init css for the public side
+	* If you want to load a style sheet, please type :
+	*	<code>$this->add_inline_css($css_text);</code>
+	*	<code>$this->add_css($css_url_file);</code>
+	*
 	* @return void
 	*/
-	function addcss() {
+	
+	function _public_css_load() {	
 		$this->add_inline_css($this->get_param('css')) ; 
 	}
 	
@@ -265,8 +341,8 @@ class sociallinkz extends pluginSedLex {
 				$params->add_param('facebook_hosted_share', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_facebook_hosted_share.png'/> ".sprintf(__('The official %s button:',$this->pluginID), "Share ".$title)) ; 
 				$params->add_comment(__('The SSL websites may not work properly with this official button... Moreover the rendering is not perfect !',$this->pluginID)) ; 
 				$params->add_param('facebook_id', __('Your FaceBook ID to enable Insight:',$this->pluginID)) ; 
-				$params->add_comment(sprintf(__('Insight provides metrics around your content. See %shere%s for futher details. To identify your Facebook ID, please visit the previous link and then click on Statistic of my website',$this->pluginID), "<a href='http://www.facebook.com/insights'>", "</a>")) ; 
-				
+				$params->add_comment(sprintf(__('Insight provides metrics around your content. See %s for futher details. To identify your Facebook ID, please visit the previous link and then click on Statistic of my website.',$this->pluginID), "<a href='http://www.facebook.com/insights'>Facebook Insights</a>")) ; 
+				$params->add_comment(__('You may use an user id, an app id or a page id.',$this->pluginID)) ; 
 				$title = "LinkedIn&#8482;" ; 
 				$params->add_title(sprintf(__('Display %s button?',$this->pluginID), $title)) ; 
 				$params->add_param('linkedin', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_linkedin.png'/> ".sprintf(__('The %s button:',$this->pluginID), $title),"","",array('linkedin_count')) ; 
@@ -280,16 +356,9 @@ class sociallinkz extends pluginSedLex {
 				$params->add_title(sprintf(__('Display %s button?',$this->pluginID), $title)) ; 
 				$params->add_param('viadeo', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_viadeo.png'/> ".sprintf(__('The %s button:',$this->pluginID), $title)) ; 
 				$params->add_comment(sprintf(__('To share the post on %s !',$this->pluginID), $title)) ; 
-				
-				$title = "GoogleBuzz&#8482;" ; 
-				$params->add_title(sprintf(__('Display %s button?',$this->pluginID), $title)) ; 
-				$params->add_param('googlebuzz', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_googlebuzz.png'/> ".sprintf(__('The %s button:',$this->pluginID), $title),"","",array('googlebuzz_count')) ; 
-				$params->add_comment(sprintf(__('To share the post on %s !',$this->pluginID), $title)) ; 
-				$params->add_param('googlebuzz_count', sprintf(__('Show the counter of this %s button:',$this->pluginID), $title))  ; 
-				$params->add_param('googlebuzz_hosted', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_googlebuzz_hosted.png'/> ".sprintf(__('The official %s button:',$this->pluginID), $title),"","",array('googlebuzz_hosted_count')) ; 
-				$params->add_comment(__('The SSL websites may not work properly with this official button... Moreover the rendering is not perfect !',$this->pluginID)) ; 
-				$params->add_param('googlebuzz_hosted_count', sprintf(__('Show the counter of this official %s button:',$this->pluginID), $title) ) ; 
-				
+				$params->add_param('viadeo_hosted', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_viadeo_hosted.png'/> ".sprintf(__('The official %s button:',$this->pluginID), $title),"","",array('viadeo_hosted_count')) ; 
+				$params->add_param('viadeo_hosted_count', sprintf(__('Show the counter of this official %s button:',$this->pluginID), $title) ) ; 
+
 				$title = "Google+&#8482;" ; 
 				$params->add_title(sprintf(__('Display %s button?',$this->pluginID), $title)) ; 
 				$params->add_param('googleplus_standard', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_googleplus.png'/> ".sprintf(__('The %s button:',$this->pluginID), $title),"","",array('googleplus_standard_count')) ; 
@@ -328,8 +397,8 @@ class sociallinkz extends pluginSedLex {
 				$params->add_comment(sprintf(__('You may use the admin email %s, a noreply address such as %s or any other email',$this->pluginID), "<code>".get_option('admin_email')."</code>","<code>noreply@".str_replace("www.", "", $address[2])."</code>")) ; 
 				
 				$params->add_title(__('Display all these buttons in the excerpt?',$this->pluginID)) ; 
-				$params->add_param('display_in_excerpt', "".__('These buttons should be displayed in excerpt:',$this->pluginID)) ; 
-				
+				$params->add_param('display_in_excerpt', __('These buttons should be displayed in excerpt:',$this->pluginID)) ; 
+
 				$params->add_title(__('Where do you want to display the buttons in post?',$this->pluginID)) ; 
 				$params->add_param('display_top_in_post', "".__('At the Top:',$this->pluginID)) ; 
 				$params->add_param('display_bottom_in_post', "".__('At the Bottom:',$this->pluginID)) ; 
@@ -339,12 +408,15 @@ class sociallinkz extends pluginSedLex {
 				$params->add_param('display_bottom_in_page', "".sprintf(__('At the Bottom:',$this->pluginID), $title)) ; 
 				
 				$params->add_title(__('Advanced options',$this->pluginID)) ; 
+				$params->add_param('refresh_time', __('Number of minutes between two refreshes:',$this->pluginID)) ; 
 				$params->add_param('html', __('HTML:',$this->pluginID)) ; 
 				$default = str_replace("*", "", str_replace(" ", "&nbsp;", str_replace("\n", "<br>", str_replace(">", "&gt;", str_replace("<", "&lt;", $this->get_default_option('html'))))))."<br/>" ; 
 				$params->add_comment(sprintf(__('Default HTML is : %s with %s the displayed buttons',$this->pluginID), "<br/>"."<code>".$default."</code>", "<code>%buttons%</code>")) ; 
 				$params->add_param('css', __('CSS:',$this->pluginID)) ; 
 				$default = str_replace("*", "", str_replace(" ", "&nbsp;", str_replace("\n", "<br>", str_replace(">", "&gt;", str_replace("<", "&lt;", $this->get_default_option('css'))))))."<br/>" ; 
 				$params->add_comment(sprintf(__('Default CSS is : %s',$this->pluginID), "<br/>"."<code>".$default."</code>")) ; 
+				$params->add_param('exclude', __('Page to be excluded:',$this->pluginID)) ; 
+				$params->add_comment(sprintf(__("Please enter one entry per line. If the page %s is to be excluded, you may enter %s.",  $this->pluginID), "<code>http://yourdomain.tld/contact/</code>","<code>contact</code>")) ; 
 
 				$params->flush() ; 
 			$tabs->add_tab(__('Parameters',  $this->pluginID), ob_get_clean() , WP_PLUGIN_URL.'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__))."core/img/tab_param.png") ; 	
@@ -374,17 +446,39 @@ class sociallinkz extends pluginSedLex {
 	}
 	
 	/** ====================================================================================================================================================
-	* Get the social button at the end of the posts
-	* 
-	* @return void
+	* Called when the content is displayed
+	*
+	* @param string $content the content which will be displayed
+	* @param string $type the type of the article (e.g. post, page, custom_type1, etc.)
+	* @param boolean $excerpt if the display is performed during the loop
+	* @return string the new content
 	*/
-
-	function print_social_linkz ($content) {
+	
+	function _modify_content($content, $type, $excerpt) {	
 		global $post ; 
+		
+		// We check whether there is an exclusion
+		$exclu = $this->get_param('exclude') ;
+		$exclu = explode("\n", $exclu) ;
+		foreach ($exclu as $e) {
+			$e = trim(str_replace("\r", "", $e)) ; 
+			if ($e!="") {
+				$e = "@".$e."@i"; 
+				if (preg_match($e, get_permalink($post->ID))) {
+					return $content ; 
+				}
+			}
+		}
+		
 		// If it is the loop and an the_except is called, we leave
-		if (! is_single()) {
-			// If page 
-			if (is_page()) {
+		if ($excerpt) {
+			// Excerpt
+			if ($this->get_param('display_in_excerpt')) {
+				return $content.$this->print_buttons($post) ; 
+			}
+		} else {
+			// Page
+			if ($type=="page") {
 				$return =  $content ; 
 				if ($this->get_param('display_bottom_in_page')) {
 					$return =  $return.$this->print_buttons($post) ;  
@@ -392,26 +486,19 @@ class sociallinkz extends pluginSedLex {
 				if ($this->get_param('display_top_in_page')) {
 					$return =  $this->print_buttons($post).$return ; 
 				}
-				return $return; 	
-			// else
-			} else {
-				// if post
-				if (($this->get_param('display_in_excerpt')) && (!$this->excerpt_called)) {
-					return $content.$this->print_buttons($post) ; 
+				return $return; 				
+			}
+			// Post
+			if ($type=="post") {
+				$return =  $content ; 
+				if ($this->get_param('display_bottom_in_post')) {
+					$return =  $return.$this->print_buttons($post) ;  
 				}
-				return $content ; 
+				if ($this->get_param('display_top_in_post')) {
+					$return =  $this->print_buttons($post).$return ; 
+				}
+				return $return; 				
 			}
-		} else {
-
-			$return =  $content ; 
-			if ($this->get_param('display_bottom_in_post')) {
-				$return =  $return.$this->print_buttons($post) ;  
-			}
-			if ($this->get_param('display_top_in_post')) {
-				$return =  $this->print_buttons($post).$return ; 
-			}
-			return $return ; 
-
 		}
 	}
 		
@@ -434,10 +521,39 @@ class sociallinkz extends pluginSedLex {
 	
 	function print_buttons($post) {
 		global $do_not_show_inSocialLinkz ; 
-	
-		$url = wp_get_shortlink($post->ID) ; 
-		$long_url = get_permalink($post->ID) ; 
-		$titre = $post->post_title ; 
+		
+		$rand = rand(0,1000000000) ; 
+		?>
+		<script>
+			function forceUpdateSocialLinkz_<?php echo $rand ; ?>() {	
+				var arguments = {
+					action: 'forceUpdateSocialLinkz', 
+					id:<?php echo $post->ID ;  ?>
+				} 
+				//POST the data and append the results to the results div
+				var ajaxurl2 = "<?php echo admin_url()."admin-ajax.php"?>" ; 
+				jQuery.post(ajaxurl2, arguments, function(response) {
+					// nothing
+				});
+			}
+			
+			// We launch the callback
+			if (window.attachEvent) {window.attachEvent('onload', forceUpdateSocialLinkz_<?php echo $rand ; ?>);}
+			else if (window.addEventListener) {window.addEventListener('load', forceUpdateSocialLinkz_<?php echo $rand ; ?>, false);}
+			else {document.addEventListener('load', forceUpdateSocialLinkz_<?php echo $rand ; ?>, false);} 
+		</script>
+
+		<?php
+		
+		if ($post->ID==0) {
+			$url = home_url("/") ; 
+			$long_url = home_url("/") ; 
+			$titre = get_bloginfo('name') ." - ".get_bloginfo('description') ; 		
+		} else {
+			$url = wp_get_shortlink($post->ID) ; 
+			$long_url = get_permalink($post->ID) ; 
+			$titre = $post->post_title ; 
+		}
 		
 		if ($do_not_show_inSocialLinkz) {
 			return ; 
@@ -452,7 +568,7 @@ class sociallinkz extends pluginSedLex {
 					<img class="lnk_social_linkz" src="<?php echo WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__)) ; ?>/img/lnk_facebook.png" alt="Facebook" height="24" width="24"/></a>
 				<?php
 				if ($this->get_param('facebook_count')) {
-					$this->display_bubble($this->get_facebook_counter($long_url)) ; 
+					$this->display_bubble($this->get_counter("facebook", $post->ID)) ; 
 				}
 			}
 			
@@ -479,7 +595,7 @@ class sociallinkz extends pluginSedLex {
 					<img class="lnk_social_linkz" src="<?php echo WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__)) ;  ?>/img/lnk_twitter.png" alt="Twitter" height="24" width="24"/></a>
 				<?php
 				if ($this->get_param('twitter_count')) {
-					$this->display_bubble($this->get_twitter_counter($long_url)) ; 
+					$this->display_bubble($this->get_counter("twitter", $post->ID)) ; 
 				}
 			}
 			
@@ -503,7 +619,7 @@ class sociallinkz extends pluginSedLex {
 					<img class="lnk_social_linkz" src="<?php echo WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__)) ; ?>/img/lnk_googleplus.png" alt="Google+" height="24" width="24"/></a>
 				<?php
 				if ($this->get_param('googleplus_standard_count')) {
-					$this->display_bubble($this->get_googleplus_counter($long_url)) ; 
+					$this->display_bubble($this->get_counter("google+", $post->ID)) ; 
 				}
 			}
 			
@@ -517,39 +633,19 @@ class sociallinkz extends pluginSedLex {
 				<?php
 			}
 			
-			if ($this->get_param('googlebuzz')) {
-				?>
-				<a rel="nofollow" target="_blank" href="http://www.google.com/buzz/post?message=<?php the_title(); ?>&url=<?php echo $long_url ; ?>" title="<?php echo sprintf(__("Share -%s- on %s", $this->pluginID), htmlentities($titre, ENT_QUOTES, 'UTF-8'), "GoogleBuzz") ; ?>">
-					<img class="lnk_social_linkz" src="<?php echo WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__)) ; ?>/img/lnk_googlebuzz.png" alt="Google Buzz" height="24" width="24"/></a>
-				<?php
-				if ($this->get_param('googlebuzz_count')) {
-					$this->display_bubble($this->get_googlebuzz_counter($long_url)) ; 
-				}
-			}
-			
-			if ($this->get_param('googlebuzz_hosted')) {
-				$type = "small-button" ; 
-				if ($this->get_param('googlebuzz_hosted_count')) {
-					$type = "small-count" ; 
-				}
-				?>
-				<a class="google-buzz-button" href="http://www.google.com/buzz/post" data-button-style="<? echo $type ?>"></a>
-				<script type="text/javascript" src="http://www.google.com/buzz/api/button.js"></script>
-				<?php
-			}
 			if ($this->get_param('linkedin')) {
 				?>
 				<a rel="nofollow" target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&url=<?php echo urlencode($long_url) ; ?>&title=<?php echo str_replace('+','%20',urlencode("[Blog] ".$titre)) ; ?>&source=<?php echo urlencode(get_bloginfo('name')) ; ?>" title="<?php echo sprintf(__("Share -%s- on %s", $this->pluginID), htmlentities($titre, ENT_QUOTES, 'UTF-8'), "LinkedIn") ; ?>">
 					<img class="lnk_social_linkz" src="<?php echo WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__)) ;  ?>/img/lnk_linkedin.png" alt="LinkedIn" height="24" width="24"/></a>
 				<?php
 				if ($this->get_param('linkedin_count')) {
-					$this->display_bubble($this->get_linkedin_counter($long_url)) ; 
+					$this->display_bubble($this->get_counter("linkedin", $post->ID)) ; 
 				}
 			}
 			
 			if ($this->get_param('linkedin_hosted')) {
 				$coun = "" ; 
-				if ($this->get_param('linkedin_hosted_count')!="") {
+				if ($this->get_param('linkedin_hosted_count')) {
 					$coun = 'data-counter="right"' ; 
 				}
 				?>
@@ -564,13 +660,25 @@ class sociallinkz extends pluginSedLex {
 				<?php
 			}
 			
+			if ($this->get_param('viadeo_hosted')) {
+				$coun = "" ; 
+				if ($this->get_param('linkedin_hosted_count')) {
+					$coun = 'data-count="right"' ; 
+				}
+				$viadeoUrl = 'data-url="'.$url.'"' ; 
+				?>
+				
+				<script type="text/javascript">window.viadeoWidgetsJsUrl = document.location.protocol+"//widgets.viadeo.com";(function(){var e = document.createElement('script'); e.type='text/javascript'; e.async = true;e.src = viadeoWidgetsJsUrl+'/js/viadeowidgets.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(e, s);})();</script><div class="viadeo-share" <?php echo $viadeoUrl ?> data-display="btnlight" <?php echo $coun ;?> ></div>
+				<?php
+			}
+			
 			if ($this->get_param('stumbleupon')) {
 				?>
 				<a rel="nofollow" target="_blank" href="http://www.stumbleupon.com/submit?url=<?php echo urlencode($long_url) ; ?>&title=<?php echo str_replace('+','%20',urlencode("[Blog] ".$titre)) ; ?>" title="<?php echo sprintf(__("Share -%s- on %s", $this->pluginID), htmlentities($titre, ENT_QUOTES, 'UTF-8'), "StumbleUpon") ; ?>">
 					<img class="lnk_social_linkz" src="<?php echo WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__)) ;  ?>/img/lnk_stumbleupon.png" alt="StumbleUpon" height="24" width="24"/></a>
 				<?php
 				if ($this->get_param('stumbleupon_count')) {
-					$this->display_bubble($this->get_stumbleupon_counter($long_url)) ; 
+					$this->display_bubble($this->get_counter("stumbleupon", $post->ID)) ; 
 				}
 			}
 			
@@ -632,236 +740,199 @@ class sociallinkz extends pluginSedLex {
 		<?php
 		$content = ob_get_contents();
 		ob_end_clean();
-		return str_replace('%buttons%', $content, $this->get_param('html')) ; 
+		return trim(str_replace("\r", "", str_replace("\n", "", str_replace('%buttons%', $content, $this->get_param('html'))))) ; 
 	}
 	
 	
 	/** ====================================================================================================================================================
-	* Get  twitter counter
+	* Get counter
 	* 
 	* @return void
 	*/
 
-	function get_twitter_counter($url) {
-		$counter = $this->get_param('counter_twitter'.url_to_postid($url)) ; 
-		// update every 30min
-		if ((is_array($counter))&&($counter['date']+(30*60)>time())&&(is_numeric($counter['count']))) {
-			$nb = $counter['count']; 
+	function get_counter($social, $id) {
+		global $wpdb ; 
+		if (isset($this->cache[$id]->{$social})) {
+			return $this->cache[$id]->{$social} ; 
 		} else {
-			$result = wp_remote_get('http://urls.api.twitter.com/1/urls/count.json?url=' .  $url ); 
-			$old_counter = 0 ; 
-			if (is_array($counter)) {
-				$old_counter = explode(" ", $counter['count']) ; 
-				$old_counter = $old_counter[0] ; 
-			}
-			if ( is_wp_error($result) ) {
-				$nb = trim(intval($old_counter)." *") ;
+			$select = "SELECT counters FROM ".$this->table_name." WHERE id_post='".$id."'" ;
+			$result = $wpdb->get_var($select) ; 
+			if (($result==null)||($result==false)||($result=="")) {
+				return 0 ; 
 			} else {
-				$res = @json_decode($result['body'], true);
-				if (isset($res['count'])) {
-					if (intval($res['count'])>intval($old_counter))
-						$nb =  $res['count'];
-					else 
-						$nb = intval($old_counter) ; 
+				$result = @json_decode($result) ;
+				if ($result==NULL) {
+					return 0 ; 
 				} else {
-					$nb =  trim(intval($old_counter)." ?") ;
-				}
-			}	
-			$this->set_param('counter_twitter'.url_to_postid($url), array('date'=>time(), 'count'=>$nb)) ; 
-		}
-		return $nb ; 
-	}
-	
-	/** ====================================================================================================================================================
-	* Get  facebook counter
-	* 
-	* @return void
-	*/
-
-	function get_facebook_counter($url) {
-		$counter = $this->get_param('counter_facebook'.url_to_postid($url)) ; 
-		// update every 30min
-		if ((is_array($counter))&&($counter['date']+(30*60)>time())&&(is_numeric($counter['count']))) {
-			$nb = $counter['count'] ; 
-		} else {
-			$result = wp_remote_get('http://graph.facebook.com/?ids=' .  $url ); 
-			$old_counter = 0 ; 
-			if (is_array($counter)) {
-				$old_counter = explode(" ", $counter['count']) ; 
-				$old_counter = $old_counter[0] ; 
-			}
-			if ( is_wp_error($result) ) {
-				$nb = trim(intval($old_counter)." *") ;
-			} else {
-				$res = @json_decode($result['body'], true);
-				if (isset($res[$url]['shares'])) {
-					if (intval($res[$url]['shares'])>intval($old_counter))
-						$nb =  $res[$url]['shares'];
-					else 
-						$nb = intval($old_counter) ; 
-				} else {
-					if (isset($res[$url]['id'])){
-						$nb =  intval($old_counter) ; 
+					// Cache the result to avoid plurality of Mysql Request
+					$this->cache[$id] = $result ; 
+					// Return the result
+					if (isset($result->{$social})) {
+						return $result->{$social} ; 
 					} else {
-						$nb =  trim(intval($old_counter)." ?") ;
+						return 0 ; 
 					}
 				}
 			}
-			$this->set_param('counter_facebook'.url_to_postid($url), array('date'=>time(), 'count'=>$nb)) ; 
 		}
-		return $nb ; 
 	}
 	
 	/** ====================================================================================================================================================
-	* Get  linkedin counter
+	* Set counter
 	* 
 	* @return void
 	*/
 
-	function get_linkedin_counter($url) {
-		$counter = $this->get_param('counter_linkedin'.url_to_postid($url)) ; 
-		// update every 30min
-		if ((is_array($counter))&&($counter['date']+(30*60)>time())&&(is_numeric($counter['count']))) {
-			$nb = $counter['count'] ; 
+	function set_counter($socials, $id) {
+		global $wpdb ; 
+		$new_counters = array() ; 
+		
+		if ($id==0) {
+			$url = home_url("/") ; 
 		} else {
-			$result = wp_remote_get('http://www.linkedin.com/countserv/count/share?url=' .  $url ); 
-			$old_counter = 0 ; 
-			if (is_array($counter)) {
-				$old_counter = explode(" ", $counter['count']) ; 
-				$old_counter = $old_counter[0] ; 
-			}
-			if ( is_wp_error($result) ) {
-				$nb = trim(intval($old_counter)." *") ;
-			} else {
-				if (!(preg_match('/IN.Tags.Share.handleCount\({"count":(\d+),/i',$result['body'],$tmp))) {
-					$nb =  trim(intval($old_counter)." ?") ;
-				} else {
-					if (intval($tmp[1]) >intval($old_counter))
-						$nb =  $tmp[1] ;
-					else 
-						$nb = intval($old_counter) ; 
-				}
-			}
-			$this->set_param('counter_linkedin'.url_to_postid($url), array('date'=>time(), 'count'=>$nb)) ; 
+			$url = get_permalink($id) ; 
 		}
-		return $nb ; 
-	}
-
-	/** ====================================================================================================================================================
-	* Get  Google+ counter
-	* 
-	* @return void
-	*/
-
-	function get_googleplus_counter($url) {
-		$counter = $this->get_param('counter_googleplus'.url_to_postid($url)) ; 
-		// update every 30min
-		if ((is_array($counter))&&($counter['date']+(30*60)>time())&&(is_numeric($counter['count']))) {
-			$nb = $counter['count'] ; 
-		} else {
-			$nb=0 ; 
-			$post_data = '[{"method":"pos.plusones.get","id":"p","params":{"nolog":true,"id":"' .  $url . '","source":"widget","userId":"@viewer","groupId":"@self"},"jsonrpc":"2.0","key":"p","apiVersion":"v1"}]' ; 
-			$result = wp_remote_post("https://clients6.google.com/rpc?key=AIzaSyCKSbrvQasunBoV16zDH9R33D88CeLr9gQ", array( 'headers' => array('content-type' => 'application/json'), 'body' => $post_data ) );
-			$old_counter = 0 ; 
-			if (is_array($counter)) {
-				$old_counter = explode(" ", $counter['count']) ; 
-				$old_counter = $old_counter[0] ; 
-			}
-			if ( is_wp_error($result) ) {
-				$nb =  trim(intval($old_counter)." *") ;
-			} else {
-				$res = @json_decode($result['body'], true);
-				if (isset($res[0]['result']['metadata']['globalCounts']['count'])) {
-					if (intval($res[0]['result']['metadata']['globalCounts']['count']) >intval($old_counter))
-						$nb =  $res[0]['result']['metadata']['globalCounts']['count'] ;
-					else 
-						$nb = intval($old_counter) ; 
+		
+		foreach ($socials as $s) {
+			$old_counter = $this->get_counter($s, $id) ; 
+			
+			$nb = $old_counter ; 
+			
+			// TWITTER
+			if ($s=="twitter") {
+				$result = wp_remote_get('http://urls.api.twitter.com/1/urls/count.json?url=' .  $url ); 
+				if ( is_wp_error($result) ) {
+					//trigger_error("SOCIAL LINKZ PLUGIN : Twitter API could not be retrieved to count hits") ; 
 				} else {
-					$nb =  trim(intval($old_counter)." ?") ;
-				}
-			}
-			$this->set_param('counter_googleplus'.url_to_postid($url), array('date'=>time(), 'count'=>$nb)) ; 
-		}
-		return $nb ; 
-	}
-	
-	/** ====================================================================================================================================================
-	* Get  GoogleBuzz counter
-	* 
-	* @return void
-	*/
-
-	function get_googlebuzz_counter($url) {
-		$counter = $this->get_param('counter_googlebuzz'.url_to_postid($url)) ; 
-		// update every 30min
-		if ((is_array($counter))&&($counter['date']+(30*60)>time())&&(is_numeric($counter['count']))) {
-			$nb = $counter['count'] ; 
-		} else {
-			$nb=0 ; 
-			$result = wp_remote_get("https://www.googleapis.com/buzz/v1/activities/count?alt=json&url=".$url );
-			$old_counter = 0 ; 
-			if (is_array($counter)) {
-				$old_counter = explode(" ", $counter['count']) ; 
-				$old_counter = $old_counter[0] ; 
-			}
-			if ( is_wp_error($result) ) {
-				$nb =  trim(intval($old_counter)." *") ;
-			} else {
-				$res = @json_decode($result['body'], true);
-				//print_r($res) ; 
-				if (isset($res['data']['counts']['count'])) {
-					if (intval($res['data']['counts']['count']) >intval($old_counter))
-						$nb =  $res['data']['counts']['count'] ;
-					else 
-						$nb = intval($old_counter) ; 					
-				} else {
-					$nb =  trim(intval($old_counter)." ?") ;
-				}
-			}
-			$this->set_param('counter_googlebuzz'.url_to_postid($url), array('date'=>time(), 'count'=>$nb)) ; 
-		}
-		return $nb ; 
-	}
-
-	
-	/** ====================================================================================================================================================
-	* Get  StympleUpon+ counter
-	* 
-	* @return void
-	*/
-
-	function get_stumbleupon_counter($url) {
-		$counter = $this->get_param('counter_stumbleupon'.url_to_postid($url)) ; 
-		// update every 30min
-		if ((is_array($counter))&&($counter['date']+(30*60)>time())&&(is_numeric($counter['count']))) {
-			$nb = $counter['count'] ; 
-		} else {
-			$result = wp_remote_get('http://www.stumbleupon.com/services/1.01/badge.getinfo?url='.$url ); 
-			$old_counter = 0 ; 
-			if (is_array($counter)) {
-				$old_counter = explode(" ", $counter['count']) ; 
-				$old_counter = $old_counter[0] ; 
-			}
-			if ( is_wp_error($result) ) {
-				$nb =  trim($old_counter." *") ;
-			} else {
-				$res = @json_decode($result['body'], true);
-				if (isset($res['result']['views'])) {
-					if (intval($res['result']['views'])>intval($old_counter))
-						$nb =  $res['result']['views'] ;
-					else 
-						$nb = intval($old_counter) ; 		
-				} else {
-					if ((isset($res['result']['in_index'])) && ($res['result']['in_index']==false)){
-						$nb = intval($old_counter) ; 	
+					$res = @json_decode($result['body'], true);
+					if (isset($res['count'])) {
+						if (intval($res['count'])>$old_counter)
+							$nb =  intval($res['count']);
 					} else {
-						$nb =  trim(intval($old_counter)." ?") ;
+						trigger_error("SOCIAL LINKZ PLUGIN : Twitter API responded but no count can be retrieved for $url") ; 
+					}
+				}	
+			}
+			
+			// FACEBOOK
+			if ($s=="facebook") {
+				$result = wp_remote_get("https://graph.facebook.com/fql?q=SELECT%20url,%20normalized_url,%20share_count,%20like_count,%20comment_count,%20total_count,%20commentsbox_count,%20comments_fbid,%20click_count%20FROM%20link_stat%20WHERE%20url='".urlencode($url)."'"); 
+				if ( is_wp_error($result) ) {
+					//trigger_error("SOCIAL LINKZ PLUGIN : Facebook API could not be retrieved to count hits") ; 
+				} else {
+					$res = @json_decode($result['body'], true);
+					if (isset($res['data'][0]['total_count'])) {
+						if (intval($res['data'][0]['total_count'])>$old_counter)
+							$nb =  intval($res['data'][0]['total_count']);
+					} else {
+						ob_start() ; 
+							print_r($res) ; 
+						$more = ob_get_clean() ; 
+						trigger_error("SOCIAL LINKZ PLUGIN : Facebook API responded but no count can be retrieved for $url. <br>$more") ; 
+					}
+				}
+			}		
+			
+			// LINKEDIN
+			if ($s=="linkedin") {
+				$result = wp_remote_get('http://www.linkedin.com/countserv/count/share?url=' .  $url ); 
+				if ( is_wp_error($result) ) {
+					//trigger_error("SOCIAL LINKZ PLUGIN : Linkedin API could not be retrieved to count hits") ; 
+				} else {
+					if (!(preg_match('/IN.Tags.Share.handleCount\({"count":(\d+),/i',$result['body'],$tmp))) {
+						trigger_error("SOCIAL LINKZ PLUGIN : Linkedin API responded but no count can be retrieved for $url") ; 
+					} else {
+						if (intval($tmp[1])>$old_counter)
+							$nb = intval($tmp[1]) ;
+					}
+				}
+			}			
+			
+			// GOOGLE +
+			if ($s=="google+") {
+				$post_data = '[{"method":"pos.plusones.get","id":"p","params":{"nolog":true,"id":"' .  $url . '","source":"widget","userId":"@viewer","groupId":"@self"},"jsonrpc":"2.0","key":"p","apiVersion":"v1"}]' ; 
+				$result = wp_remote_post("https://clients6.google.com/rpc?key=AIzaSyCKSbrvQasunBoV16zDH9R33D88CeLr9gQ", array( 'headers' => array('content-type' => 'application/json'), 'body' => $post_data ) );
+				if ( is_wp_error($result) ) {
+					//trigger_error("SOCIAL LINKZ PLUGIN : Google+ API could not be retrieved to count hits") ; 
+				} else {
+					$res = @json_decode($result['body'], true);
+					if (isset($res[0]['result']['metadata']['globalCounts']['count'])) {
+						if (intval($res[0]['result']['metadata']['globalCounts']['count']) >$old_counter)
+							$nb = intval($res[0]['result']['metadata']['globalCounts']['count']) ;
+					} else {
+						trigger_error("SOCIAL LINKZ PLUGIN : Google+ API responded but no count can be retrieved for $url") ; 
 					}
 				}
 			}
-			$this->set_param('counter_stumbleupon'.url_to_postid($url), array('date'=>time(), 'count'=>$nb)) ; 
+			
+			// STUMBLEUPON
+			if ($s=="stumbleupon") {
+				$result = wp_remote_get('http://www.stumbleupon.com/services/1.01/badge.getinfo?url='.$url ); 
+				if ( is_wp_error($result) ) {
+					//trigger_error("SOCIAL LINKZ PLUGIN : StumbleUpon API could not be retrieved to count hits") ; 
+				} else {
+					$res = @json_decode($result['body'], true);
+					if (isset($res['result']['views'])) {
+						if (intval($res['result']['views'])>intval($old_counter))
+							$nb = intval($res['result']['views']) ;	
+					} else {
+						if ((isset($res['result']['in_index'])) && ($res['result']['in_index']==false)){
+							//  nothing
+						} else {
+							trigger_error("SOCIAL LINKZ PLUGIN : StumbleUpon API responded but no count can be retrieved for $url") ;
+						}
+					}
+				}
+			}
+			
+			$new_counters[$s] = $nb ; 	
 		}
-		return $nb ; 
+		// FINALIZATION
+		$select = "SELECT COUNT(*) FROM ".$this->table_name." WHERE id_post='".$id."'" ;
+		$result = $wpdb->get_var($select) ; 
+		if ($result==0) {
+			$query = "INSERT INTO ".$this->table_name." (id_post, counters, date_maj) VALUES ('".$id."', '".@json_encode($new_counters)."', '".date_i18n("Y-m-d H:i:s")."')" ; 
+		} else {
+			$query = "UPDATE ".$this->table_name." SET counters='".@json_encode($new_counters)."', date_maj='".date_i18n("Y-m-d H:i:s")."' WHERE id_post='".$id."'" ; 
+		}
+		$wpdb->query($query) ; 
+	}
+	
+	/** ====================================================================================================================================================
+	* Callback for updating the counters
+	* 
+	* @return void
+	*/
+	
+	function forceUpdateSocialLinkz() {
+		$id = $_POST['id'] ; 
+		global $wpdb ; 
+		if (!is_numeric($id)) {
+			echo "no_numeric" ; 
+			die() ; 
+		}
+		
+		$select = "SELECT date_maj FROM ".$this->table_name." WHERE id_post='".$id."'" ;
+		$date = $wpdb->get_var($select) ; 
+		$now = strtotime(date_i18n("Y-m-d H:i:s")) ; 
+		$shouldbeupdate = false ; 
+		
+		if (($date==null)||($date==false)||($date=="")) {
+			$shouldbeupdate = true ; 
+		} else {
+			$date = strtotime($date) ; 
+			if ($now-$date>$this->get_param('refresh_time')*60) {
+				$shouldbeupdate = true ; 
+			}
+		}
+		
+		if ($shouldbeupdate) {
+			$this->set_counter(array("twitter", "facebook", "google+", "stumbleupon", "linkedin"), $id) ; 
+			echo "refreshed" ; 
+		} else {
+			echo "nothing" ; 
+		}
+		die() ; 
 	}
 	
 	/** ====================================================================================================================================================
@@ -878,25 +949,7 @@ class sociallinkz extends pluginSedLex {
 		<?php
 	}
 	
-	/** ====================================================================================================================================================
-	* Add the buttons if needed
-	* 
-	* @return void
-	*/
-	function the_excerpt_ante($content) {
-		$this->excerpt_called=true ; 
-		return $content ; 
-	}
-	
-	function the_excerpt($content) {
-		global $post ; 
-	
-		if (($this->get_param('display_in_excerpt')) && ($this->excerpt_called)) {
-			$this->excerpt_called = false ; 
-			return $content.$this->print_buttons($post) ; 
-		}
-		return $content ; 
-	}
+
 	
 	/** ====================================================================================================================================================
 	* Get the URL of the first image of the post

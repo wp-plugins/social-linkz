@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2012-07-27T06:08:37+00:00\n"
+"PO-Revision-Date: 2012-11-06T21:08:05+00:00\n"
 "Last-Translator: SedLex <http://www.sedlex.fr/>\n"
 "Last-Translator: JP <http://architectedelalumiere.fr>\n"
 "Last-Translator: ChristopheReverd <http://www.cedit.ca>\n"
@@ -165,4 +165,10 @@ msgstr "Courriel envoyé avec succès à %s"
 
 msgid "Wordpress is unable to send an email to %s"
 msgstr "Wordpress ne peut envoyer un courriel à %s"
+
+msgid "Add SocialLinkz buttons"
+msgstr "Ajouter les boutons SocialLinkz"
+
+msgid "What is your name?"
+msgstr "Quel est votre nom"
 
