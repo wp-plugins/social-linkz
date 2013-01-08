@@ -3,7 +3,8 @@
 Plugin Name: Social Linkz
 Plugin Tag: social, facebook, twitter, google, buttons
 Description: <p>Add social links such as Twitter or Facebook in each post. </p><p>You can choose the buttons to be displayed such as : </p><ul><li>Twitter</li><li>FaceBook</li><li>LinkedIn</li><li>Viadeo</li><li>Google+</li><li>StumbleUpon</li><li>Pinterest</li><li>Print</li></ul><p>If you want to add the buttons in a very specific location, your may edit your theme and insert <code>$this->print_buttons($post);</code> (be sure that <code>$post</code> refer to the current post). </p><p>It is also possible to add a widget to display buttons. </p><p>This plugin is under GPL licence. </p>
-Version: 1.5.0
+Version: 1.5.1
+
 Author: SedLex
 Author Email: sedlex@sedlex.fr
 Framework Email: sedlex@sedlex.fr
@@ -500,6 +501,8 @@ class sociallinkz extends pluginSedLex {
 				return $return; 				
 			}
 		}
+		
+		return $content ; 
 	}
 		
 	/** ====================================================================================================================================================

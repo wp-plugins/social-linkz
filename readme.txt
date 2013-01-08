@@ -84,6 +84,9 @@ Have fun !
 
 == Changelog ==
 
+= 1.5.1 =
+* Issue with the excerpt
+
 = 1.5.0 =
 * Change the method to store the counters
 * Improve the detection
@@ -153,4 +156,4 @@ Have fun !
 Visit http://www.sedlex.fr/cote_geek/
 
  
-InfoVersion:c789698f775a4df24c3d4da8b3c9edb0
+InfoVersion:8c9980d69b260728ddf498e1ca9cb613
