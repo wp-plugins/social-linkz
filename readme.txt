@@ -84,6 +84,10 @@ Have fun !
 
 == Changelog ==
 
+= 1.5.2 =
+* SSL issue with facebook and some installation
+* improve the Facebook counter
+
 = 1.5.1 =
 * Issue with the excerpt
 
@@ -156,4 +160,4 @@ Have fun !
 Visit http://www.sedlex.fr/cote_geek/
 
  
-InfoVersion:8c9980d69b260728ddf498e1ca9cb613
+InfoVersion:6457a2d8102704c8f07d7ce5f44f06a2

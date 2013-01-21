@@ -2,9 +2,8 @@
 /**
 Plugin Name: Social Linkz
 Plugin Tag: social, facebook, twitter, google, buttons
-Description: <p>Add social links such as Twitter or Facebook in each post. </p><p>You can choose the buttons to be displayed such as : </p><ul><li>Twitter</li><li>FaceBook</li><li>LinkedIn</li><li>Viadeo</li><li>Google+</li><li>StumbleUpon</li><li>Pinterest</li><li>Print</li></ul><p>If you want to add the buttons in a very specific location, your may edit your theme and insert <code>$this->print_buttons($post);</code> (be sure that <code>$post</code> refer to the current post). </p><p>It is also possible to add a widget to display buttons. </p><p>This plugin is under GPL licence. </p>
-Version: 1.5.1
-
+Description: <p>Add social links such as Twitter or Facebook in each post. </p><p>You can choose the buttons to be displayed such as : </p><ul><li>Twitter</li><li>FaceBook</li><li>LinkedIn</li><li>Viadeo</li><li>Google+</li><li>StumbleUpon</li><li>Pinterest</li><li>Print</li></ul><p>It is possible to manually insert the buttons in your post by adding the shortcode <code>[sociallinkz]</code> or <code>[sociallinkz url='http://domain.tld' buttons='facebook,google+' desc='Short description']</code> . </p><p>If you want to add the buttons in a very specific location, your may edit your theme and insert <code>$this->print_buttons($post, [$url], [$buttons]);</code> (be sure that <code>$post</code> refer to the current post). </p><p>It is also possible to add a widget to display buttons. </p><p>This plugin is under GPL licence. </p>
+Version: 1.5.2
 Author: SedLex
 Author Email: sedlex@sedlex.fr
 Framework Email: sedlex@sedlex.fr
@@ -30,7 +29,7 @@ class sociallinkz extends pluginSedLex {
 		global $do_not_show_inSocialLinkz ; 
 		// Configuration
 		$this->pluginName = 'Social Linkz' ; 
-		$this->tableSQL = "id mediumint(9) NOT NULL AUTO_INCREMENT, id_post mediumint(9) NOT NULL, counters MEDIUMTEXT DEFAULT '', date_maj DATETIME, UNIQUE KEY id (id)" ; 
+		$this->tableSQL = "id mediumint(9) NOT NULL AUTO_INCREMENT, id_post mediumint(9) NOT NULL, counters MEDIUMTEXT, url MEDIUMTEXT, date_maj DATETIME, UNIQUE KEY id (id)" ; 
 		$this->table_name = $wpdb->prefix . "pluginSL_" . get_class() ; 
 		$this->path = __FILE__ ; 
 		$this->pluginID = get_class() ; 
@@ -90,13 +89,22 @@ class sociallinkz extends pluginSedLex {
 	*/
 	
 	public function _update() {
+		global $wpdb ; 
+		
 		SL_Debug::log(get_class(), "Update the plugin." , 4) ; 
+		
 		// Delete the former counter ...
 		$names = $this->get_name_params() ; 
 		foreach($names as $n) {
 			if (strpos($n, "counter_")===0) {
 				$this->del_param($n) ; 
 			}
+		}
+		
+		// enable custom URL
+		$results = $wpdb->get_results("SELECT * FROM ".$this->table_name." LIMIT 1'") ; 
+		if (!isset($result->url)) {
+			$wpdb->query("ALTER TABLE ".$this->table_name." ADD url MEDIUMTEXT ") ; 
 		}
 	}	
 	/** ====================================================================================================================================================
@@ -299,7 +307,7 @@ class sociallinkz extends pluginSedLex {
 	function configuration_page() {
 		global $wpdb;
 		$table_name = $wpdb->prefix . $this->pluginID;
-	
+			
 		?>
 		<div class="wrap">
 			<div id="icon-themes" class="icon32"><br></div>
@@ -513,7 +521,12 @@ class sociallinkz extends pluginSedLex {
 
 	function display_button_shortcode( $_atts, $text ) {
 		global $post ; 
-		return $this->print_buttons($post) ; 
+		extract( shortcode_atts( array(
+			'url' => '',
+			'button' => '',
+			'desc' => ''
+		), $_atts ) );
+		return $this->print_buttons($post, $url, $button, $desc) ; 
 	}
 	
 	/** ====================================================================================================================================================
@@ -522,17 +535,36 @@ class sociallinkz extends pluginSedLex {
 	* @return void
 	*/
 	
-	function print_buttons($post) {
+	function print_buttons($post, $forceURL="", $forceButton="",$forceDesc="") {
 		global $do_not_show_inSocialLinkz ; 
+		
+		if ($forceButton!="") {
+			$forceButton = ",".$forceButton."," ; 
+			$forceButton = str_replace(" ", "", $forceButton) ; 
+		}
 		
 		$rand = rand(0,1000000000) ; 
 		?>
 		<script>
 			function forceUpdateSocialLinkz_<?php echo $rand ; ?>() {	
+				<?php
+				if ($forceURL=="") {
+				?>
 				var arguments = {
 					action: 'forceUpdateSocialLinkz', 
 					id:<?php echo $post->ID ;  ?>
 				} 
+				<?php 
+				} else {
+				?>
+				var arguments = {
+					action: 'forceUpdateSocialLinkz', 
+					id:-1, 
+					url:"<?php echo str_replace('"', "", $forceURL) ; ?>", 
+				} 				
+				<?php
+				}
+				?>
 				//POST the data and append the results to the results div
 				var ajaxurl2 = "<?php echo admin_url()."admin-ajax.php"?>" ; 
 				jQuery.post(ajaxurl2, arguments, function(response) {
@@ -547,15 +579,27 @@ class sociallinkz extends pluginSedLex {
 		</script>
 
 		<?php
-		
-		if ($post->ID==0) {
+		if ($forceURL!="") {
+			$url = $forceURL ; 
+			$long_url = $forceURL ; 
+			$titre = $forceDesc ; 	
+			$postID = -1 ; 		
+		} else if ($post->ID==0) {
 			$url = home_url("/") ; 
 			$long_url = home_url("/") ; 
-			$titre = get_bloginfo('name') ." - ".get_bloginfo('description') ; 		
+			$postID = $post->ID ; 	
+			if ($forceDesc!="")
+				$titre = $forceDesc ; 	
+			else
+				$titre = get_bloginfo('name') ." - ".get_bloginfo('description') ; 		
 		} else {
 			$url = wp_get_shortlink($post->ID) ; 
 			$long_url = get_permalink($post->ID) ; 
-			$titre = $post->post_title ; 
+			$postID = $post->ID ; 	
+			if ($forceDesc!="")
+				$titre = $forceDesc ; 	
+			else
+				$titre = $post->post_title ; 
 		}
 		
 		if ($do_not_show_inSocialLinkz) {
@@ -565,29 +609,32 @@ class sociallinkz extends pluginSedLex {
 		?>
 			<?php
 			
-			if ($this->get_param('facebook')) {
+			if ((($this->get_param('facebook'))&&($forceButton==""))||((strpos($forceButton, ',facebook,')!==false)&&($forceButton!=""))) {
 				?>
 				<a rel="nofollow" target="_blank" href="http://www.facebook.com/sharer.php?u=<?php echo urlencode($long_url) ; ?>&amp;t=<?php echo urlencode($titre) ; ?>" title="<?php echo sprintf(__("Share -%s- on %s", $this->pluginID), htmlentities($titre, ENT_QUOTES, 'UTF-8'), "Facebook") ; ?>">
 					<img class="lnk_social_linkz" src="<?php echo WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__)) ; ?>/img/lnk_facebook.png" alt="Facebook" height="24" width="24"/></a>
 				<?php
-				if ($this->get_param('facebook_count')) {
-					$this->display_bubble($this->get_counter("facebook", $post->ID)) ; 
+				if ((($this->get_param('facebook_count'))&&($forceButton==""))||((strpos($forceButton, ',facebook_count,')!==false)&&($forceButton!=""))) {
+					if ($postID!=-1)
+						$this->display_bubble($this->get_counter("facebook", $postID)) ; 
+					else 
+						$this->display_bubble($this->get_counter("facebook", -1, $url)) ; 
 				}
 			}
 			
-			if ($this->get_param('facebook_hosted')) {
+			if ((($this->get_param('facebook_hosted'))&&($forceButton==""))||((strpos($forceButton, ',facebook_hosted,')!==false)&&($forceButton!=""))) {
 				?>
 				<span id="fb-root"></span><script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="<?php echo $long_url ; ?>" send="false" layout="button_count" width="35" show_faces="false" action="like" font=""></fb:like>
 				<?php
 			}
 			
-			if ($this->get_param('facebook_hosted_share')) {
+			if ((($this->get_param('facebook_hosted_share'))&&($forceButton==""))||((strpos($forceButton, ',facebook_hosted_share,')!==false)&&($forceButton!=""))) {
 				?>
 				<a name="fb_share" type="button_count" share_url="<?php echo $long_url ?>" href="http://www.facebook.com/sharer.php">Share</a><script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
 				<?php
 			}
 			
-			if ($this->get_param('twitter')) {
+			if ((($this->get_param('twitter'))&&($forceButton==""))||((strpos($forceButton, ',twitter,')!==false)&&($forceButton!=""))) {
 				$via = "" ; 
 				if ($this->get_param('name_twitter')!="") {
 					$via = " (via @".$this->get_param('name_twitter').")" ; 
@@ -597,18 +644,21 @@ class sociallinkz extends pluginSedLex {
 				<a rel="nofollow" target="_blank" href="http://twitter.com/?status=<?php echo str_replace('+','%20',urlencode("[Blog] ".$titre)) ; ?>%20-%20<?php echo urlencode($url) ; ?>.<?php echo str_replace('+','%20',urlencode($via)) ; ?>" title="<?php echo sprintf(__("Share -%s- on %s", $this->pluginID), htmlentities($titre, ENT_QUOTES, 'UTF-8'), "Twitter") ; ?>">
 					<img class="lnk_social_linkz" src="<?php echo WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__)) ;  ?>/img/lnk_twitter.png" alt="Twitter" height="24" width="24"/></a>
 				<?php
-				if ($this->get_param('twitter_count')) {
-					$this->display_bubble($this->get_counter("twitter", $post->ID)) ; 
+				if ((($this->get_param('twitter_count'))&&($forceButton==""))||((strpos($forceButton, ',twitter_count,')!==false)&&($forceButton!=""))) {
+					if ($postID!=-1)
+						$this->display_bubble($this->get_counter("twitter", $postID)) ; 
+					else 
+						$this->display_bubble($this->get_counter("twitter", -1, $url)) ; 
 				}
 			}
 			
-			if ($this->get_param('twitter_hosted')) {
+			if ((($this->get_param('twitter_hosted'))&&($forceButton==""))||((strpos($forceButton, ',twitter_hosted,')!==false)&&($forceButton!=""))) {
 				$via = "" ; 
 				if ($this->get_param('name_twitter')!="") {
 					$via = 'data-via="'.$this->get_param('name_twitter').'"' ; 
 				}
 				$coun = "none" ; 
-				if ($this->get_param('twitter_hosted_count')) {
+				if ((($this->get_param('twitter_hosted_count'))&&($forceButton==""))||((strpos($forceButton, ',twitter_hosted_count,')!==false)&&($forceButton!=""))) {
 					$coun = 'horizontal' ; 
 				}
 				?>
@@ -616,19 +666,22 @@ class sociallinkz extends pluginSedLex {
 				<?php
 			}
 
-			if ($this->get_param('googleplus_standard')) {
+			if ((($this->get_param('googleplus_standard'))&&($forceButton==""))||((strpos($forceButton, ',googleplus_standard,')!==false)&&($forceButton!=""))) {
 				?>
 				<a rel="nofollow" target="_blank" href="https://plus.google.com/share?url=<?php echo $long_url ; ?>" title="<?php echo sprintf(__("Share -%s- on %s", $this->pluginID), htmlentities($titre, ENT_QUOTES, 'UTF-8'), "Googe+") ; ?>">
 					<img class="lnk_social_linkz" src="<?php echo WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__)) ; ?>/img/lnk_googleplus.png" alt="Google+" height="24" width="24"/></a>
 				<?php
-				if ($this->get_param('googleplus_standard_count')) {
-					$this->display_bubble($this->get_counter("google+", $post->ID)) ; 
+				if ((($this->get_param('googleplus_standard_count'))&&($forceButton==""))||((strpos($forceButton, ',googleplus_standard_count,')!==false)&&($forceButton!=""))) {
+					if ($postID!=-1)
+						$this->display_bubble($this->get_counter("google+", $postID)) ; 
+					else 
+						$this->display_bubble($this->get_counter("google+", -1, $url)) ; 
 				}
 			}
 			
-			if ($this->get_param('googleplus')) {
+			if ((($this->get_param('googleplus'))&&($forceButton==""))||((strpos($forceButton, ',googleplus,')!==false)&&($forceButton!=""))) {
 				$count = "false" ; 
-				if ($this->get_param('googleplus_count')) {
+				if ((($this->get_param('googleplus_count'))&&($forceButton==""))||((strpos($forceButton, ',googleplus_count,')!==false)&&($forceButton!=""))) {
 					$count = "true" ; 
 				}
 				?>
@@ -636,19 +689,22 @@ class sociallinkz extends pluginSedLex {
 				<?php
 			}
 			
-			if ($this->get_param('linkedin')) {
+			if ((($this->get_param('linkedin'))&&($forceButton==""))||((strpos($forceButton, ',linkedin,')!==false)&&($forceButton!=""))) {
 				?>
 				<a rel="nofollow" target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&url=<?php echo urlencode($long_url) ; ?>&title=<?php echo str_replace('+','%20',urlencode("[Blog] ".$titre)) ; ?>&source=<?php echo urlencode(get_bloginfo('name')) ; ?>" title="<?php echo sprintf(__("Share -%s- on %s", $this->pluginID), htmlentities($titre, ENT_QUOTES, 'UTF-8'), "LinkedIn") ; ?>">
 					<img class="lnk_social_linkz" src="<?php echo WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__)) ;  ?>/img/lnk_linkedin.png" alt="LinkedIn" height="24" width="24"/></a>
 				<?php
-				if ($this->get_param('linkedin_count')) {
-					$this->display_bubble($this->get_counter("linkedin", $post->ID)) ; 
+				if ((($this->get_param('linkedin_count'))&&($forceButton==""))||((strpos($forceButton, ',linkedin_count,')!==false)&&($forceButton!=""))) {
+					if ($postID!=-1)
+						$this->display_bubble($this->get_counter("linkedin", $postID)) ; 
+					else 
+						$this->display_bubble($this->get_counter("linkedin", -1, $url)) ; 
 				}
 			}
 			
-			if ($this->get_param('linkedin_hosted')) {
+			if ((($this->get_param('linkedin_hosted'))&&($forceButton==""))||((strpos($forceButton, ',linkedin_hosted,')!==false)&&($forceButton!=""))) {
 				$coun = "" ; 
-				if ($this->get_param('linkedin_hosted_count')) {
+				if ((($this->get_param('linkedin_hosted_count'))&&($forceButton==""))||((strpos($forceButton, ',linkedin_hosted_count,')!==false)&&($forceButton!=""))) {
 					$coun = 'data-counter="right"' ; 
 				}
 				?>
@@ -656,16 +712,16 @@ class sociallinkz extends pluginSedLex {
 				<?php
 			}
 			
-			if ($this->get_param('viadeo')) {
+			if ((($this->get_param('viadeo'))&&($forceButton==""))||((strpos($forceButton, ',viadeo,')!==false)&&($forceButton!=""))) {
 				?>
 				<a rel="nofollow" target="_blank" href="http://www.viadeo.com/shareit/share/?url=<?php echo urlencode($long_url) ; ?>&title=<?php echo str_replace('+','%20',urlencode("[Blog] ".$titre)) ; ?>&overview=<?php echo str_replace('+','%20',urlencode("[Blog] ".$titre)) ; ?>" title="<?php echo sprintf(__("Share -%s- on %s", $this->pluginID), htmlentities($titre, ENT_QUOTES, 'UTF-8'), "Viadeo") ; ?>">
 					<img class="lnk_social_linkz" src="<?php echo WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__)) ;  ?>/img/lnk_viadeo.png" alt="Viadeo" height="24" width="24"/></a>
 				<?php
 			}
 			
-			if ($this->get_param('viadeo_hosted')) {
+			if ((($this->get_param('viadeo_hosted'))&&($forceButton==""))||((strpos($forceButton, ',viadeo_hosted,')!==false)&&($forceButton!=""))) {
 				$coun = "" ; 
-				if ($this->get_param('linkedin_hosted_count')) {
+				if ((($this->get_param('linkedin_hosted_count'))&&($forceButton==""))||((strpos($forceButton, ',linkedin_hosted_count,')!==false)&&($forceButton!=""))) {
 					$coun = 'data-count="right"' ; 
 				}
 				$viadeoUrl = 'data-url="'.$url.'"' ; 
@@ -675,24 +731,27 @@ class sociallinkz extends pluginSedLex {
 				<?php
 			}
 			
-			if ($this->get_param('stumbleupon')) {
+			if ((($this->get_param('stumbleupon'))&&($forceButton==""))||((strpos($forceButton, ',stumbleupon,')!==false)&&($forceButton!=""))) {
 				?>
 				<a rel="nofollow" target="_blank" href="http://www.stumbleupon.com/submit?url=<?php echo urlencode($long_url) ; ?>&title=<?php echo str_replace('+','%20',urlencode("[Blog] ".$titre)) ; ?>" title="<?php echo sprintf(__("Share -%s- on %s", $this->pluginID), htmlentities($titre, ENT_QUOTES, 'UTF-8'), "StumbleUpon") ; ?>">
 					<img class="lnk_social_linkz" src="<?php echo WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__)) ;  ?>/img/lnk_stumbleupon.png" alt="StumbleUpon" height="24" width="24"/></a>
 				<?php
-				if ($this->get_param('stumbleupon_count')) {
-					$this->display_bubble($this->get_counter("stumbleupon", $post->ID)) ; 
+				if ((($this->get_param('stumbleupon_count'))&&($forceButton==""))||((strpos($forceButton, ',stumbleupon_count,')!==false)&&($forceButton!=""))) {
+					if ($postID!=-1)
+						$this->display_bubble($this->get_counter("stumbleupon", $postID)) ; 
+					else 
+						$this->display_bubble($this->get_counter("stumbleupon", -1, $url)) ; 
 				}
 			}
 			
-			if ($this->get_param('stumbleupon_hosted')) {
+			if ((($this->get_param('stumbleupon_hosted'))&&($forceButton==""))||((strpos($forceButton, ',stumbleupon_hosted,')!==false)&&($forceButton!=""))) {
 				?>
 				<script src="http://www.stumbleupon.com/hostedbadge.php?s=1&r=<?php echo urlencode($long_url) ?>"></script>
 				<?php
 			}
 			
 			
-			if ($this->get_param('pinterest_hosted')) {
+			if ((($this->get_param('pinterest_hosted'))&&($forceButton==""))||((strpos($forceButton, ',pinterest_hosted,')!==false)&&($forceButton!=""))) {
 				// Get all image of the post
 				$img = $this->get_first_image(get_the_ID()) ; 
 				if ($img == "") {
@@ -705,7 +764,7 @@ class sociallinkz extends pluginSedLex {
 				} 
 				
 				$coun = "none" ; 
-				if ($this->get_param('pinterest_hosted_count')) {
+				if ((($this->get_param('pinterest_hosted_count'))&&($forceButton==""))||((strpos($forceButton, ',pinterest_hosted_count,')!==false)&&($forceButton!=""))) {
 					$coun = 'horizontal' ; 
 				}
 				?>
@@ -713,31 +772,34 @@ class sociallinkz extends pluginSedLex {
 				<?php
 			}
 			
-			if ($this->get_param('print')) {
-				?>
-				<a rel="nofollow" target="_blank" href="#" title="<?php echo __("Print", $this->pluginID) ;?>">
-					<img onclick="window.print();return false;" class="lnk_social_linkz" src="<?php echo WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__)) ; ?>/img/lnk_print.png" alt="Print" height="24" width="24"/></a>
-				<?php
-			}
+			if ($postID != -1) {
 			
-			if ($this->get_param('mail')) {
-				?>
-				<a rel="nofollow" target="_blank" href="#" title="<?php echo __("Mail", $this->pluginID) ;?>">
-					<img onclick="openEmailSocialLinkz('<?php echo md5($long_url) ?>');return false;" class="lnk_social_linkz" src="<?php echo WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__)) ; ?>/img/lnk_mail.png" alt="Mail" height="24" width="24"/></a>
-				<div id="mask<?php echo md5($long_url) ?>" class="social_mask"></div>
-				<div id="dialog<?php echo md5($long_url) ?>" class="social_window">
-					<div id="innerdialog<?php echo md5($long_url) ?>">
-						<h3><?php echo __("Send this article by email", $this->pluginID) ;?></h3>
-						<p class='textEmailSocialLinkz'><?php echo __("What is your name?", $this->pluginID) ;?></p>
-						<p><input name="nameSocialLinkz<?php echo md5($long_url) ?>" id="nameSocialLinkz<?php echo md5($long_url) ?>" /></p>
-						<p class='textEmailSocialLinkz'><?php echo sprintf(__("Please indicate below the emails to which you want to send this article: %s", $this->pluginID), "<b>".$titre."</b>") ;?></p>
-						<p><textarea name="emailSocialLinkz<?php echo md5($long_url) ?>" id="emailSocialLinkz<?php echo md5($long_url) ?>" rows="5"></textarea></p>
-						<p class='closeEmailSocialLinkz'><?php echo sprintf(__("Enter one email per line. No more than %s emails.", $this->pluginID), $this->get_param('mail_max')) ;?></p>
-						<p class='sendEmailSocialLinkz'><a href="#" title="<?php echo __("Close", $this->pluginID) ;?>" onclick="sendEmailSocialLinkz('<?php echo md5($long_url) ?>', <? echo $post->ID ?>);return false;"><span class='sendEmailSocialLinkz'><?php echo __("Send", $this->pluginID) ;?></span></a></p>
+				if ((($this->get_param('print'))&&($forceButton==""))||((strpos($forceButton, ',print,')!==false)&&($forceButton!=""))) {
+					?>
+					<a rel="nofollow" target="_blank" href="#" title="<?php echo __("Print", $this->pluginID) ;?>">
+						<img onclick="window.print();return false;" class="lnk_social_linkz" src="<?php echo WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__)) ; ?>/img/lnk_print.png" alt="Print" height="24" width="24"/></a>
+					<?php
+				}
+				
+				if ((($this->get_param('mail'))&&($forceButton==""))||((strpos($forceButton, ',mail,')!==false)&&($forceButton!=""))) {
+					?>
+					<a rel="nofollow" target="_blank" href="#" title="<?php echo __("Mail", $this->pluginID) ;?>">
+						<img onclick="openEmailSocialLinkz('<?php echo md5($long_url) ?>');return false;" class="lnk_social_linkz" src="<?php echo WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__)) ; ?>/img/lnk_mail.png" alt="Mail" height="24" width="24"/></a>
+					<div id="mask<?php echo md5($long_url) ?>" class="social_mask"></div>
+					<div id="dialog<?php echo md5($long_url) ?>" class="social_window">
+						<div id="innerdialog<?php echo md5($long_url) ?>">
+							<h3><?php echo __("Send this article by email", $this->pluginID) ;?></h3>
+							<p class='textEmailSocialLinkz'><?php echo __("What is your name?", $this->pluginID) ;?></p>
+							<p><input name="nameSocialLinkz<?php echo md5($long_url) ?>" id="nameSocialLinkz<?php echo md5($long_url) ?>" /></p>
+							<p class='textEmailSocialLinkz'><?php echo sprintf(__("Please indicate below the emails to which you want to send this article: %s", $this->pluginID), "<b>".$titre."</b>") ;?></p>
+							<p><textarea name="emailSocialLinkz<?php echo md5($long_url) ?>" id="emailSocialLinkz<?php echo md5($long_url) ?>" rows="5"></textarea></p>
+							<p class='closeEmailSocialLinkz'><?php echo sprintf(__("Enter one email per line. No more than %s emails.", $this->pluginID), $this->get_param('mail_max')) ;?></p>
+							<p class='sendEmailSocialLinkz'><a href="#" title="<?php echo __("Close", $this->pluginID) ;?>" onclick="sendEmailSocialLinkz('<?php echo md5($long_url) ?>', <? echo $post->ID ?>);return false;"><span class='sendEmailSocialLinkz'><?php echo __("Send", $this->pluginID) ;?></span></a></p>
+						</div>
+						<p class='closeEmailSocialLinkz'><a href="#" title="<?php echo __("Close", $this->pluginID) ;?>" onclick="closeEmailSocialLinkz('<?php echo md5($long_url) ?>');return false;"><span class='closeEmailSocialLinkz'><?php echo __("Close", $this->pluginID) ;?></span></a></p>
 					</div>
-					<p class='closeEmailSocialLinkz'><a href="#" title="<?php echo __("Close", $this->pluginID) ;?>" onclick="closeEmailSocialLinkz('<?php echo md5($long_url) ?>');return false;"><span class='closeEmailSocialLinkz'><?php echo __("Close", $this->pluginID) ;?></span></a></p>
-				</div>
-				<?php
+					<?php
+				}
 			}
 			?>
 		<?php
@@ -753,27 +815,51 @@ class sociallinkz extends pluginSedLex {
 	* @return void
 	*/
 
-	function get_counter($social, $id) {
+	function get_counter($social, $id, $url="") {
 		global $wpdb ; 
-		if (isset($this->cache[$id]->{$social})) {
+		if (($id!=-1) && (isset($this->cache[$id]->{$social}))) {
 			return $this->cache[$id]->{$social} ; 
+		} else if (($id==-1) && (isset($this->cache[$url]->{$social}))) {
+			return $this->cache[$url]->{$social} ; 
 		} else {
-			$select = "SELECT counters FROM ".$this->table_name." WHERE id_post='".$id."'" ;
-			$result = $wpdb->get_var($select) ; 
-			if (($result==null)||($result==false)||($result=="")) {
-				return 0 ; 
-			} else {
-				$result = @json_decode($result) ;
-				if ($result==NULL) {
+			if ($id!=-1) {
+				$select = "SELECT counters FROM ".$this->table_name." WHERE id_post='".$id."'" ;
+				$result = $wpdb->get_var($select) ; 
+				if (($result==null)||($result==false)||($result=="")) {
 					return 0 ; 
 				} else {
-					// Cache the result to avoid plurality of Mysql Request
-					$this->cache[$id] = $result ; 
-					// Return the result
-					if (isset($result->{$social})) {
-						return $result->{$social} ; 
-					} else {
+					$result = @json_decode($result) ;
+					if ($result==NULL) {
 						return 0 ; 
+					} else {
+						// Cache the result to avoid plurality of Mysql Request
+						$this->cache[$id] = $result ; 
+						// Return the result
+						if (isset($result->{$social})) {
+							return $result->{$social} ; 
+						} else {
+							return 0 ; 
+						}
+					}
+				}
+			} else {
+				$select = "SELECT counters FROM ".$this->table_name." WHERE url='".addslashes($url)."'" ;
+				$result = $wpdb->get_var($select) ; 
+				if (($result==null)||($result==false)||($result=="")) {
+					return 0 ; 
+				} else {
+					$result = @json_decode($result) ;
+					if ($result==NULL) {
+						return 0 ; 
+					} else {
+						// Cache the result to avoid plurality of Mysql Request
+						$this->cache[$url] = $result ; 
+						// Return the result
+						if (isset($result->{$social})) {
+							return $result->{$social} ; 
+						} else {
+							return 0 ; 
+						}
 					}
 				}
 			}
@@ -786,18 +872,20 @@ class sociallinkz extends pluginSedLex {
 	* @return void
 	*/
 
-	function set_counter($socials, $id) {
+	function set_counter($socials, $id, $url='') {
 		global $wpdb ; 
 		$new_counters = array() ; 
 		
 		if ($id==0) {
 			$url = home_url("/") ; 
+		} else if ($id==-1) {
+			//void
 		} else {
 			$url = get_permalink($id) ; 
 		}
 		
 		foreach ($socials as $s) {
-			$old_counter = $this->get_counter($s, $id) ; 
+			$old_counter = $this->get_counter($s, $id, $url) ; 
 			
 			$nb = $old_counter ; 
 			
@@ -819,19 +907,33 @@ class sociallinkz extends pluginSedLex {
 			
 			// FACEBOOK
 			if ($s=="facebook") {
-				$result = wp_remote_get("https://graph.facebook.com/fql?q=SELECT%20url,%20normalized_url,%20share_count,%20like_count,%20comment_count,%20total_count,%20commentsbox_count,%20comments_fbid,%20click_count%20FROM%20link_stat%20WHERE%20url='".urlencode($url)."'"); 
+				$result = wp_remote_get("http://graph.facebook.com/fql?q=SELECT%20url,%20normalized_url,%20share_count,%20like_count,%20comment_count,%20total_count,%20commentsbox_count,%20comments_fbid,%20click_count%20FROM%20link_stat%20WHERE%20url='".urlencode($url)."'"); 
 				if ( is_wp_error($result) ) {
 					//trigger_error("SOCIAL LINKZ PLUGIN : Facebook API could not be retrieved to count hits") ; 
 				} else {
-					$res = @json_decode($result['body'], true);
-					if (isset($res['data'][0]['total_count'])) {
-						if (intval($res['data'][0]['total_count'])>$old_counter)
-							$nb =  intval($res['data'][0]['total_count']);
+					$result2 = wp_remote_get("http://graph.facebook.com/?ids=".urlencode($url)); 
+					if ( is_wp_error($result2) ) {
+						//trigger_error("SOCIAL LINKZ PLUGIN : Facebook API could not be retrieved to count hits") ; 
 					} else {
-						ob_start() ; 
-							print_r($res) ; 
-						$more = ob_get_clean() ; 
-						trigger_error("SOCIAL LINKZ PLUGIN : Facebook API responded but no count can be retrieved for $url. <br>$more") ; 
+						$res = @json_decode($result['body'], true);
+						$res2 = @json_decode($result2['body'], true);
+						if ((isset($res['data'][0]['total_count']))&&(isset($res2[$url]['likes']))) {
+							if (intval($res['data'][0]['total_count'])+intval($res2[$url]['likes'])>$old_counter)
+								$nb =  intval($res['data'][0]['total_count'])+intval($res2[$url]['likes']);
+						} else if (isset($res['data'][0]['total_count'])) {
+							if (intval($res['data'][0]['total_count'])>$old_counter)
+								$nb =  intval($res['data'][0]['total_count']);
+							trigger_error("SOCIAL LINKZ PLUGIN : Only FQL Facebook API responded with a  count for $url. <br>$more") ; 
+						} else if (isset($res2[$url]['likes'])) {
+							if (intval($res2[$url]['likes'])>$old_counter)
+								$nb =  intval($res2[$url]['likes']);
+							trigger_error("SOCIAL LINKZ PLUGIN : Only IDS Facebook API responded with a  count for $url. <br>$more") ; 
+						} else {
+							ob_start() ; 
+								print_r($res) ; 
+							$more = ob_get_clean() ; 
+							trigger_error("SOCIAL LINKZ PLUGIN : Both Facebook API responded but no count can be retrieved for $url. <br>$more") ; 
+						}
 					}
 				}
 			}		
@@ -890,15 +992,27 @@ class sociallinkz extends pluginSedLex {
 			
 			$new_counters[$s] = $nb ; 	
 		}
+		
 		// FINALIZATION
-		$select = "SELECT COUNT(*) FROM ".$this->table_name." WHERE id_post='".$id."'" ;
-		$result = $wpdb->get_var($select) ; 
-		if ($result==0) {
-			$query = "INSERT INTO ".$this->table_name." (id_post, counters, date_maj) VALUES ('".$id."', '".@json_encode($new_counters)."', '".date_i18n("Y-m-d H:i:s")."')" ; 
+		if ($id!=-1) {
+			$select = "SELECT COUNT(*) FROM ".$this->table_name." WHERE id_post='".$id."'" ;
+			$result = $wpdb->get_var($select) ; 
+			if ($result==0) {
+				$query = "INSERT INTO ".$this->table_name." (id_post, counters, date_maj) VALUES ('".$id."', '".@json_encode($new_counters)."', '".date_i18n("Y-m-d H:i:s")."')" ; 
+			} else {
+				$query = "UPDATE ".$this->table_name." SET counters='".@json_encode($new_counters)."', date_maj='".date_i18n("Y-m-d H:i:s")."' WHERE id_post='".$id."'" ; 
+			}
+			$wpdb->query($query) ; 
 		} else {
-			$query = "UPDATE ".$this->table_name." SET counters='".@json_encode($new_counters)."', date_maj='".date_i18n("Y-m-d H:i:s")."' WHERE id_post='".$id."'" ; 
+			$select = "SELECT COUNT(*) FROM ".$this->table_name." WHERE url='".addslashes($url)."'" ;
+			$result = $wpdb->get_var($select) ; 
+			if ($result==0) {
+				$query = "INSERT INTO ".$this->table_name." (id_post, counters, date_maj, url) VALUES ('-1', '".@json_encode($new_counters)."', '".date_i18n("Y-m-d H:i:s")."', '".addslashes($url)."')" ; 
+			} else {
+				$query = "UPDATE ".$this->table_name." SET counters='".@json_encode($new_counters)."', date_maj='".date_i18n("Y-m-d H:i:s")."' WHERE url='".addslashes($url)."'" ; 
+			}
+			$wpdb->query($query) ; 
 		}
-		$wpdb->query($query) ; 
 	}
 	
 	/** ====================================================================================================================================================
@@ -909,13 +1023,21 @@ class sociallinkz extends pluginSedLex {
 	
 	function forceUpdateSocialLinkz() {
 		$id = $_POST['id'] ; 
+		$url = "" ; 
+		if (isset($_POST['url'])) {
+			$url = $_POST['url'] ; 
+		}
 		global $wpdb ; 
 		if (!is_numeric($id)) {
 			echo "no_numeric" ; 
 			die() ; 
 		}
 		
-		$select = "SELECT date_maj FROM ".$this->table_name." WHERE id_post='".$id."'" ;
+		if ($id!="-1") {
+			$select = "SELECT date_maj FROM ".$this->table_name." WHERE id_post='".$id."'" ;
+		} else {
+			$select = "SELECT date_maj FROM ".$this->table_name." WHERE url='".addslashes($url)."'" ;
+		}
 		$date = $wpdb->get_var($select) ; 
 		$now = strtotime(date_i18n("Y-m-d H:i:s")) ; 
 		$shouldbeupdate = false ; 
@@ -930,11 +1052,16 @@ class sociallinkz extends pluginSedLex {
 		}
 		
 		if ($shouldbeupdate) {
-			$this->set_counter(array("twitter", "facebook", "google+", "stumbleupon", "linkedin"), $id) ; 
+			if ($id!="-1") {
+				$this->set_counter(array("twitter", "facebook", "google+", "stumbleupon", "linkedin"), $id) ; 
+			} else {
+				$this->set_counter(array("twitter", "facebook", "google+", "stumbleupon", "linkedin"), -1, $url) ; 
+			}
 			echo "refreshed" ; 
 		} else {
 			echo "nothing" ; 
 		}
+		
 		die() ; 
 	}
 	
