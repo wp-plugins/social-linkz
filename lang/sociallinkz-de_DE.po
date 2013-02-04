@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2012-09-18T12:34:32+00:00\n"
+"PO-Revision-Date: 2013-01-31T10:58:51+00:00\n"
 "Last-Translator: Olly <regge@online.de>\n"
 "Last-Translator: FarChris <http://www.pinsight.de>\n"
 "Last-Translator: Susann <dclifestyle.de>\n"
@@ -41,13 +41,13 @@ msgid "The official %s button:"
 msgstr "Der offizielle %s Button:"
 
 msgid "The SSL websites may not work properly with this official button... Moreover the rendering is not perfect !"
-msgstr "Die SSL-Webseite funktioniert möglicherweise nicht mit dem offiziellen Button... Darüber hinaus ist die Darstellung ist nicht perfekt!"
+msgstr "Die SSL-Webseite funktioniert möglicherweise nicht mit dem offiziellen Button... Darüber hinaus ist die Darstellung nicht perfekt!"
 
 msgid "Show the counter of this official %s button:"
 msgstr "Zeige den Counter von diesem offiziellen %s Button:"
 
 msgid "Your %s pseudo:"
-msgstr "Dein %s Pseudonym"
+msgstr "Dein %s Pseudonym:"
 
 msgid "Your FaceBook ID to enable Insight:"
 msgstr "Deine Facebook ID um Insights zu aktivieren:"
@@ -95,13 +95,13 @@ msgid "Print"
 msgstr "Drucken"
 
 msgid "Default image:"
-msgstr "Automatisches Bild"
+msgstr "Standard Bild:"
 
 msgid "%s requires that an image is pinned. By default, the plugin will take the first image in the post but if there is not any image, this image will be used."
-msgstr "Bei Pinterest muss ein Bild gepinnt werden. Dieses Plugin nimmt automatisch das erste Bild im Beitrag. Wenn dort  aber keines ist, wird dieses hier benutzt."
+msgstr "%s benötigt, dass ein Bild gepinnt wird. Dieses Plugin nimmt automatisch das erste Bild im Beitrag. Wenn dort  aber keines ist, wird dieses hier benutzt."
 
 msgid "The maximum number of emails for each mailing:"
-msgstr "Die maximale Anzahl von Mails pro Mailing"
+msgstr "Die maximale Anzahl von Mails pro Mailing:"
 
 msgid "The name used to send the email:"
 msgstr "Dieser Name soll zum Senden der Mail benutzt werden:"
@@ -147,4 +147,46 @@ msgstr "Email erfolgreich gesendet an %s"
 
 msgid "Wordpress is unable to send an email to %s"
 msgstr "Wordpress kann diese Email nicht an %s senden."
+
+msgid "Display the social buttons as a widget."
+msgstr "Zeige die Buttons als Widget an."
+
+msgid "Add SocialLinkz buttons"
+msgstr "Füge die SocialLinkz Buttons hinzu"
+
+msgid "Insight provides metrics around your content. See %s for futher details. To identify your Facebook ID, please visit the previous link and then click on Statistic of my website."
+msgstr "Insight bietet Metriken rund um deine Inhalte. Siehe hier %s für weitere Details. Um deine Facebook-ID zu identifizieren, besuche bitte den vorherigen Link und klicke dann auf Statistik meiner Website."
+
+msgid "You may use an user id, an app id or a page id."
+msgstr "Du musst eine User-ID, eine App-ID oder eine Page-ID nutzen."
+
+msgid "You may use the admin email %s, a noreply address such as %s or any other email"
+msgstr "Nutze die Admin-Mail %s, eine noreply-Adresse wie %s oder eine beliebige E-Mail-Adresse"
+
+msgid "Number of minutes between two refreshes:"
+msgstr "Minuten zwischen zwei Aktualisierungen:"
+
+msgid "HTML:"
+msgstr "HTML:"
+
+msgid "Default HTML is : %s with %s the displayed buttons"
+msgstr "Standard HTML ist: %s mit %s als angezeigte Buttons"
+
+msgid "CSS:"
+msgstr "CSS:"
+
+msgid "Default CSS is : %s"
+msgstr "Standard CSS ist: %s"
+
+msgid "Page to be excluded:"
+msgstr "Buttons auf den folgenden Seiten ausblenden:"
+
+msgid "Please enter one entry per line. If the page %s is to be excluded, you may enter %s."
+msgstr "Bitte nur einen Eintrag pro Spalte. Wenn die Seite ausgeblendete Seite so heißt:: %s, füge folgendes ein: %s."
+
+msgid "Mail"
+msgstr "E-Mail"
+
+msgid "What is your name?"
+msgstr "Wie heißt du?"
 

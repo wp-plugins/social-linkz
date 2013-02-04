@@ -26,7 +26,9 @@ You can choose the buttons to be displayed such as :
 * Pinterest
 * Print
 
-If you want to add the buttons in a very specific location, your may edit your theme and insert $this-&gt;print_buttons($post); (be sure that $post refer to the current post). 
+It is possible to manually insert the buttons in your post by adding the shortcode [sociallinkz] or [sociallinkz url='http://domain.tld' buttons='facebook,google+' desc='Short description'] . 
+
+If you want to add the buttons in a very specific location, your may edit your theme and insert $this-&gt;print_buttons($post, [$url], [$buttons]); (be sure that $post refer to the current post). 
 
 It is also possible to add a widget to display buttons. 
 
@@ -41,6 +43,7 @@ This plugin works with multisite installation.
 * German (Germany) translation provided by Olly, FarChris, Susann
 * English (United States), default language
 * Spanish (Argentina) translation provided by GianFrancoAlarcn, Sunombre
+* Spanish (Chile) translation provided by Xaloc
 * Spanish (Spain) translation provided by sesi, AlexSancho, fco, JavierLaChica
 * Spanish (Guatemala) translation provided by EnriqueBran
 * Finnish (Finland) translation provided by ProDexorite
@@ -71,7 +74,7 @@ Have fun !
 
 == Installation ==
 
-1. Upload this folder to your plugin directory (for instance '/wp-content/plugins/')
+1. Upload this folder social-linkz to your plugin directory (for instance '/wp-content/plugins/')
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Navigate to the 'SL plugins' box
 4. All plugins developed with the SL core will be listed in this box
@@ -83,6 +86,9 @@ Have fun !
 2. The buttons
 
 == Changelog ==
+
+= 1.5.3 =
+* Filter issue with feed
 
 = 1.5.2 =
 * SSL issue with facebook and some installation
@@ -160,4 +166,4 @@ Have fun !
 Visit http://www.sedlex.fr/cote_geek/
 
  
-InfoVersion:6457a2d8102704c8f07d7ce5f44f06a2
+InfoVersion:7adf48e83251df29f1d545b92d11779f

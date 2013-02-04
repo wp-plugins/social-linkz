@@ -3,7 +3,7 @@
 Plugin Name: Social Linkz
 Plugin Tag: social, facebook, twitter, google, buttons
 Description: <p>Add social links such as Twitter or Facebook in each post. </p><p>You can choose the buttons to be displayed such as : </p><ul><li>Twitter</li><li>FaceBook</li><li>LinkedIn</li><li>Viadeo</li><li>Google+</li><li>StumbleUpon</li><li>Pinterest</li><li>Print</li></ul><p>It is possible to manually insert the buttons in your post by adding the shortcode <code>[sociallinkz]</code> or <code>[sociallinkz url='http://domain.tld' buttons='facebook,google+' desc='Short description']</code> . </p><p>If you want to add the buttons in a very specific location, your may edit your theme and insert <code>$this->print_buttons($post, [$url], [$buttons]);</code> (be sure that <code>$post</code> refer to the current post). </p><p>It is also possible to add a widget to display buttons. </p><p>This plugin is under GPL licence. </p>
-Version: 1.5.2
+Version: 1.5.3
 Author: SedLex
 Author Email: sedlex@sedlex.fr
 Framework Email: sedlex@sedlex.fr
@@ -316,6 +316,7 @@ class sociallinkz extends pluginSedLex {
 		<div style="padding:20px;">
 			<?php echo $this->signature ; ?>
 			<p><?php echo __('This plugin help you sharing on the social network by adding facebook or twitter buttons.', $this->pluginID) ; ?></p>
+			<p><?php echo sprintf(__('It is possible to manually insert the buttons in your post by adding the shortcode %s or %s', $this->pluginID), "<code>[sociallinkz]</code>", "<code>[sociallinkz url='http://domain.tld' buttons='facebook,google+' desc='Short description']</code>") ; ?></p>
 		<?php
 		
 			// On verifie que les droits sont corrects
@@ -472,10 +473,13 @@ class sociallinkz extends pluginSedLex {
 		foreach ($exclu as $e) {
 			$e = trim(str_replace("\r", "", $e)) ; 
 			if ($e!="") {
-				$e = "@".$e."@i"; 
+				$e = "#".$e."#i"; 
 				if (preg_match($e, get_permalink($post->ID))) {
 					return $content ; 
 				}
+				if (preg_match($e, $_SERVER['REQUEST_URI'])) {
+					return $content ; 
+				}				
 			}
 		}
 		
@@ -521,6 +525,25 @@ class sociallinkz extends pluginSedLex {
 
 	function display_button_shortcode( $_atts, $text ) {
 		global $post ; 
+		
+		// We check whether there is an exclusion
+		$exclu = $this->get_param('exclude') ;
+		$exclu = explode("\n", $exclu) ;
+		foreach ($exclu as $e) {
+			$e = trim(str_replace("\r", "", $e)) ; 
+			if ($e!="") {
+				$e = "#".$e."#i"; 
+				if (preg_match($e, get_permalink($post->ID))) {
+					return "" ; 
+				}
+				if (preg_match($e, $_SERVER['REQUEST_URI'])) {
+					return "" ; 
+				}				
+			}
+		}
+		
+		
+		
 		extract( shortcode_atts( array(
 			'url' => '',
 			'button' => '',
