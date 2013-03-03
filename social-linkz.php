@@ -3,7 +3,9 @@
 Plugin Name: Social Linkz
 Plugin Tag: social, facebook, twitter, google, buttons
 Description: <p>Add social links such as Twitter or Facebook in each post. </p><p>You can choose the buttons to be displayed such as : </p><ul><li>Twitter</li><li>FaceBook</li><li>LinkedIn</li><li>Viadeo</li><li>Google+</li><li>StumbleUpon</li><li>Pinterest</li><li>Print</li></ul><p>It is possible to manually insert the buttons in your post by adding the shortcode <code>[sociallinkz]</code> or <code>[sociallinkz url='http://domain.tld' buttons='facebook,google+' desc='Short description']</code> . </p><p>If you want to add the buttons in a very specific location, your may edit your theme and insert <code>$this->print_buttons($post, [$url], [$buttons]);</code> (be sure that <code>$post</code> refer to the current post). </p><p>It is also possible to add a widget to display buttons. </p><p>This plugin is under GPL licence. </p>
-Version: 1.5.3
+Version: 1.5.4
+
+
 Author: SedLex
 Author Email: sedlex@sedlex.fr
 Framework Email: sedlex@sedlex.fr
@@ -102,8 +104,7 @@ class sociallinkz extends pluginSedLex {
 		}
 		
 		// enable custom URL
-		$results = $wpdb->get_results("SELECT * FROM ".$this->table_name." LIMIT 1'") ; 
-		if (!isset($result->url)) {
+		if ( !$wpdb->get_var("SHOW COLUMNS FROM ".$this->table_name." LIKE 'url'")  ) {
 			$wpdb->query("ALTER TABLE ".$this->table_name." ADD url MEDIUMTEXT ") ; 
 		}
 	}	
@@ -190,6 +191,7 @@ class sociallinkz extends pluginSedLex {
 			case 'googleplus_standard_count' 					: return false 	; break ; 
 			case 'googleplus' 					: return true 	; break ; 
 			case 'googleplus_count' 			: return true 	; break ; 
+			case 'googleplus_standard_key' 		: return 'AIzaSyCKSbrvQasunBoV16zDH9R33D88CeLr9gQ' ; break ; 
 
 			case 'facebook' 					: return true 	; break ; 
 			case 'facebook_id' 					: return "" 	; break ; 
@@ -374,9 +376,10 @@ class sociallinkz extends pluginSedLex {
 				$params->add_param('googleplus_standard', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_googleplus.png'/> ".sprintf(__('The %s button:',$this->pluginID), $title),"","",array('googleplus_standard_count')) ; 
 				$params->add_comment(sprintf(__('To share the post on %s !',$this->pluginID), $title)) ; 
 				$params->add_param('googleplus_standard_count', sprintf(__('Show the counter of this %s button:',$this->pluginID), $title)) ; 
+				$params->add_param('googleplus_standard_key', sprintf(__('Your API key to be able to retrieve the counts (visit %s):',$this->pluginID), "<a href='https://code.google.com/apis/console/'>Google console</a>")) ; 
 				$params->add_param('googleplus', "<img src='".WP_PLUGIN_URL."/".plugin_basename(dirname(__FILE__))."/img/lnk_googleplus_hosted.png'/> ".sprintf(__('The official %s button:',$this->pluginID), $title),"","",array('googleplus_count')) ; 
 				$params->add_comment(__('The SSL websites may not work properly with this official button... Moreover the rendering is not perfect !',$this->pluginID)) ; 
-				$params->add_param('googleplus_count', sprintf(__('Show the counter of this official %s button:',$this->pluginID), $title) ) ; 
+				$params->add_param('googleplus_count', sprintf(__('Show the counter of this official %s button:',$this->pluginID), $title)) ; 
 				
 				$title = "StumbleUpon&#8482;" ; 
 				$params->add_title(sprintf(__('Display %s button?',$this->pluginID), $title)) ; 
@@ -979,7 +982,7 @@ class sociallinkz extends pluginSedLex {
 			// GOOGLE +
 			if ($s=="google+") {
 				$post_data = '[{"method":"pos.plusones.get","id":"p","params":{"nolog":true,"id":"' .  $url . '","source":"widget","userId":"@viewer","groupId":"@self"},"jsonrpc":"2.0","key":"p","apiVersion":"v1"}]' ; 
-				$result = wp_remote_post("https://clients6.google.com/rpc?key=AIzaSyCKSbrvQasunBoV16zDH9R33D88CeLr9gQ", array( 'headers' => array('content-type' => 'application/json'), 'body' => $post_data ) );
+				$result = wp_remote_post("https://clients6.google.com/rpc?key=".$this->get_param('googleplus_standard_key'), array( 'headers' => array('content-type' => 'application/json'), 'body' => $post_data ) );
 				if ( is_wp_error($result) ) {
 					//trigger_error("SOCIAL LINKZ PLUGIN : Google+ API could not be retrieved to count hits") ; 
 				} else {

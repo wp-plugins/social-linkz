@@ -50,6 +50,7 @@ This plugin works with multisite installation.
 * French (France) translation provided by SedLex, JP, ChristopheReverd
 * Galician (Spain) translation provided by prios
 * Croatian (Croatia) translation provided by nikola
+* Hungarian (Hungary) translation provided by LaszloPinter
 * Italian (Italy) translation provided by BRENDON-75, BRENDON-75, StefanoBontempi
 * Japanese (Japan) translation provided by Toshi
 * Norwegian (Bokmal) (Norway) translation provided by Hkon, Hakon, MohamedBoyeJalloJamboria
@@ -87,6 +88,9 @@ Have fun !
 
 == Changelog ==
 
+= 1.5.4 =
+* Issue with the update process
+
 = 1.5.3 =
 * Filter issue with feed
 
@@ -109,8 +113,6 @@ Have fun !
 * New icon for twitter
 * Correct a bug with some installation and the button
 * Add a tinyMCE button and a shortcode to put buttons wherever you want
-
-= 1.4.0 =
 * Add a mail button 
 
 =1.3.0 -&gt; 1.3.7 = 
@@ -166,4 +168,4 @@ Have fun !
 Visit http://www.sedlex.fr/cote_geek/
 
  
-InfoVersion:7adf48e83251df29f1d545b92d11779f
+InfoVersion:88b32a797a92acf184a304d2c6a20463
