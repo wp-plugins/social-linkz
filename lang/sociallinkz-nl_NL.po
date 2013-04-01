@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2012-10-18T21:52:09+00:00\n"
+"PO-Revision-Date: 2013-03-13T17:16:35+00:00\n"
 "Last-Translator: HermanTimmermans <forumsx@gmail.com>\n"
 "Last-Translator: Jens <facebookverwijderen.nl>\n"
 "Language-Team: \n"
@@ -110,4 +110,34 @@ msgstr "De naam van de verzender van de email:"
 
 msgid "The mail address used to send the email:"
 msgstr "Het emailadres waarmee de email wordt verstuurd:"
+
+msgid "Mail"
+msgstr "Mail"
+
+msgid "Send this article by email"
+msgstr "Verstuur dit artikel per e-mail"
+
+msgid "What is your name?"
+msgstr "Wat is uw naam?"
+
+msgid "Enter one email per line. No more than %s emails."
+msgstr "Een e-mail adres per regel. Niet meer dan %s e-mail addressen."
+
+msgid "Close"
+msgstr "Sluit"
+
+msgid "Send"
+msgstr "Verstuur"
+
+msgid "Sending Report"
+msgstr "Rapportage versturen"
+
+msgid "Sorry, but you have not provided a name. Please refresh the current page and then retry."
+msgstr "Helaas, u heeft geen naam opgegeven. Ververs de pagina en probeer opnieuw."
+
+msgid "Email successfully sent to %s"
+msgstr "E-mail succesvol verzonden naar %s"
+
+msgid "Wordpress is unable to send an email to %s"
+msgstr "Wordpress kan geen e-mail verzenden naar %s"
 

@@ -4,11 +4,12 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2012-09-13T06:01:53+00:00\n"
+"PO-Revision-Date: 2013-03-14T14:33:29+00:00\n"
 "Last-Translator: sesi <http://www.dandoporculo.com>\n"
 "Last-Translator: AlexSancho <alex@alexsancho.name>\n"
 "Last-Translator: fco <www.guzol.cl>\n"
 "Last-Translator: JavierLaChica <www.granadaonline.com>\n"
+"Last-Translator: Verto <vertofotografia.es>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -172,4 +173,28 @@ msgstr "Este es un extracto del artículo:"
 
 msgid "Wordpress is unable to send an email to %s"
 msgstr "Wordpress no puede enviar un correo a %s"
+
+msgid "Display the social buttons as a widget."
+msgstr "Mostrar botones sociales como un widget."
+
+msgid "Add SocialLinkz buttons"
+msgstr "Agrega botones SocialLinkz"
+
+msgid "Insight provides metrics around your content. See %s for futher details. To identify your Facebook ID, please visit the previous link and then click on Statistic of my website."
+msgstr "Insight proporciona métricas en torno a su contenido. Vea %s para más detalles adicionales. Para identificar el ID de Facebook, por favor visite el enlace anterior y a continuación, haga clic en Estadísticas de mi página web."
+
+msgid "You may use an user id, an app id or a page id."
+msgstr "Puede usar un identificador de usuario, un ID de aplicación o un identificador de página."
+
+msgid "Number of minutes between two refreshes:"
+msgstr "Número de minutos entre dos actualizaciones:"
+
+msgid "Page to be excluded:"
+msgstr "Página para ser excluida:"
+
+msgid "Please enter one entry per line. If the page %s is to be excluded, you may enter %s."
+msgstr "Por favor, introduzca una entrada por línea. Si la página %s se excluye, puede introducir %s."
+
+msgid "What is your name?"
+msgstr "¿Cuál es su nombre?"
 

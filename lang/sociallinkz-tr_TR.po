@@ -4,9 +4,10 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2012-02-02T16:08:26+00:00\n"
+"PO-Revision-Date: 2013-03-25T07:02:23+00:00\n"
 "Last-Translator: OsmanERDOAN <http://www.osmanerdogan.com>\n"
 "Last-Translator: Hseyinzkan <huseyinozkan75@gmail.com>\n"
+"Last-Translator: BlentDnmez <www.nasihatler.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -51,9 +52,6 @@ msgstr "%s takma adınız:"
 msgid "Your FaceBook ID to enable Insight:"
 msgstr "Facebook istatistikleri için Facebook ID&#039;nizi yazınız."
 
-msgid "Insight provides metrics around your content. See %shere%s for futher details. To identify your Facebook ID, please visit the previous link and then click on Statistic of my website"
-msgstr ""
-
 msgid "Display all these buttons in the excerpt ?"
 msgstr "Düğmeleri alıntı yaparak bu şekilde gösterilsin mi?"
 
@@ -95,4 +93,40 @@ msgstr "Yazdır"
 
 msgid "The file %s cannot be deleted. You should have a problem with file permissions or security restrictions."
 msgstr "%s bu dosya silinemiyor. Yazım izinleri veya güvenlik ile ilgili bir sorun yaşanmaktadır."
+
+msgid "Share -%s- on %s"
+msgstr "Paylaş -%s-  %s"
+
+msgid "Mail"
+msgstr "Mail"
+
+msgid "Send this article by email"
+msgstr "Bu makaleyi e-posta ile gönder"
+
+msgid "What is your name?"
+msgstr "Adınız"
+
+msgid "Please indicate below the emails to which you want to send this article: %s"
+msgstr "Bu yazıyı göndermek istediğiniz kişi sayısı kadar e-posta adreslerini aşağıda belirtiniz"
+
+msgid "Enter one email per line. No more than %s emails."
+msgstr "Her satıra bir e-posta girin. %s den fazla değil"
+
+msgid "Close"
+msgstr "Kapat"
+
+msgid "Send"
+msgstr "Yolla"
+
+msgid "Sending Report"
+msgstr "Gönderi Raporu"
+
+msgid "Sorry, but you have not provided a name. Please refresh the current page and then retry."
+msgstr "Geçerli bir isim girmediniz. Sayfayı yenileyin ve daha sonra yeniden deneyin."
+
+msgid "%s has recommended this article to you: %s"
+msgstr "%s size bu makaleyi tavsiye etti: %s"
+
+msgid "Email successfully sent to %s"
+msgstr "E-posta %s başarıyla gönderildi"
 
