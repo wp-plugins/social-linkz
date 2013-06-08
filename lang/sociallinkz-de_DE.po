@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-02-12T11:28:36+00:00\n"
+"PO-Revision-Date: 2013-04-07T15:47:58+00:00\n"
 "Last-Translator: Olly <regge@online.de>\n"
 "Last-Translator: FarChris <http://www.pinsight.de>\n"
 "Last-Translator: Susann <dclifestyle.de>\n"
@@ -22,8 +22,17 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Textdomain-Support: yes\n"
 
+msgid "Display the social buttons as a widget."
+msgstr "Zeige die Buttons als Widget an."
+
+msgid "Add SocialLinkz buttons"
+msgstr "Füge die SocialLinkz Buttons hinzu"
+
 msgid "This plugin help you sharing on the social network by adding facebook or twitter buttons."
 msgstr "Dieses Plugin hilft dabei, Dinge im Social-Network durch Facebook oder Twitter-Buttons zu teilen."
+
+msgid "It is possible to manually insert the buttons in your post by adding the shortcode %s or %s"
+msgstr ""
 
 msgid "Display %s button?"
 msgstr "Zeige %s Button?"
@@ -52,8 +61,32 @@ msgstr "Dein %s Pseudonym:"
 msgid "Your FaceBook ID to enable Insight:"
 msgstr "Deine Facebook ID um Insights zu aktivieren:"
 
-msgid "Insight provides metrics around your content. See %shere%s for futher details. To identify your Facebook ID, please visit the previous link and then click on Statistic of my website"
-msgstr "Insight bietet Metriken rund um deine Inhalte. Siehe %shier%s für weitere Details. Um deine Facebook-ID zu identifizieren, besuche bitte den vorherigen Link und klicke dann auf Statistik meiner Website"
+msgid "Insight provides metrics around your content. See %s for futher details. To identify your Facebook ID, please visit the previous link and then click on Statistic of my website."
+msgstr "Insight bietet Metriken rund um deine Inhalte. Siehe hier %s für weitere Details. Um deine Facebook-ID zu identifizieren, besuche bitte den vorherigen Link und klicke dann auf Statistik meiner Website."
+
+msgid "You may use an user id, an app id or a page id."
+msgstr "Du musst eine User-ID, eine App-ID oder eine Page-ID nutzen."
+
+msgid "Your API key to be able to retrieve the counts (visit %s):"
+msgstr ""
+
+msgid "Default image:"
+msgstr "Standard Bild:"
+
+msgid "%s requires that an image is pinned. By default, the plugin will take the first image in the post but if there is not any image, this image will be used."
+msgstr "%s benötigt, dass ein Bild gepinnt wird. Dieses Plugin nimmt automatisch das erste Bild im Beitrag. Wenn dort  aber keines ist, wird dieses hier benutzt."
+
+msgid "The maximum number of emails for each mailing:"
+msgstr "Die maximale Anzahl von Mails pro Mailing:"
+
+msgid "The name used to send the email:"
+msgstr "Dieser Name soll zum Senden der Mail benutzt werden:"
+
+msgid "The mail address used to send the email:"
+msgstr "Diese Mail-Adresse zum Senden der Mail verwenden:"
+
+msgid "You may use the admin email %s, a noreply address such as %s or any other email"
+msgstr "Nutze die Admin-Mail %s, eine noreply-Adresse wie %s oder eine beliebige E-Mail-Adresse"
 
 msgid "Display all these buttons in the excerpt?"
 msgstr "Sollen alle Buttons im Textauschnitt (excerpt) angezeigt werden?"
@@ -72,6 +105,30 @@ msgstr "Im unteren Teil:"
 
 msgid "Where do you want to display the buttons in page?"
 msgstr "Wo sollen die Buttons im Artikel angezeigt werden?"
+
+msgid "Advanced options"
+msgstr "Erweiterte Optionen"
+
+msgid "Number of minutes between two refreshes:"
+msgstr "Minuten zwischen zwei Aktualisierungen:"
+
+msgid "HTML:"
+msgstr "HTML:"
+
+msgid "Default HTML is : %s with %s the displayed buttons"
+msgstr "Standard HTML ist: %s mit %s als angezeigte Buttons"
+
+msgid "CSS:"
+msgstr "CSS:"
+
+msgid "Default CSS is : %s"
+msgstr "Standard CSS ist: %s"
+
+msgid "Page to be excluded:"
+msgstr "Buttons auf den folgenden Seiten ausblenden:"
+
+msgid "Please enter one entry per line. If the page %s is to be excluded, you may enter %s."
+msgstr "Bitte nur einen Eintrag pro Spalte. Wenn die Seite ausgeblendete Seite so heißt:: %s, füge folgendes ein: %s."
 
 msgid "Parameters"
 msgstr "Parameter"
@@ -94,32 +151,17 @@ msgstr "Twittern"
 msgid "Print"
 msgstr "Drucken"
 
-msgid "Default image:"
-msgstr "Standard Bild:"
-
-msgid "%s requires that an image is pinned. By default, the plugin will take the first image in the post but if there is not any image, this image will be used."
-msgstr "%s benötigt, dass ein Bild gepinnt wird. Dieses Plugin nimmt automatisch das erste Bild im Beitrag. Wenn dort  aber keines ist, wird dieses hier benutzt."
-
-msgid "The maximum number of emails for each mailing:"
-msgstr "Die maximale Anzahl von Mails pro Mailing:"
-
-msgid "The name used to send the email:"
-msgstr "Dieser Name soll zum Senden der Mail benutzt werden:"
-
-msgid "The mail address used to send the email:"
-msgstr "Diese Mail-Adresse zum Senden der Mail verwenden:"
-
-msgid "Advanced options"
-msgstr "Erweiterte Optionen"
+msgid "Mail"
+msgstr "E-Mail"
 
 msgid "Send this article by email"
 msgstr "Versende diesen Artikel per email"
 
-msgid "What is you name?"
-msgstr "Wie ist dein Name"
+msgid "What is your name?"
+msgstr "Wie heißt du?"
 
 msgid "Please indicate below the emails to which you want to send this article: %s"
-msgstr "Bitte geben unten die Mail-Adressen ein, denen du diesen Artikel senden möchtest."
+msgstr "Bitte geben unten die Mail-Adressen ein, denen du diesen Artikel senden möchtest : %s"
 
 msgid "Enter one email per line. No more than %s emails."
 msgstr "Gebe eine Mail-Adresse pro Zeile ein. Nicht mehr als %s emails."
@@ -147,46 +189,4 @@ msgstr "Email erfolgreich gesendet an %s"
 
 msgid "Wordpress is unable to send an email to %s"
 msgstr "Wordpress kann diese Email nicht an %s senden."
-
-msgid "Display the social buttons as a widget."
-msgstr "Zeige die Buttons als Widget an."
-
-msgid "Add SocialLinkz buttons"
-msgstr "Füge die SocialLinkz Buttons hinzu"
-
-msgid "Insight provides metrics around your content. See %s for futher details. To identify your Facebook ID, please visit the previous link and then click on Statistic of my website."
-msgstr "Insight bietet Metriken rund um deine Inhalte. Siehe hier %s für weitere Details. Um deine Facebook-ID zu identifizieren, besuche bitte den vorherigen Link und klicke dann auf Statistik meiner Website."
-
-msgid "You may use an user id, an app id or a page id."
-msgstr "Du musst eine User-ID, eine App-ID oder eine Page-ID nutzen."
-
-msgid "You may use the admin email %s, a noreply address such as %s or any other email"
-msgstr "Nutze die Admin-Mail %s, eine noreply-Adresse wie %s oder eine beliebige E-Mail-Adresse"
-
-msgid "Number of minutes between two refreshes:"
-msgstr "Minuten zwischen zwei Aktualisierungen:"
-
-msgid "HTML:"
-msgstr "HTML:"
-
-msgid "Default HTML is : %s with %s the displayed buttons"
-msgstr "Standard HTML ist: %s mit %s als angezeigte Buttons"
-
-msgid "CSS:"
-msgstr "CSS:"
-
-msgid "Default CSS is : %s"
-msgstr "Standard CSS ist: %s"
-
-msgid "Page to be excluded:"
-msgstr "Buttons auf den folgenden Seiten ausblenden:"
-
-msgid "Please enter one entry per line. If the page %s is to be excluded, you may enter %s."
-msgstr "Bitte nur einen Eintrag pro Spalte. Wenn die Seite ausgeblendete Seite so heißt:: %s, füge folgendes ein: %s."
-
-msgid "Mail"
-msgstr "E-Mail"
-
-msgid "What is your name?"
-msgstr "Wie heißt du?"
 

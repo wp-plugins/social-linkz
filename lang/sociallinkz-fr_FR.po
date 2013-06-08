@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2012-11-06T21:08:05+00:00\n"
+"PO-Revision-Date: 2013-04-07T15:49:20+00:00\n"
 "Last-Translator: SedLex <http://www.sedlex.fr/>\n"
 "Last-Translator: JP <http://architectedelalumiere.fr>\n"
 "Last-Translator: ChristopheReverd <http://www.cedit.ca>\n"
@@ -22,8 +22,17 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Textdomain-Support: yes\n"
 
+msgid "Display the social buttons as a widget."
+msgstr ""
+
+msgid "Add SocialLinkz buttons"
+msgstr "Ajouter les boutons SocialLinkz"
+
 msgid "This plugin help you sharing on the social network by adding facebook or twitter buttons."
 msgstr "Ce plugin vous permet de partager sur les réseaux sociaux en ajoutant des boutons comme facebook ou Twitter"
+
+msgid "It is possible to manually insert the buttons in your post by adding the shortcode %s or %s"
+msgstr ""
 
 msgid "Display %s button?"
 msgstr "Afficher le bouton %s"
@@ -35,7 +44,7 @@ msgid "To share the post on %s !"
 msgstr "Pour partager l&#039;article sur %s !"
 
 msgid "Show the counter of this %s button:"
-msgstr "Montrer le compteur de ce bouton % :"
+msgstr "Montrer le compteur de ce bouton %s :"
 
 msgid "The official %s button:"
 msgstr "Le bouton officiel %s :"
@@ -44,7 +53,7 @@ msgid "The SSL websites may not work properly with this official button... Moreo
 msgstr "Les sites SSL peuvent ne pas fonctionner parfaitement avec ce bouton ... De plus l&#039;affichage n&#039;est pas homogène !"
 
 msgid "Show the counter of this official %s button:"
-msgstr "Montrer le compteur de ce bouton officiel % :"
+msgstr "Montrer le compteur de ce bouton officiel %s :"
 
 msgid "Your %s pseudo:"
 msgstr "Votre pseudo %s :"
@@ -52,8 +61,14 @@ msgstr "Votre pseudo %s :"
 msgid "Your FaceBook ID to enable Insight:"
 msgstr "Votre identifiant FaceBook pour activer Insight :"
 
-msgid "Insight provides metrics around your content. See %shere%s for futher details. To identify your Facebook ID, please visit the previous link and then click on Statistic of my website"
-msgstr "Insight fournit des graphiques à propos de vos pages. Regardez %sici%s pour plus de détails. Pour connaitre votre identifiant FaceBook, visitez la page précédente et cliquez sur Statistiques de votre site Web."
+msgid "Insight provides metrics around your content. See %s for futher details. To identify your Facebook ID, please visit the previous link and then click on Statistic of my website."
+msgstr ""
+
+msgid "You may use an user id, an app id or a page id."
+msgstr ""
+
+msgid "Your API key to be able to retrieve the counts (visit %s):"
+msgstr ""
 
 msgid "Default image:"
 msgstr "Image par défaut"
@@ -94,6 +109,9 @@ msgstr "Où voulez-vous que les boutons soient affichés dans la page ?"
 msgid "Advanced options"
 msgstr "Options avancées"
 
+msgid "Number of minutes between two refreshes:"
+msgstr ""
+
 msgid "HTML:"
 msgstr "HTML:"
 
@@ -105,6 +123,12 @@ msgstr "CSS:"
 
 msgid "Default CSS is : %s"
 msgstr "Le fichier CSS par défaut est : %s"
+
+msgid "Page to be excluded:"
+msgstr ""
+
+msgid "Please enter one entry per line. If the page %s is to be excluded, you may enter %s."
+msgstr ""
 
 msgid "Parameters"
 msgstr "Paramètres"
@@ -133,8 +157,8 @@ msgstr "Courriel"
 msgid "Send this article by email"
 msgstr "Envoyer cet article par courriel"
 
-msgid "What is you name?"
-msgstr "Quel est votre nom?"
+msgid "What is your name?"
+msgstr "Quel est votre nom"
 
 msgid "Please indicate below the emails to which you want to send this article: %s"
 msgstr "Veuillez indiquer ci-dessous les adresses courriel de ceux à qui vous souhaitez envoyer cet article: %s"
@@ -165,10 +189,4 @@ msgstr "Courriel envoyé avec succès à %s"
 
 msgid "Wordpress is unable to send an email to %s"
 msgstr "Wordpress ne peut envoyer un courriel à %s"
-
-msgid "Add SocialLinkz buttons"
-msgstr "Ajouter les boutons SocialLinkz"
-
-msgid "What is your name?"
-msgstr "Quel est votre nom"
 

@@ -5,7 +5,7 @@ Content-Transfer-Encoding: 8bit
 msgid "Display the social buttons as a widget."
 msgstr ""
 
-#: social-linkz.php:151
+#: social-linkz.php:150
 #@ sociallinkz
 msgid "Add SocialLinkz buttons"
 msgstr ""
@@ -15,17 +15,9 @@ msgstr ""
 msgid "This plugin help you sharing on the social network by adding facebook or twitter buttons."
 msgstr ""
 
-#: social-linkz.php:335
-#: social-linkz.php:345
-#: social-linkz.php:356
-#: social-linkz.php:365
-#: social-linkz.php:372
-#: social-linkz.php:381
-#: social-linkz.php:388
-#: social-linkz.php:396
-#: social-linkz.php:400
+#: social-linkz.php:319
 #@ sociallinkz
-msgid "Display %s button?"
+msgid "It is possible to manually insert the buttons in your post by adding the shortcode %s or %s"
 msgstr ""
 
 #: social-linkz.php:336
@@ -33,12 +25,12 @@ msgstr ""
 #: social-linkz.php:357
 #: social-linkz.php:366
 #: social-linkz.php:373
-#: social-linkz.php:382
-#: social-linkz.php:389
-#: social-linkz.php:397
-#: social-linkz.php:401
+#: social-linkz.php:383
+#: social-linkz.php:390
+#: social-linkz.php:398
+#: social-linkz.php:402
 #@ sociallinkz
-msgid "The %s button:"
+msgid "Display %s button?"
 msgstr ""
 
 #: social-linkz.php:337
@@ -46,275 +38,293 @@ msgstr ""
 #: social-linkz.php:358
 #: social-linkz.php:367
 #: social-linkz.php:374
-#: social-linkz.php:383
-#: social-linkz.php:390
+#: social-linkz.php:384
+#: social-linkz.php:391
+#: social-linkz.php:399
+#: social-linkz.php:403
 #@ sociallinkz
-msgid "To share the post on %s !"
+msgid "The %s button:"
 msgstr ""
 
 #: social-linkz.php:338
 #: social-linkz.php:348
 #: social-linkz.php:359
+#: social-linkz.php:368
 #: social-linkz.php:375
-#: social-linkz.php:384
-#: social-linkz.php:391
+#: social-linkz.php:385
+#: social-linkz.php:392
 #@ sociallinkz
-msgid "Show the counter of this %s button:"
+msgid "To share the post on %s !"
 msgstr ""
 
 #: social-linkz.php:339
 #: social-linkz.php:349
-#: social-linkz.php:350
 #: social-linkz.php:360
-#: social-linkz.php:368
 #: social-linkz.php:376
-#: social-linkz.php:385
+#: social-linkz.php:386
+#: social-linkz.php:393
+#@ sociallinkz
+msgid "Show the counter of this %s button:"
+msgstr ""
+
+#: social-linkz.php:340
+#: social-linkz.php:350
+#: social-linkz.php:351
+#: social-linkz.php:361
+#: social-linkz.php:369
+#: social-linkz.php:378
+#: social-linkz.php:387
 #@ sociallinkz
 msgid "The official %s button:"
 msgstr ""
 
-#: social-linkz.php:340
-#: social-linkz.php:351
-#: social-linkz.php:361
-#: social-linkz.php:377
+#: social-linkz.php:341
+#: social-linkz.php:352
+#: social-linkz.php:362
+#: social-linkz.php:379
 #@ sociallinkz
 msgid "The SSL websites may not work properly with this official button... Moreover the rendering is not perfect !"
 msgstr ""
 
-#: social-linkz.php:341
-#: social-linkz.php:362
-#: social-linkz.php:369
-#: social-linkz.php:378
+#: social-linkz.php:342
+#: social-linkz.php:363
+#: social-linkz.php:370
+#: social-linkz.php:380
 #@ sociallinkz
 msgid "Show the counter of this official %s button:"
 msgstr ""
 
-#: social-linkz.php:342
+#: social-linkz.php:343
 #@ sociallinkz
 msgid "Your %s pseudo:"
 msgstr ""
 
-#: social-linkz.php:352
+#: social-linkz.php:353
 #@ sociallinkz
 msgid "Your FaceBook ID to enable Insight:"
 msgstr ""
 
-#: social-linkz.php:353
+#: social-linkz.php:354
 #@ sociallinkz
 msgid "Insight provides metrics around your content. See %s for futher details. To identify your Facebook ID, please visit the previous link and then click on Statistic of my website."
 msgstr ""
 
-#: social-linkz.php:354
+#: social-linkz.php:355
 #@ sociallinkz
 msgid "You may use an user id, an app id or a page id."
 msgstr ""
 
-#: social-linkz.php:392
+#: social-linkz.php:377
+#@ sociallinkz
+msgid "Your API key to be able to retrieve the counts (visit %s):"
+msgstr ""
+
+#: social-linkz.php:394
 #@ sociallinkz
 msgid "Default image:"
 msgstr ""
 
-#: social-linkz.php:393
+#: social-linkz.php:395
 #@ sociallinkz
 msgid "%s requires that an image is pinned. By default, the plugin will take the first image in the post but if there is not any image, this image will be used."
 msgstr ""
 
-#: social-linkz.php:402
+#: social-linkz.php:404
 #@ sociallinkz
 msgid "The maximum number of emails for each mailing:"
 msgstr ""
 
-#: social-linkz.php:403
+#: social-linkz.php:405
 #@ sociallinkz
 msgid "The name used to send the email:"
 msgstr ""
 
-#: social-linkz.php:404
+#: social-linkz.php:406
 #@ sociallinkz
 msgid "The mail address used to send the email:"
 msgstr ""
 
-#: social-linkz.php:406
+#: social-linkz.php:408
 #@ sociallinkz
 msgid "You may use the admin email %s, a noreply address such as %s or any other email"
 msgstr ""
 
-#: social-linkz.php:408
+#: social-linkz.php:410
 #@ sociallinkz
 msgid "Display all these buttons in the excerpt?"
 msgstr ""
 
-#: social-linkz.php:409
+#: social-linkz.php:411
 #@ sociallinkz
 msgid "These buttons should be displayed in excerpt:"
 msgstr ""
 
-#: social-linkz.php:411
+#: social-linkz.php:413
 #@ sociallinkz
 msgid "Where do you want to display the buttons in post?"
 msgstr ""
 
-#: social-linkz.php:412
-#: social-linkz.php:416
+#: social-linkz.php:414
+#: social-linkz.php:418
 #@ sociallinkz
 msgid "At the Top:"
 msgstr ""
 
-#: social-linkz.php:413
-#: social-linkz.php:417
+#: social-linkz.php:415
+#: social-linkz.php:419
 #@ sociallinkz
 msgid "At the Bottom:"
 msgstr ""
 
-#: social-linkz.php:415
+#: social-linkz.php:417
 #@ sociallinkz
 msgid "Where do you want to display the buttons in page?"
 msgstr ""
 
-#: social-linkz.php:419
+#: social-linkz.php:421
 #@ sociallinkz
 msgid "Advanced options"
 msgstr ""
 
-#: social-linkz.php:420
+#: social-linkz.php:422
 #@ sociallinkz
 msgid "Number of minutes between two refreshes:"
 msgstr ""
 
-#: social-linkz.php:421
+#: social-linkz.php:423
 #@ sociallinkz
 msgid "HTML:"
 msgstr ""
 
-#: social-linkz.php:423
+#: social-linkz.php:425
 #@ sociallinkz
 msgid "Default HTML is : %s with %s the displayed buttons"
 msgstr ""
 
-#: social-linkz.php:424
+#: social-linkz.php:426
 #@ sociallinkz
 msgid "CSS:"
 msgstr ""
 
-#: social-linkz.php:426
+#: social-linkz.php:428
 #@ sociallinkz
 msgid "Default CSS is : %s"
 msgstr ""
 
-#: social-linkz.php:427
+#: social-linkz.php:429
 #@ sociallinkz
 msgid "Page to be excluded:"
 msgstr ""
 
-#: social-linkz.php:428
+#: social-linkz.php:430
 #@ sociallinkz
 msgid "Please enter one entry per line. If the page %s is to be excluded, you may enter %s."
 msgstr ""
 
-#: social-linkz.php:431
+#: social-linkz.php:433
 #@ sociallinkz
 msgid "Parameters"
 msgstr ""
 
-#: social-linkz.php:437
+#: social-linkz.php:439
 #@ sociallinkz
 msgid "Manage translations"
 msgstr ""
 
-#: social-linkz.php:443
+#: social-linkz.php:445
 #@ sociallinkz
 msgid "Give feedback"
 msgstr ""
 
-#: social-linkz.php:448
+#: social-linkz.php:450
 #@ sociallinkz
 msgid "Other plugins"
 msgstr ""
 
-#: social-linkz.php:614
-#: social-linkz.php:644
-#: social-linkz.php:671
-#: social-linkz.php:694
-#: social-linkz.php:717
-#: social-linkz.php:736
+#: social-linkz.php:638
+#: social-linkz.php:668
+#: social-linkz.php:695
+#: social-linkz.php:718
+#: social-linkz.php:741
+#: social-linkz.php:760
 #@ sociallinkz
 msgid "Share -%s- on %s"
 msgstr ""
 
-#: social-linkz.php:665
+#: social-linkz.php:689
 #@ sociallinkz
 msgid "Tweet"
 msgstr ""
 
-#: social-linkz.php:779
+#: social-linkz.php:803
 #@ sociallinkz
 msgid "Print"
 msgstr ""
 
-#: social-linkz.php:786
+#: social-linkz.php:810
 #@ sociallinkz
 msgid "Mail"
 msgstr ""
 
-#: social-linkz.php:791
+#: social-linkz.php:815
 #@ sociallinkz
 msgid "Send this article by email"
 msgstr ""
 
-#: social-linkz.php:792
+#: social-linkz.php:816
 #@ sociallinkz
 msgid "What is your name?"
 msgstr ""
 
-#: social-linkz.php:794
+#: social-linkz.php:818
 #@ sociallinkz
 msgid "Please indicate below the emails to which you want to send this article: %s"
 msgstr ""
 
-#: social-linkz.php:796
+#: social-linkz.php:820
 #@ sociallinkz
 msgid "Enter one email per line. No more than %s emails."
 msgstr ""
 
-#: social-linkz.php:797
-#: social-linkz.php:799
-#: social-linkz.php:799
+#: social-linkz.php:821
+#: social-linkz.php:823
+#: social-linkz.php:823
 #@ sociallinkz
 msgid "Close"
 msgstr ""
 
-#: social-linkz.php:797
+#: social-linkz.php:821
 #@ sociallinkz
 msgid "Send"
 msgstr ""
 
-#: social-linkz.php:1128
+#: social-linkz.php:1152
 #@ sociallinkz
 msgid "Sending Report"
 msgstr ""
 
-#: social-linkz.php:1132
+#: social-linkz.php:1156
 #@ sociallinkz
 msgid "Sorry, but you have not provided a name. Please refresh the current page and then retry."
 msgstr ""
 
-#: social-linkz.php:1135
-#: social-linkz.php:1143
+#: social-linkz.php:1159
+#: social-linkz.php:1167
 #@ sociallinkz
 msgid "%s has recommended this article to you: %s"
 msgstr ""
 
-#: social-linkz.php:1136
+#: social-linkz.php:1160
 #@ sociallinkz
 msgid "Here is an extract of the article:"
 msgstr ""
 
-#: social-linkz.php:1161
+#: social-linkz.php:1185
 #@ sociallinkz
 msgid "Email successfully sent to %s"
 msgstr ""
 
-#: social-linkz.php:1163
+#: social-linkz.php:1187
 #@ sociallinkz
 msgid "Wordpress is unable to send an email to %s"
 msgstr ""

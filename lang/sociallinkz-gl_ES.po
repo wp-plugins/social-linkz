@@ -4,15 +4,15 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2012-11-22T22:02:16+00:00\n"
+"PO-Revision-Date: 2013-04-07T15:51:14+00:00\n"
 "Last-Translator: prios <prios@dinahosting.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
-"
-"
+"X-Poedit-Language: Galician\n"
+"X-Poedit-Country: Spain\n"
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-KeywordsList: __;\n"
 "X-Poedit-Basepath: \n"
@@ -20,17 +20,23 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Textdomain-Support: yes\n"
 
+msgid "Display the social buttons as a widget."
+msgstr ""
+
 msgid "Add SocialLinkz buttons"
 msgstr "Engadir botóns sociallinkz"
 
 msgid "This plugin help you sharing on the social network by adding facebook or twitter buttons."
 msgstr "Este plugin axúdache a compartir nas redes sociais engadindo os botóns de FaceBook ou Twitter"
 
+msgid "It is possible to manually insert the buttons in your post by adding the shortcode %s or %s"
+msgstr ""
+
 msgid "Display %s button?"
 msgstr "Mostras botón %s?"
 
 msgid "The %s button:"
-msgstr "Botón..."
+msgstr "%s botón..."
 
 msgid "To share the post on %s !"
 msgstr "Compartir o artigo en %s!"
@@ -53,8 +59,14 @@ msgstr "O teu alcume en %s:"
 msgid "Your FaceBook ID to enable Insight:"
 msgstr "O teu ID do FaceBook para activares Insight:"
 
-msgid "Insight provides metrics around your content. See %shere%s for futher details. To identify your Facebook ID, please visit the previous link and then click on Statistic of my website"
-msgstr "Insight fornece métricas en torno dos teus contidos. Para máis información vai %saqui%s. Para identificares o teu  ID de Facebook, por favor, preme na ligazón anterior e, a continuación, preme en Estatística do meu sitio"
+msgid "Insight provides metrics around your content. See %s for futher details. To identify your Facebook ID, please visit the previous link and then click on Statistic of my website."
+msgstr ""
+
+msgid "You may use an user id, an app id or a page id."
+msgstr ""
+
+msgid "Your API key to be able to retrieve the counts (visit %s):"
+msgstr ""
 
 msgid "Default image:"
 msgstr "Imaxe por defecto:"
@@ -95,6 +107,9 @@ msgstr "Onde queres mostrar os botóns na páxina?"
 msgid "Advanced options"
 msgstr "Opcións avanzadas"
 
+msgid "Number of minutes between two refreshes:"
+msgstr ""
+
 msgid "HTML:"
 msgstr "HTML:"
 
@@ -106,6 +121,12 @@ msgstr "CSS:"
 
 msgid "Default CSS is : %s"
 msgstr "CSS por defecto é: %s"
+
+msgid "Page to be excluded:"
+msgstr ""
+
+msgid "Please enter one entry per line. If the page %s is to be excluded, you may enter %s."
+msgstr ""
 
 msgid "Parameters"
 msgstr "Parámetros"

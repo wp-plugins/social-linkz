@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2011-09-20T16:41:22+00:00\n"
+"PO-Revision-Date: 2013-04-07T15:53:44+00:00\n"
 "Last-Translator: nikola <repustic@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -20,38 +20,113 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Textdomain-Support: yes\n"
 
+msgid "Display the social buttons as a widget."
+msgstr ""
+
+msgid "Add SocialLinkz buttons"
+msgstr ""
+
 msgid "This plugin help you sharing on the social network by adding facebook or twitter buttons."
 msgstr "Ovaj dodatak će vam pomoći  dijeljenje na društvenoj mreži dodavanjem Facebook ili Twitter gumba"
 
+msgid "It is possible to manually insert the buttons in your post by adding the shortcode %s or %s"
+msgstr ""
+
 msgid "Display %s button?"
-msgstr "Prikaz gumba"
+msgstr "Prikaz gumba %s ?"
 
 msgid "The %s button:"
-msgstr "Gumb"
+msgstr "Gumb %s:"
 
 msgid "To share the post on %s !"
-msgstr "Za dijeljenje post"
+msgstr "Za dijeljenje post on %s !"
 
 msgid "Show the counter of this %s button:"
-msgstr "Prikaži brojać za ovaj gumb"
+msgstr "Prikaži brojać za ovaj gumb %s:"
 
 msgid "The official %s button:"
-msgstr "Službeni gumb"
+msgstr "Službeni gumb %s:"
 
 msgid "The SSL websites may not work properly with this official button... Moreover the rendering is not perfect !"
 msgstr "SSL web stranice možda neće raditi ispravno s ovim službenim gumbom ... Štoviše pružanje nije savršeno"
 
 msgid "Show the counter of this official %s button:"
-msgstr "Prikaži brojač ovog službenog gumba"
+msgstr "Prikaži brojač ovog službenog gumba %s :"
 
 msgid "Your %s pseudo:"
-msgstr "Your  pseudo"
+msgstr ""
 
-msgid "Display all these buttons in the excerpt ?"
-msgstr "Prikaži sve te gumbiće u izvatku"
+msgid "Your FaceBook ID to enable Insight:"
+msgstr ""
+
+msgid "Insight provides metrics around your content. See %s for futher details. To identify your Facebook ID, please visit the previous link and then click on Statistic of my website."
+msgstr ""
+
+msgid "You may use an user id, an app id or a page id."
+msgstr ""
+
+msgid "Your API key to be able to retrieve the counts (visit %s):"
+msgstr ""
+
+msgid "Default image:"
+msgstr ""
+
+msgid "%s requires that an image is pinned. By default, the plugin will take the first image in the post but if there is not any image, this image will be used."
+msgstr ""
+
+msgid "The maximum number of emails for each mailing:"
+msgstr ""
+
+msgid "The name used to send the email:"
+msgstr ""
+
+msgid "The mail address used to send the email:"
+msgstr ""
+
+msgid "You may use the admin email %s, a noreply address such as %s or any other email"
+msgstr ""
+
+msgid "Display all these buttons in the excerpt?"
+msgstr ""
 
 msgid "These buttons should be displayed in excerpt:"
 msgstr "Ovi gumbi bi trebali biti prikazan u izvatku"
+
+msgid "Where do you want to display the buttons in post?"
+msgstr ""
+
+msgid "At the Top:"
+msgstr ""
+
+msgid "At the Bottom:"
+msgstr ""
+
+msgid "Where do you want to display the buttons in page?"
+msgstr ""
+
+msgid "Advanced options"
+msgstr ""
+
+msgid "Number of minutes between two refreshes:"
+msgstr ""
+
+msgid "HTML:"
+msgstr ""
+
+msgid "Default HTML is : %s with %s the displayed buttons"
+msgstr ""
+
+msgid "CSS:"
+msgstr ""
+
+msgid "Default CSS is : %s"
+msgstr ""
+
+msgid "Page to be excluded:"
+msgstr ""
+
+msgid "Please enter one entry per line. If the page %s is to be excluded, you may enter %s."
+msgstr ""
 
 msgid "Parameters"
 msgstr "Parametri"
@@ -59,27 +134,57 @@ msgstr "Parametri"
 msgid "Manage translations"
 msgstr "Upravljanje prijevodima"
 
-msgid "This form is an easy way to contact the author and to discuss issues / incompatibilities / etc."
-msgstr "vaj obrazac je jednostavan način da se obratite autoru i kako bi raspravljali o pitanjima / nekompatibilnosti / itd."
-
 msgid "Give feedback"
 msgstr "Dajte povratne informacije"
 
-msgid "Here is the plugins developped by the author"
-msgstr "Ovdje je dodatak razvijen od strane autora"
+msgid "Other plugins"
+msgstr ""
 
-msgid "Other possible plugins"
-msgstr "Ostali mogući dodatci"
-
-msgid "Share -%s- on Facebook"
-msgstr "Podijeli na Facebooku"
-
-msgid "Share -%s- on Twitter"
-msgstr "Podijeli na Twitteru"
+msgid "Share -%s- on %s"
+msgstr ""
 
 msgid "Tweet"
 msgstr "Tweet"
 
 msgid "Print"
 msgstr "Ispis"
+
+msgid "Mail"
+msgstr ""
+
+msgid "Send this article by email"
+msgstr ""
+
+msgid "What is your name?"
+msgstr ""
+
+msgid "Please indicate below the emails to which you want to send this article: %s"
+msgstr ""
+
+msgid "Enter one email per line. No more than %s emails."
+msgstr ""
+
+msgid "Close"
+msgstr ""
+
+msgid "Send"
+msgstr ""
+
+msgid "Sending Report"
+msgstr ""
+
+msgid "Sorry, but you have not provided a name. Please refresh the current page and then retry."
+msgstr ""
+
+msgid "%s has recommended this article to you: %s"
+msgstr ""
+
+msgid "Here is an extract of the article:"
+msgstr ""
+
+msgid "Email successfully sent to %s"
+msgstr ""
+
+msgid "Wordpress is unable to send an email to %s"
+msgstr ""
 

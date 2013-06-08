@@ -3,7 +3,7 @@
 Author: SedLex
 Contributors: SedLex
 Author URI: http://www.sedlex.fr/
-Plugin URI: http://wordpress.org/extend/plugins/social-linkz/
+Plugin URI: http://wordpress.org/plugins/social-linkz/
 Tags: social, facebook, twitter, google, buttons
 Requires at least: 3.0
 Tested up to: 3.5
@@ -44,7 +44,7 @@ This plugin works with multisite installation.
 * English (United States), default language
 * Spanish (Argentina) translation provided by GianFrancoAlarcn, Sunombre
 * Spanish (Chile) translation provided by Xaloc
-* Spanish (Spain) translation provided by sesi, AlexSancho, fco, JavierLaChica
+* Spanish (Spain) translation provided by sesi, AlexSancho, fco, JavierLaChica, Verto
 * Spanish (Guatemala) translation provided by EnriqueBran
 * Finnish (Finland) translation provided by ProDexorite
 * French (France) translation provided by SedLex, JP, ChristopheReverd
@@ -58,7 +58,7 @@ This plugin works with multisite installation.
 * Dutch (Netherlands) translation provided by HermanTimmermans, Jens
 * Polish (Poland) translation provided by Kajaczek
 * Portuguese (Brazil) translation provided by AndrVasconcellos
-* Turkish (Turkey) translation provided by OsmanERDOAN, Hseyinzkan
+* Turkish (Turkey) translation provided by OsmanERDOAN, Hseyinzkan, BlentDnmez
 
 = Features of the framework =
 
@@ -87,6 +87,9 @@ Have fun !
 2. The buttons
 
 == Changelog ==
+
+= 1.5.5 =
+* Update of the core
 
 = 1.5.4 =
 * Issue with the update process
@@ -168,4 +171,4 @@ Have fun !
 Visit http://www.sedlex.fr/cote_geek/
 
  
-InfoVersion:8b9a2e4e866db2a02b1658e9f2c6f6b1
+InfoVersion:5caaa6a6d1e365199a548ab5982a3b90

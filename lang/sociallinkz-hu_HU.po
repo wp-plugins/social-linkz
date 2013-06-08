@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-02-17T10:06:00+00:00\n"
+"PO-Revision-Date: 2013-04-07T15:55:42+00:00\n"
 "Last-Translator: LaszloPinter <pinter.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -28,6 +28,9 @@ msgstr "Adj SocialLinkz gombokat"
 
 msgid "This plugin help you sharing on the social network by adding facebook or twitter buttons."
 msgstr "Ez a plugin segít, hogy megoszd az oldalaidat a social network-ökön a Facebook és Twitter gombokkal."
+
+msgid "It is possible to manually insert the buttons in your post by adding the shortcode %s or %s"
+msgstr ""
 
 msgid "Display %s button?"
 msgstr "Mutasd a %s gombot?"
@@ -61,6 +64,9 @@ msgstr "Insight statisztikát készít az oldaladról. Bővebbb információt a 
 
 msgid "You may use an user id, an app id or a page id."
 msgstr "Használhatsz egy user id-t, app id-t, vagy oldal id-t."
+
+msgid "Your API key to be able to retrieve the counts (visit %s):"
+msgstr ""
 
 msgid "Default image:"
 msgstr "Alapértelmezett kép:"
@@ -104,8 +110,14 @@ msgstr "Haladóknak"
 msgid "Number of minutes between two refreshes:"
 msgstr "Két frissítés közötti idő percben:"
 
+msgid "HTML:"
+msgstr ""
+
 msgid "Default HTML is : %s with %s the displayed buttons"
 msgstr "Az alapértelmezett HTML: %s a %s mutatott gombokkal"
+
+msgid "CSS:"
+msgstr ""
 
 msgid "Default CSS is : %s"
 msgstr "Az alapértelmezett CSS: %s"
@@ -131,6 +143,9 @@ msgstr "Egyéb pluginok"
 msgid "Share -%s- on %s"
 msgstr "Oszd meg %s -t a %s -on"
 
+msgid "Tweet"
+msgstr ""
+
 msgid "Print"
 msgstr "Nyomtat"
 
@@ -144,7 +159,7 @@ msgid "What is your name?"
 msgstr "Mi a neved?"
 
 msgid "Please indicate below the emails to which you want to send this article: %s"
-msgstr "Írd ide azokat az email címeket, ahová ezt a cikket küldeni akarod."
+msgstr "Írd ide azokat az email címeket, ahová ezt a cikket küldeni akarod : %s"
 
 msgid "Enter one email per line. No more than %s emails."
 msgstr "Minden címet írj külön sorba. Maximum %s címet írhatsz ide."
