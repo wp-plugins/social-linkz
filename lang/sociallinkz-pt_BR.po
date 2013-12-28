@@ -4,8 +4,9 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-04-07T16:03:09+00:00\n"
+"PO-Revision-Date: 2013-10-17T17:04:00+00:00\n"
 "Last-Translator: AndrVasconcellos <www.andrevasconcellos.org>\n"
+"Last-Translator: MarceloSrougi <marcelo@srougi.biz-http://srougi.biz>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,16 +22,16 @@ msgstr ""
 "X-Textdomain-Support: yes\n"
 
 msgid "Display the social buttons as a widget."
-msgstr ""
+msgstr "Mostrar os botões &quot;Social&quot;  como um Widget"
 
 msgid "Add SocialLinkz buttons"
-msgstr ""
+msgstr "Adicionar botões SocialLinkz"
 
 msgid "This plugin help you sharing on the social network by adding facebook or twitter buttons."
 msgstr "Este plugin irá ajudá-lo a compartilhar nas redes sociais adicionando botões do facebook ou twitter."
 
 msgid "It is possible to manually insert the buttons in your post by adding the shortcode %s or %s"
-msgstr ""
+msgstr "É possível inserir manualmente os botões no seu post adicionando o atalho %s ou %s"
 
 msgid "Display %s button?"
 msgstr "Exibir o botão %s?"
@@ -39,7 +40,7 @@ msgid "The %s button:"
 msgstr "O botão %s:"
 
 msgid "To share the post on %s !"
-msgstr ""
+msgstr "Compartilhar o post em %s !"
 
 msgid "Show the counter of this %s button:"
 msgstr "Exibir o contador do botão %s:"
@@ -60,13 +61,13 @@ msgid "Your FaceBook ID to enable Insight:"
 msgstr "Seu ID do Facebook para habilitar o Insight:"
 
 msgid "Insight provides metrics around your content. See %s for futher details. To identify your Facebook ID, please visit the previous link and then click on Statistic of my website."
-msgstr ""
+msgstr "Insight oferece métricas em torno do seu conteudo. Veja %s para mais detalhes. Para identificar seu ID do Facebook, por favor visite o link anterior e clique em Estatísticas do meu website."
 
 msgid "You may use an user id, an app id or a page id."
-msgstr ""
+msgstr "Você pode usar um ID de usuário, um ID de aplicativo ou um ID de página."
 
 msgid "Your API key to be able to retrieve the counts (visit %s):"
-msgstr ""
+msgstr "Sua chave API está capacitada para receber os &quot;counts&quot; (visite %s):"
 
 msgid "Default image:"
 msgstr "Imagem padrão:"
@@ -75,25 +76,25 @@ msgid "%s requires that an image is pinned. By default, the plugin will take the
 msgstr "%s requere que uma imagem seja anexada. Po definição, o plugin vai usar a primeira imagem do post caso nenhuma imagem seja selecionada."
 
 msgid "The maximum number of emails for each mailing:"
-msgstr ""
+msgstr "O número máximo de emails para cada mailing:"
 
 msgid "The name used to send the email:"
-msgstr ""
+msgstr "O nome usado para enviar o email:"
 
 msgid "The mail address used to send the email:"
-msgstr ""
+msgstr "O endereço de email usado para enviar o email:"
 
 msgid "You may use the admin email %s, a noreply address such as %s or any other email"
-msgstr ""
+msgstr "Você pode usar o email do admin %s, um endereço que não permite respostas como %s ou qualquer outro email"
 
 msgid "Display all these buttons in the excerpt?"
-msgstr ""
+msgstr "Mostrar todos esses botões no resumo?"
 
 msgid "These buttons should be displayed in excerpt:"
 msgstr "Estes botões devem ser exibidos no resumo:"
 
 msgid "Where do you want to display the buttons in post?"
-msgstr ""
+msgstr "Aonde no post você quer exibir os botões?"
 
 msgid "At the Top:"
 msgstr "No topo:"
@@ -102,31 +103,31 @@ msgid "At the Bottom:"
 msgstr "Embaixo:"
 
 msgid "Where do you want to display the buttons in page?"
-msgstr ""
+msgstr "Aonde na página você quer exibir os botões?"
 
 msgid "Advanced options"
-msgstr ""
+msgstr "Opcões avançadas"
 
 msgid "Number of minutes between two refreshes:"
-msgstr ""
+msgstr "Número de minutos entre duas atualizações"
 
 msgid "HTML:"
-msgstr ""
+msgstr "HTML:"
 
 msgid "Default HTML is : %s with %s the displayed buttons"
-msgstr ""
+msgstr "HTML padrão é:  %s com %s os botões exibidos"
 
 msgid "CSS:"
-msgstr ""
+msgstr "CSS:"
 
 msgid "Default CSS is : %s"
-msgstr ""
+msgstr "CSS padrão é: %s"
 
 msgid "Page to be excluded:"
-msgstr ""
+msgstr "Página para ser excluida"
 
 msgid "Please enter one entry per line. If the page %s is to be excluded, you may enter %s."
-msgstr ""
+msgstr "Por favor entre com uma &quot;entrada&quot; por linha. Se deseja excluir a página %s, você deve digitar %s."
 
 msgid "Parameters"
 msgstr "Parâmetros"
@@ -150,41 +151,41 @@ msgid "Print"
 msgstr "Imprimir"
 
 msgid "Mail"
-msgstr ""
+msgstr "Mensagem"
 
 msgid "Send this article by email"
-msgstr ""
+msgstr "Enviar artigo por email"
 
 msgid "What is your name?"
-msgstr ""
+msgstr "Qual o seu nome?"
 
 msgid "Please indicate below the emails to which you want to send this article: %s"
-msgstr ""
+msgstr "Por favor indique abaixo os emails para os quais você quer mandar este artigo: %s"
 
 msgid "Enter one email per line. No more than %s emails."
-msgstr ""
+msgstr "Entre um email por linha. Não mais que %s emails."
 
 msgid "Close"
-msgstr ""
+msgstr "Fechar"
 
 msgid "Send"
-msgstr ""
+msgstr "Enviar"
 
 msgid "Sending Report"
-msgstr ""
+msgstr "Enviando Relatório"
 
 msgid "Sorry, but you have not provided a name. Please refresh the current page and then retry."
-msgstr ""
+msgstr "Desculpe, mas você não forneceu um nome. Por favor atualize a página atual e tente novamente."
 
 msgid "%s has recommended this article to you: %s"
-msgstr ""
+msgstr "%s recomendou este artigo para você: %s"
 
 msgid "Here is an extract of the article:"
-msgstr ""
+msgstr "Aqui está um resumo do artigo:"
 
 msgid "Email successfully sent to %s"
-msgstr ""
+msgstr "Email enviado com sucesso para %s"
 
 msgid "Wordpress is unable to send an email to %s"
-msgstr ""
+msgstr "O Wordpress não pôde enviar o email para %s"
 

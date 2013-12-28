@@ -6,7 +6,7 @@ Author URI: http://www.sedlex.fr/
 Plugin URI: http://wordpress.org/plugins/social-linkz/
 Tags: social, facebook, twitter, google, buttons
 Requires at least: 3.0
-Tested up to: 3.5
+Tested up to: 3.8
 Stable tag: trunk
 
 Add social links such as Twitter or Facebook in each post. 
@@ -57,7 +57,7 @@ This plugin works with multisite installation.
 * Norwegian (Bokmal) (Norway) translation provided by Hakon, Hkon
 * Dutch (Netherlands) translation provided by HermanTimmermans, Jens
 * Polish (Poland) translation provided by Kajaczek
-* Portuguese (Brazil) translation provided by AndrVasconcellos
+* Portuguese (Brazil) translation provided by AndrVasconcellos, MarceloSrougi
 * Turkish (Turkey) translation provided by OsmanERDOAN, Hseyinzkan, BlentDnmez
 
 = Features of the framework =
@@ -88,23 +88,16 @@ Have fun !
 
 == Changelog ==
 
-= 1.5.5 =
+= 1.6.0 =
+* NEW : Add an option to customize the printed pages (custom CSS, selection of plugins that are to be executed...)
+
+= 1.5.0 -&gt; 1.5.5 =
 * Update of the core
-
-= 1.5.4 =
 * Issue with the update process
-
-= 1.5.3 =
 * Filter issue with feed
-
-= 1.5.2 =
 * SSL issue with facebook and some installation
 * improve the Facebook counter
-
-= 1.5.1 =
 * Issue with the excerpt
-
-= 1.5.0 =
 * Change the method to store the counters
 * Improve the detection
 * Add the hosted viadeo buttons
@@ -171,4 +164,4 @@ Have fun !
 Visit http://www.sedlex.fr/cote_geek/
 
  
-InfoVersion:5caaa6a6d1e365199a548ab5982a3b90
+InfoVersion:ce562623a778eecc112ed5168675a4c8

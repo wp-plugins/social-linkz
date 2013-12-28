@@ -8,143 +8,143 @@ msgstr ""
 
 #: core.class.php:554
 #: core.class.php:575
-#: core.class.php:1188
+#: core.class.php:1196
 #@ SL_framework
 msgid "Settings"
 msgstr ""
 
-#: core.class.php:1113
+#: core.class.php:1121
 #@ SL_framework
 msgid "Log options"
 msgstr ""
 
-#: core.class.php:1114
+#: core.class.php:1122
 #@ SL_framework
 msgid "What is the debug level:"
 msgstr ""
 
-#: core.class.php:1115
+#: core.class.php:1123
 #@ SL_framework
 msgid "See the debug logs"
 msgstr ""
 
-#: core.class.php:1116
+#: core.class.php:1124
 #@ SL_framework
 msgid "1=log only the critical errors;"
 msgstr ""
 
-#: core.class.php:1117
+#: core.class.php:1125
 #@ SL_framework
 msgid "2=log only the critical errors and the standard errors;"
 msgstr ""
 
-#: core.class.php:1118
+#: core.class.php:1126
 #@ SL_framework
 msgid "3=log only the critical errors, the standard errors and the warnings;"
 msgstr ""
 
-#: core.class.php:1119
+#: core.class.php:1127
 #@ SL_framework
 msgid "4=log information;"
 msgstr ""
 
-#: core.class.php:1120
+#: core.class.php:1128
 #@ SL_framework
 msgid "5=log verbose;"
 msgstr ""
 
-#: core.class.php:1123
+#: core.class.php:1131
 #@ SL_framework
 msgid "Multisite Management"
 msgstr ""
 
-#: core.class.php:1124
+#: core.class.php:1132
 #@ SL_framework
 msgid "Do you want to allow sub-blogs to modify the translations of the plugins:"
 msgstr ""
 
-#: core.class.php:1125
+#: core.class.php:1133
 #@ SL_framework
 msgid "If this option is unchecked, the translation tab won't be displayed in the blog administration panel."
 msgstr ""
 
-#: core.class.php:1139
+#: core.class.php:1147
 #@ SL_framework
 msgid "Summary page for the plugins developped with the SL framework"
 msgstr ""
 
-#: core.class.php:1159
+#: core.class.php:1167
 #@ SL_framework
 msgid "For now, you have installed %s plugins including %s plugins developped with the SedLex's framework"
 msgstr ""
 
-#: core.class.php:1160
+#: core.class.php:1168
 #@ SL_framework
 msgid "The core plugin is located at %s"
 msgstr ""
 
-#: core.class.php:1171
+#: core.class.php:1179
 #@ SL_framework
 msgid "Plugin name"
 msgstr ""
 
-#: core.class.php:1171
+#: core.class.php:1179
 #@ SL_framework
 msgid "Description"
 msgstr ""
 
-#: core.class.php:1196
+#: core.class.php:1204
 #@ SL_framework
 msgid "There is a SQL database for this plugin"
 msgstr ""
 
-#: core.class.php:1200
+#: core.class.php:1208
 #@ SL_framework
 msgid "Version: %s by %s"
 msgstr ""
 
-#: core.class.php:1208
+#: core.class.php:1216
 #@ SL_framework
 msgid "List of SL plugins"
 msgstr ""
 
-#: core.class.php:1217
+#: core.class.php:1225
 #@ SL_framework
 msgid "Parameters of the framework"
 msgstr ""
 
-#: core.class.php:1231
+#: core.class.php:1239
 #@ SL_framework
 msgid "Manage translation of the framework"
 msgstr ""
 
-#: core.class.php:1368
+#: core.class.php:1376
 #@ SL_framework
 msgid "The folder %s is not %s !"
 msgstr ""
 
-#: core.class.php:1370
+#: core.class.php:1378
 #@ SL_framework
 msgid "The file %s is not %s !"
 msgstr ""
 
-#: core.class.php:1377
-#: core.class.php:1384
+#: core.class.php:1385
+#: core.class.php:1392
 #@ SL_framework
 msgid "The folder %s does not exists and cannot be created !"
 msgstr ""
 
-#: core.class.php:1389
+#: core.class.php:1397
 #@ SL_framework
 msgid "The file %s does not exists and cannot be created !"
 msgstr ""
 
-#: core.class.php:1396
+#: core.class.php:1404
 #@ SL_framework
 msgid "There are some issues with folders rights. Please corret them as soon as possible as they could induce bugs and instabilities."
 msgstr ""
 
-#: core.class.php:1396
+#: core.class.php:1404
 #@ SL_framework
 msgid "Please see below:"
 msgstr ""
@@ -685,9 +685,9 @@ msgid "Error: %s function is not found"
 msgstr ""
 
 #: include/zip.class.php:148
-#: include/zip.class.php:213
-#: include/zip.class.php:250
-#: include/zip.class.php:450
+#: include/zip.class.php:215
+#: include/zip.class.php:252
+#: include/zip.class.php:485
 #: include/database.class.php:94
 #: include/database.class.php:118
 #@ SL_framework
@@ -699,79 +699,82 @@ msgstr ""
 msgid "The folder %s cannot be opened. You should have a problem with folder permissions or security restrictions."
 msgstr ""
 
-#: include/zip.class.php:210
-#: include/zip.class.php:229
-#: include/zip.class.php:248
-#: include/zip.class.php:270
-#: include/zip.class.php:333
-#: include/zip.class.php:369
-#: include/zip.class.php:403
-#: include/zip.class.php:412
-#: include/zip.class.php:448
-#: include/zip.class.php:461
-#: include/zip.class.php:544
-#: include/zip.class.php:562
-#: include/zip.class.php:587
-#: include/zip.class.php:604
-#: include/zip.class.php:617
-#: include/zip.class.php:682
-#: include/zip.class.php:723
-#: include/zip.class.php:739
-#: include/zip.class.php:752
+#: include/zip.class.php:212
+#: include/zip.class.php:231
+#: include/zip.class.php:250
+#: include/zip.class.php:272
+#: include/zip.class.php:335
+#: include/zip.class.php:371
+#: include/zip.class.php:405
+#: include/zip.class.php:414
+#: include/zip.class.php:436
+#: include/zip.class.php:445
+#: include/zip.class.php:483
+#: include/zip.class.php:496
+#: include/zip.class.php:579
+#: include/zip.class.php:597
+#: include/zip.class.php:622
+#: include/zip.class.php:639
+#: include/zip.class.php:652
+#: include/zip.class.php:717
+#: include/zip.class.php:758
 #: include/zip.class.php:774
-#: include/zip.class.php:785
 #: include/zip.class.php:787
-#: include/zip.class.php:794
-#: include/database.class.php:173
-#: include/database.class.php:224
-#: include/database.class.php:227
+#: include/zip.class.php:809
+#: include/zip.class.php:820
+#: include/zip.class.php:822
+#: include/zip.class.php:829
+#: include/database.class.php:210
+#: include/database.class.php:231
+#: include/database.class.php:234
 #@ SL_framework
 msgid "The file %s cannot be deleted. You should have a problem with file permissions or security restrictions."
 msgstr ""
 
-#: include/zip.class.php:218
+#: include/zip.class.php:220
 #: include/database.class.php:98
 #@ SL_framework
 msgid "An other process is still running (it runs for %s seconds)"
 msgstr ""
 
-#: include/zip.class.php:231
-#: include/zip.class.php:335
-#: include/zip.class.php:371
-#: include/zip.class.php:405
-#: include/zip.class.php:546
-#: include/zip.class.php:564
-#: include/zip.class.php:589
-#: include/zip.class.php:606
-#: include/zip.class.php:619
-#: include/zip.class.php:684
-#: include/zip.class.php:725
-#: include/zip.class.php:741
+#: include/zip.class.php:233
+#: include/zip.class.php:337
+#: include/zip.class.php:373
+#: include/zip.class.php:407
+#: include/zip.class.php:438
+#: include/zip.class.php:581
+#: include/zip.class.php:599
+#: include/zip.class.php:624
+#: include/zip.class.php:641
+#: include/zip.class.php:654
+#: include/zip.class.php:719
+#: include/zip.class.php:760
+#: include/zip.class.php:776
 #: include/database.class.php:104
-#: include/database.class.php:169
-#: include/database.class.php:220
+#: include/database.class.php:206
+#: include/database.class.php:227
 #@ SL_framework
 msgid "The file %s cannot be modified/created. You should have a problem with file permissions or security restrictions."
 msgstr ""
 
-#: include/zip.class.php:272
+#: include/zip.class.php:274
 #: include/database.class.php:141
 #@ SL_framework
 msgid "The file %s cannot be created. You should have a problem with file permissions or security restrictions."
 msgstr ""
 
-#: include/zip.class.php:463
+#: include/zip.class.php:498
 #@ SL_framework
 msgid "The file %s cannot be compressed."
 msgstr ""
 
-#: include/zip.class.php:754
-#: include/zip.class.php:776
+#: include/zip.class.php:789
+#: include/zip.class.php:811
 #@ SL_framework
 msgid "The file %s cannot be renamed. You should have a problem with file permissions or security restrictions."
 msgstr ""
 
-#: include/database.class.php:165
+#: include/database.class.php:197
 #@ SL_framework
 msgid "The file %s cannot be modified. You should have a problem with file permissions or security restrictions."
 msgstr ""
