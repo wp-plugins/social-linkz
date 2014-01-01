@@ -1004,7 +1004,6 @@ if (!class_exists("translationSL")) {
 				}
 			}
 			
-			closedir($dir);
 			if (!in_array('en_US', $file)) $file[] = 'en_US';
 			sort($file);
 			
@@ -1032,7 +1031,6 @@ if (!class_exists("translationSL")) {
 						unlink (WP_CONTENT_DIR."/sedlex/translations/".$item);
 					}
 				}
-				closedir($dir);
 			}
 				
 			// we reconstruct the cache file
@@ -1189,7 +1187,6 @@ if (!class_exists("translationSL")) {
 				}
 			}
 			
-			closedir($dir);
 			if (!in_array('en_US', $file)) $file[] = 'en_US';
 			asort($file);
 
@@ -1319,7 +1316,6 @@ if (!class_exists("translationSL")) {
 				}
 			}
 			
-			closedir($dir);
 			if (!in_array('en_US', $file)) $file[] = 'en_US';
 			sort($file);
 			
@@ -1346,7 +1342,6 @@ if (!class_exists("translationSL")) {
 					unlink (WP_CONTENT_DIR."/sedlex/translations/".$item);
 				}
 			}
-			closedir($dir);
 			
 			// We reconstruct the cache file
 			$signature_files = get_locale() ; 
