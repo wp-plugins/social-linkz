@@ -88,6 +88,10 @@ Have fun !
 
 == Changelog ==
 
+= 1.6.1 =
+* NEW : The hierarchy button may be limited to logged users
+* BUG : Avoid recursive call listing the translation folder
+
 = 1.6.0 =
 * NEW : Add an option to customize the printed pages (custom CSS, selection of plugins that are to be executed...)
 
@@ -164,4 +168,4 @@ Have fun !
 Visit http://www.sedlex.fr/cote_geek/
 
  
-InfoVersion:ce562623a778eecc112ed5168675a4c8
+InfoVersion:41285d2bbf41be7e6dccc9f58b1efbc8

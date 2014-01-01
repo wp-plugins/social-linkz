@@ -3,8 +3,7 @@
 Plugin Name: Social Linkz
 Plugin Tag: social, facebook, twitter, google, buttons
 Description: <p>Add social links such as Twitter or Facebook in each post. </p><p>You can choose the buttons to be displayed such as : </p><ul><li>Twitter</li><li>FaceBook</li><li>LinkedIn</li><li>Viadeo</li><li>Google+</li><li>StumbleUpon</li><li>Pinterest</li><li>Print</li></ul><p>It is possible to manually insert the buttons in your post by adding the shortcode <code>[sociallinkz]</code> or <code>[sociallinkz url='http://domain.tld' buttons='facebook,google+' desc='Short description']</code> . </p><p>If you want to add the buttons in a very specific location, your may edit your theme and insert <code>$this->print_buttons($post, [$url], [$buttons]);</code> (be sure that <code>$post</code> refer to the current post). </p><p>It is also possible to add a widget to display buttons. </p><p>This plugin is under GPL licence. </p>
-Version: 1.6.0
-
+Version: 1.6.1
 Author: SedLex
 Author Email: sedlex@sedlex.fr
 Framework Email: sedlex@sedlex.fr
@@ -210,12 +209,14 @@ class sociallinkz extends pluginSedLex {
 			case 'print'	 					: return true 	; break ; 
 			case 'print_newtab'	 					: return false 	; break ; 
 			case 'print_newtab_hierarchy'	 					: return false 	; break ; 
+			case 'print_newtab_hierarchy_admin'	 					: return true 	; break ; 
 			case 'print_whitelist'			: return "" 	; break ; 
 			case 'print_debug'			: return false 	; break ; 
 			case 'print_shortcode'			: return true 	; break ; 
+			case 'print_blacklist_shortcode'			: return "" 	; break ; 
 			case 'print_load_external_css'	: return true 	; break ; 
 			case 'print_watermark'	: return true 	; break ; 
-			case 'print_css' 				: return "*ddiv.container{
+			case 'print_css' 				: return "*div.container{
    width: auto;
    margin: 30px;
    text-align: justify;
@@ -433,16 +434,18 @@ div.watermark {
 				$title = "Print" ; 
 				$params->add_title(sprintf(__('Display %s button?',$this->pluginID), $title)) ; 
 				$params->add_param('print', "<img src='".plugin_dir_url("/")."/".plugin_basename(dirname(__FILE__))."/img/lnk_print.png'/> ".sprintf(__('The standard %s button:',$this->pluginID), $title)) ; 
-				$params->add_param('print_newtab', "<img src='".plugin_dir_url("/")."/".plugin_basename(dirname(__FILE__))."/img/lnk_print_newtab.png'/> ".sprintf(__('The %s button that open a new tab for a pretty printing:',$this->pluginID), $title),"","",array('print_whitelist','print_debug', 'print_shortcode', 'print_css', 'print_load_external_css', 'print_newtab_hierarchy', 'print_watermark')) ; 
+				$params->add_param('print_newtab', "<img src='".plugin_dir_url("/")."/".plugin_basename(dirname(__FILE__))."/img/lnk_print_newtab.png'/> ".sprintf(__('The %s button that open a new tab for a pretty printing:',$this->pluginID), $title),"","",array('print_whitelist','print_blacklist_shortcode','print_debug', 'print_shortcode', 'print_css', 'print_load_external_css', 'print_newtab_hierarchy', 'print_newtab_hierarchy_admin', 'print_watermark')) ; 
 				$params->add_param('print_whitelist', __('Separated-coma list of filters that are allowed to modify the display of the printed pages:',$this->pluginID)) ; 
 				$params->add_comment(__('With this option, you may allow the execution of specific plugins that modify the text to be printed. This options should be a list of filters separeted by coma, without blanks.',$this->pluginID)) ; 
 				$params->add_comment(__('In order to dertermine the list of the filter available, you may tick the debug option below and then display a printed page: The list of avaliable filters will be displayed at the top of the page.',$this->pluginID)) ; 
 				$params->add_param('print_debug', __('Debug mode to display available filters:',$this->pluginID)) ; 
-				$params->add_param('print_shortcode', __('Replace shortcodes in the page:',$this->pluginID)) ; 
+				$params->add_param('print_shortcode', __('Replace shortcodes in the page:',$this->pluginID),"","",array('print_blacklist_shortcode')) ; 
+				$params->add_param('print_blacklist_shortcode', __('Separated-coma list of shortcode that are not to be replaced:',$this->pluginID)) ; 
 				$params->add_param('print_load_external_css', __('Load the CSS of the website for the printed pages:',$this->pluginID)) ; 
 				$params->add_param('print_css', __('Add the following CSS for the printed pages:',$this->pluginID)) ; 
 				$params->add_param('print_watermark', __('Print the name of your URL of the website on printed pages (watermarking):',$this->pluginID)) ; 
-				$params->add_param('print_newtab_hierarchy', "<img src='".plugin_dir_url("/")."/".plugin_basename(dirname(__FILE__))."/img/lnk_print_newtab_hiera.png'/> ".sprintf(__('The %s button that open a new tab for a pretty printing (all pages under the current page in the hierarchy is printed in a single click):',$this->pluginID), $title)) ; 
+				$params->add_param('print_newtab_hierarchy', "<img src='".plugin_dir_url("/")."/".plugin_basename(dirname(__FILE__))."/img/lnk_print_newtab_hiera.png'/> ".sprintf(__('The %s button that open a new tab for a pretty printing (all pages under the current page in the hierarchy is printed in a single click):',$this->pluginID), $title),"","",array('print_newtab_hierarchy_admin')) ; 
+				$params->add_param('print_newtab_hierarchy_admin',__('Allow the pretty printing with hierarchy only for logged users',$this->pluginID)) ; 
 
 				$title = "Mail" ; 
 				$params->add_title(sprintf(__('Display %s button?',$this->pluginID), $title)) ; 
@@ -588,9 +591,7 @@ div.watermark {
 				}				
 			}
 		}
-		
-		
-		
+				
 		extract( shortcode_atts( array(
 			'url' => '',
 			'button' => '',
@@ -858,11 +859,13 @@ div.watermark {
 					<?php
 				}
 				
-				if ((($this->get_param('print_newtab_hierarchy'))&&($forceButton==""))||((strpos($forceButton, ',print_newtab_hierarchy,')!==false)&&($forceButton!=""))) {
-					?>
-					<a rel="nofollow" target="_blank" href="?print=socialz_hiera" title="<?php echo __("Pretty print this page and all pages under", $this->pluginID) ;?>">
-						<img class="lnk_social_linkz" src="<?php echo plugin_dir_url("/")."/".plugin_basename(dirname(__FILE__)) ; ?>/img/lnk_print_newtab_hiera.png" alt="Hierarchical Pretty Print " height="24" width="24"/></a>
-					<?php
+				if ((is_user_logged_in())||(!$this->get_param('print_newtab_hierarchy_admin'))) {
+					if ((($this->get_param('print_newtab_hierarchy'))&&($forceButton==""))||((strpos($forceButton, ',print_newtab_hierarchy,')!==false)&&($forceButton!=""))) {
+						?>
+						<a rel="nofollow" target="_blank" href="?print=socialz_hiera" title="<?php echo __("Pretty print this page and all pages under", $this->pluginID) ;?>">
+							<img class="lnk_social_linkz" src="<?php echo plugin_dir_url("/")."/".plugin_basename(dirname(__FILE__)) ; ?>/img/lnk_print_newtab_hiera.png" alt="Hierarchical Pretty Print " height="24" width="24"/></a>
+						<?php
+					}
 				}
 				
 				if ((($this->get_param('mail'))&&($forceButton==""))||((strpos($forceButton, ',mail,')!==false)&&($forceButton!=""))) {
@@ -1252,7 +1255,10 @@ div.watermark {
 					break;
 				case 'socialz_hiera': 
 					if (!$this->get_param('print_newtab_hierarchy')) {
-						return ; 
+						die() ; 
+					}
+					if ((!is_user_logged_in())&&$this->get_param('print_newtab_hierarchy_admin')) {
+						die() ; 
 					}
 					echo $this->print_header(true);
 					$this->print_page($post, true) ; 
@@ -1275,6 +1281,12 @@ div.watermark {
 					<div class="title"><h1>' . $post_obj->post_title . '</h1></div><br/>
 					<div class="content">'. apply_filters( 'the_content', $post_obj->post_content ) . '</div>
 				</div>';
+		
+		//Remove forbid shortcode pattern
+		$patternToRemove  = "\[(\[?)(".str_replace(' ','',str_replace(',','|',$this->get_param('print_blacklist_shortcode'))).")(?![\w-])([^\]\/]*(?:\/(?!\])[^\]\/]*)*?)(?:(\/)\]|\](?:([^\[]*+(?:\[(?!\/\2\])[^\[]*+)*+)\[\/\2\])?)(\]?)" ; 
+		if (( $this->get_param('print_shortcode') ) && ( $this->get_param('print_blacklist_shortcode')!="")) {
+			$html = preg_replace('/'. $patternToRemove .'/s', "", $html) ; 
+		}
 		
 		//Remove unused shortcode pattern
 		if ( !$this->get_param('print_shortcode') ) {
@@ -1338,9 +1350,6 @@ div.watermark {
 		if ($this->get_param('print_watermark')) {
 			echo '<div class="watermark">'.site_url().'</div>' ; 
 		}
-		
-		
-		
 		
 		$html = ob_get_contents(); /* Getting output buffering */
 		ob_end_clean(); /* Closing output buffering */
