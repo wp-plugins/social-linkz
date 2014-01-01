@@ -155,7 +155,7 @@ msgstr ""
 
 #: social-linkz.php:441
 #@ sociallinkz
-msgid "Debug mode to display available filters:"
+msgid "Debug mode to display available filters (displayed only if the current user is logged in):"
 msgstr ""
 
 #: social-linkz.php:442
@@ -392,33 +392,33 @@ msgstr ""
 msgid "End of the list"
 msgstr ""
 
-#: social-linkz.php:1419
+#: social-linkz.php:1421
 #@ sociallinkz
 msgid "Sending Report"
 msgstr ""
 
-#: social-linkz.php:1423
+#: social-linkz.php:1425
 #@ sociallinkz
 msgid "Sorry, but you have not provided a name. Please refresh the current page and then retry."
 msgstr ""
 
-#: social-linkz.php:1426
-#: social-linkz.php:1434
+#: social-linkz.php:1428
+#: social-linkz.php:1436
 #@ sociallinkz
 msgid "%s has recommended this article to you: %s"
 msgstr ""
 
-#: social-linkz.php:1427
+#: social-linkz.php:1429
 #@ sociallinkz
 msgid "Here is an extract of the article:"
 msgstr ""
 
-#: social-linkz.php:1452
+#: social-linkz.php:1454
 #@ sociallinkz
 msgid "Email successfully sent to %s"
 msgstr ""
 
-#: social-linkz.php:1454
+#: social-linkz.php:1456
 #@ sociallinkz
 msgid "Wordpress is unable to send an email to %s"
 msgstr ""

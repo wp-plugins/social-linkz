@@ -438,7 +438,7 @@ div.watermark {
 				$params->add_param('print_whitelist', __('Separated-coma list of filters that are allowed to modify the display of the printed pages:',$this->pluginID)) ; 
 				$params->add_comment(__('With this option, you may allow the execution of specific plugins that modify the text to be printed. This options should be a list of filters separeted by coma, without blanks.',$this->pluginID)) ; 
 				$params->add_comment(__('In order to dertermine the list of the filter available, you may tick the debug option below and then display a printed page: The list of avaliable filters will be displayed at the top of the page.',$this->pluginID)) ; 
-				$params->add_param('print_debug', __('Debug mode to display available filters:',$this->pluginID)) ; 
+				$params->add_param('print_debug', __('Debug mode to display available filters (displayed only if the current user is logged in):',$this->pluginID)) ; 
 				$params->add_param('print_shortcode', __('Replace shortcodes in the page:',$this->pluginID),"","",array('print_blacklist_shortcode')) ; 
 				$params->add_param('print_blacklist_shortcode', __('Separated-coma list of shortcode that are not to be replaced:',$this->pluginID)) ; 
 				$params->add_param('print_load_external_css', __('Load the CSS of the website for the printed pages:',$this->pluginID)) ; 
@@ -1204,7 +1204,7 @@ div.watermark {
 			
 			$filters = $wp_filter["the_content"] ;
 			
-			if ( $this->get_param('print_debug') ) {
+			if ( $this->get_param('print_debug') && is_user_logged_in()) {
 			
 				echo "<h1>".__("List of the filters that is normally called during the display of the page", $this->pluginID)."</h1>" ; 
 				echo "<p>".__("This list is displayed as you have set the debug mode.", $this->pluginID)."</p>" ; 
@@ -1277,16 +1277,18 @@ div.watermark {
 	
 	function print_page($post_obj, $recurse=false) {
 	
-		$html = '<div class="container">
-					<div class="title"><h1>' . $post_obj->post_title . '</h1></div><br/>
-					<div class="content">'. apply_filters( 'the_content', $post_obj->post_content ) . '</div>
-				</div>';
-		
+		$html = $post_obj->post_content ; 
+	
 		//Remove forbid shortcode pattern
 		$patternToRemove  = "\[(\[?)(".str_replace(' ','',str_replace(',','|',$this->get_param('print_blacklist_shortcode'))).")(?![\w-])([^\]\/]*(?:\/(?!\])[^\]\/]*)*?)(?:(\/)\]|\](?:([^\[]*+(?:\[(?!\/\2\])[^\[]*+)*+)\[\/\2\])?)(\]?)" ; 
 		if (( $this->get_param('print_shortcode') ) && ( $this->get_param('print_blacklist_shortcode')!="")) {
 			$html = preg_replace('/'. $patternToRemove .'/s', "", $html) ; 
 		}
+	
+		$html = '<div class="container">
+					<div class="title"><h1>' . $post_obj->post_title . '</h1></div><br/>
+					<div class="content">'. apply_filters( 'the_content', $html ) . '</div>
+				</div>';
 		
 		//Remove unused shortcode pattern
 		if ( !$this->get_param('print_shortcode') ) {
