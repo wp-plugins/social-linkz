@@ -3,7 +3,7 @@
 Plugin Name: Social Linkz
 Plugin Tag: social, facebook, twitter, google, buttons
 Description: <p>Add social links such as Twitter or Facebook in each post. </p><p>You can choose the buttons to be displayed such as : </p><ul><li>Twitter</li><li>FaceBook</li><li>LinkedIn</li><li>Viadeo</li><li>Google+</li><li>StumbleUpon</li><li>Pinterest</li><li>Print</li></ul><p>It is possible to manually insert the buttons in your post by adding the shortcode <code>[sociallinkz]</code> or <code>[sociallinkz url='http://domain.tld' buttons='facebook,google+' desc='Short description']</code> . </p><p>If you want to add the buttons in a very specific location, your may edit your theme and insert <code>$this->print_buttons($post, [$url], [$buttons]);</code> (be sure that <code>$post</code> refer to the current post). </p><p>It is also possible to add a widget to display buttons. </p><p>This plugin is under GPL licence. </p>
-Version: 1.6.1
+Version: 1.6.2
 Author: SedLex
 Author Email: sedlex@sedlex.fr
 Framework Email: sedlex@sedlex.fr
@@ -1276,8 +1276,11 @@ div.watermark {
 	*/
 	
 	function print_page($post_obj, $recurse=false) {
-	
+		global $post ; 
 		$html = $post_obj->post_content ; 
+		
+		$old_post = $post ; 
+		$post = $post_obj ; 
 	
 		//Remove forbid shortcode pattern
 		$patternToRemove  = "\[(\[?)(".str_replace(' ','',str_replace(',','|',$this->get_param('print_blacklist_shortcode'))).")(?![\w-])([^\]\/]*(?:\/(?!\])[^\]\/]*)*?)(?:(\/)\]|\](?:([^\[]*+(?:\[(?!\/\2\])[^\[]*+)*+)\[\/\2\])?)(\]?)" ; 
@@ -1296,6 +1299,8 @@ div.watermark {
 		}
 		
 		echo $html ; 
+		
+		$post = $old_post ; 
 				
 		if (($recurse)&&($post_obj->post_type=='page')) {
 			

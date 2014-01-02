@@ -392,33 +392,33 @@ msgstr ""
 msgid "End of the list"
 msgstr ""
 
-#: social-linkz.php:1421
+#: social-linkz.php:1426
 #@ sociallinkz
 msgid "Sending Report"
 msgstr ""
 
-#: social-linkz.php:1425
+#: social-linkz.php:1430
 #@ sociallinkz
 msgid "Sorry, but you have not provided a name. Please refresh the current page and then retry."
 msgstr ""
 
-#: social-linkz.php:1428
-#: social-linkz.php:1436
+#: social-linkz.php:1433
+#: social-linkz.php:1441
 #@ sociallinkz
 msgid "%s has recommended this article to you: %s"
 msgstr ""
 
-#: social-linkz.php:1429
+#: social-linkz.php:1434
 #@ sociallinkz
 msgid "Here is an extract of the article:"
 msgstr ""
 
-#: social-linkz.php:1454
+#: social-linkz.php:1459
 #@ sociallinkz
 msgid "Email successfully sent to %s"
 msgstr ""
 
-#: social-linkz.php:1456
+#: social-linkz.php:1461
 #@ sociallinkz
 msgid "Wordpress is unable to send an email to %s"
 msgstr ""

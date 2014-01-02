@@ -88,6 +88,9 @@ Have fun !
 
 == Changelog ==
 
+= 1.6.2 =
+* BUG : Some plugin do not work correctly during the printing as the $post was not set correctly
+
 = 1.6.1 =
 * NEW : The hierarchy button may be limited to logged users
 * BUG : Avoid recursive call listing the translation folder
@@ -168,4 +171,4 @@ Have fun !
 Visit http://www.sedlex.fr/cote_geek/
 
  
-InfoVersion:20e4abbb8228080a99dfea78a81c4116
+InfoVersion:7401a5b9775bcb9fe62712c428d082ec
