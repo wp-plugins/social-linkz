@@ -6,7 +6,7 @@ Author URI: http://www.sedlex.fr/
 Plugin URI: http://wordpress.org/plugins/social-linkz/
 Tags: social, facebook, twitter, google, buttons
 Requires at least: 3.0
-Tested up to: 3.8
+Tested up to: 3.8.1
 Stable tag: trunk
 
 Add social links such as Twitter or Facebook in each post. 
@@ -88,14 +88,13 @@ Have fun !
 
 == Changelog ==
 
-= 1.6.2 =
-* BUG : Some plugin do not work correctly during the printing as the $post was not set correctly
+= 1.7.0 =
+* NEW : Support for QR code / shortcode
 
-= 1.6.1 =
+= 1.6.0 -&gt; 1.6.2 =
+* BUG : Some plugin do not work correctly during the printing as the $post was not set correctly
 * NEW : The hierarchy button may be limited to logged users
 * BUG : Avoid recursive call listing the translation folder
-
-= 1.6.0 =
 * NEW : Add an option to customize the printed pages (custom CSS, selection of plugins that are to be executed...)
 
 = 1.5.0 -&gt; 1.5.5 =
@@ -171,4 +170,4 @@ Have fun !
 Visit http://www.sedlex.fr/cote_geek/
 
  
-InfoVersion:7401a5b9775bcb9fe62712c428d082ec
+InfoVersion:22d6c4de52a602f331c685dc594a931c
