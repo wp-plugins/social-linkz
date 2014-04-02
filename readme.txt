@@ -32,6 +32,8 @@ If you want to add the buttons in a very specific location, your may edit your t
 
 It is also possible to add a widget to display buttons. 
 
+You may also insert a QR code as you want by [qrcode size="4" px_size="2" frame_size="5"]Your text to be encoded[/qrcode]. If you do not set the text, it will be replaced with the URL to the article.
+
 This plugin is under GPL licence. 
 
 = Multisite - Wordpress MU =
@@ -90,6 +92,7 @@ Have fun !
 
 = 1.7.0 =
 * NEW : Support for QR code / shortcode
+* NEW: Add Banners to improve the look
 
 = 1.6.0 -&gt; 1.6.2 =
 * BUG : Some plugin do not work correctly during the printing as the $post was not set correctly
@@ -170,4 +173,4 @@ Have fun !
 Visit http://www.sedlex.fr/cote_geek/
 
  
-InfoVersion:f5aac883c0e5a601444b01a2699e6771
+InfoVersion:fafdba06271b063811e2d41f614a1485
