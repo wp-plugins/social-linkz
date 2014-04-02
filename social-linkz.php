@@ -4,6 +4,7 @@ Plugin Name: Social Linkz
 Plugin Tag: social, facebook, twitter, google, buttons
 Description: <p>Add social links such as Twitter or Facebook in each post. </p><p>You can choose the buttons to be displayed such as : </p><ul><li>Twitter</li><li>FaceBook</li><li>LinkedIn</li><li>Viadeo</li><li>Google+</li><li>StumbleUpon</li><li>Pinterest</li><li>Print</li></ul><p>It is possible to manually insert the buttons in your post by adding the shortcode <code>[sociallinkz]</code> or <code>[sociallinkz url='http://domain.tld' buttons='facebook,google+' desc='Short description']</code> . </p><p>If you want to add the buttons in a very specific location, your may edit your theme and insert <code>$this->print_buttons($post, [$url], [$buttons]);</code> (be sure that <code>$post</code> refer to the current post). </p><p>It is also possible to add a widget to display buttons. </p><p>This plugin is under GPL licence. </p>
 Version: 1.6.2
+
 Author: SedLex
 Author Email: sedlex@sedlex.fr
 Framework Email: sedlex@sedlex.fr
@@ -13,6 +14,7 @@ License: GPL3
 */
 
 require_once('core.php') ; 
+require_once('include/phpqrcode.php') ; 
 
 class sociallinkz extends pluginSedLex {
 	/** ====================================================================================================================================================
@@ -23,7 +25,6 @@ class sociallinkz extends pluginSedLex {
 	static $instance = false;
 	var $path = false;
 	
-
 	protected function _init() {
 		global $wpdb ; 
 		global $do_not_show_inSocialLinkz ; 
@@ -41,6 +42,7 @@ class sociallinkz extends pluginSedLex {
 		
 		//Parametres supplementaires
 		add_shortcode( 'sociallinkz', array( $this, 'display_button_shortcode' ) );
+		add_shortcode( 'qrcode', array( $this, 'qrcode_shortcode' ) );
 		
 		//add_action( 'wp',  array( $this, 'output_print') );
 		add_action('wp_enqueue_scripts', array( $this, 'output_print'), 10000001);
@@ -153,6 +155,7 @@ class sociallinkz extends pluginSedLex {
 	function add_tinymce_buttons() {
 		$buttons = array() ; 
 		$buttons[] = array(__('Add SocialLinkz buttons', $this->pluginID), '[sociallinkz]', '', plugin_dir_url("/").'/'.str_replace(basename( __FILE__),"",plugin_basename( __FILE__)).'img/sociallinkz_button.png') ; 
+		$buttons[] = array(__('Add a QR code', $this->pluginID), '[qrcode size="4" px_size="2" frame_size="5"]', '[/qrcode]', plugin_dir_url("/").'/'.str_replace(basename( __FILE__),"",plugin_basename( __FILE__)).'img/qr_button.png') ; 
 		return $buttons ; 
 	}
 	
@@ -208,6 +211,8 @@ class sociallinkz extends pluginSedLex {
 			
 			case 'print'	 					: return true 	; break ; 
 			case 'print_newtab'	 					: return false 	; break ; 
+			case 'print_qr'	 					: return false 	; break ; 
+			case 'print_qr_end'	 					: return false 	; break ; 
 			case 'print_newtab_hierarchy'	 					: return false 	; break ; 
 			case 'print_newtab_hierarchy_admin'	 					: return true 	; break ; 
 			case 'print_whitelist'			: return "" 	; break ; 
@@ -262,6 +267,19 @@ div.watermark {
 	border-bottom-style: none;
 }" 	; break ; 
 
+			case 'qr_html'	 					: return "*<div class='qr_code'>
+   <p>The QR code for this page is:</p>
+   <div>%qr_image%</div>
+</div>" 	; break ; 
+			case 'qr_html_sc'	 					: return "*<div class='qr_code'>
+   <div>%qr_image%</div>
+</div>" 	; break ; 
+			case 'qr_css'	 					: return "*.qr_code { 
+	padding: 10px ; 
+	margin: 10px ; 
+	border: 1px solid #CCC ; 
+    text-align:center;
+}" 	; break ; 
 			case 'exclude' : return "*" 		; break ; 
 
 		}
@@ -334,6 +352,7 @@ div.watermark {
 	
 	function _public_css_load() {	
 		$this->add_inline_css($this->get_param('css')) ; 
+		$this->add_inline_css($this->get_param('qr_css')) ; 
 	}
 	
 	/** ====================================================================================================================================================
@@ -354,6 +373,7 @@ div.watermark {
 			<?php echo $this->signature ; ?>
 			<p><?php echo __('This plugin help you sharing on the social network by adding facebook or twitter buttons.', $this->pluginID) ; ?></p>
 			<p><?php echo sprintf(__('It is possible to manually insert the buttons in your post by adding the shortcode %s or %s', $this->pluginID), "<code>[sociallinkz]</code>", "<code>[sociallinkz url='http://domain.tld' buttons='facebook,google+' desc='Short description']</code>") ; ?></p>
+			<p><?php echo sprintf(__('In addition, you may add any QR code you want by adding the shortcode %s. If you do not set the text, it will be replaced with the URL to the article', $this->pluginID), '<code>[qrcode size="4" px_size="2" frame_size="5"]Your text to be encoded[/qrcode]</code>') ; ?></p>
 		<?php
 		
 			// On verifie que les droits sont corrects
@@ -438,6 +458,8 @@ div.watermark {
 				$params->add_param('print_whitelist', __('Separated-coma list of filters that are allowed to modify the display of the printed pages:',$this->pluginID)) ; 
 				$params->add_comment(__('With this option, you may allow the execution of specific plugins that modify the text to be printed. This options should be a list of filters separeted by coma, without blanks.',$this->pluginID)) ; 
 				$params->add_comment(__('In order to dertermine the list of the filter available, you may tick the debug option below and then display a printed page: The list of avaliable filters will be displayed at the top of the page.',$this->pluginID)) ; 
+				$params->add_param('print_qr', sprintf(__('Add a QR code %s with the URL of the article/post just below the title when the article is printed:',$this->pluginID), "<img src='".plugin_dir_url("/").'/'.str_replace(basename( __FILE__),"",plugin_basename( __FILE__)).'img/qr_button.png'."'/>")) ; 
+				$params->add_param('print_qr_end', sprintf(__('Add a QR code %s with the URL of the article/post at the end of the article when the article is printed:',$this->pluginID), "<img src='".plugin_dir_url("/").'/'.str_replace(basename( __FILE__),"",plugin_basename( __FILE__)).'img/qr_button.png'."'/>")) ; 
 				$params->add_param('print_debug', __('Debug mode to display available filters (displayed only if the current user is logged in):',$this->pluginID)) ; 
 				$params->add_param('print_shortcode', __('Replace shortcodes in the page:',$this->pluginID),"","",array('print_blacklist_shortcode')) ; 
 				$params->add_param('print_blacklist_shortcode', __('Separated-coma list of shortcode that are not to be replaced:',$this->pluginID)) ; 
@@ -478,6 +500,17 @@ div.watermark {
 				$params->add_param('exclude', __('Page to be excluded:',$this->pluginID)) ; 
 				$params->add_comment(sprintf(__("Please enter one entry per line. If the page %s is to be excluded, you may enter %s.",  $this->pluginID), "<code>http://yourdomain.tld/contact/</code>","<code>contact</code>")) ; 
 
+				$params->add_title(__('Advanced options for QR code',$this->pluginID)) ; 
+				$params->add_param('qr_html', __('The HTML to display the QR code (all but the shortcode):',$this->pluginID)) ; 
+				$params->add_comment(__('The default value is:',$this->pluginID)) ; 
+				$params->add_comment_default_value('qr_html') ;  
+				$params->add_param('qr_html_sc', __('The HTML to display the QR code for the shortcode:',$this->pluginID)) ; 
+				$params->add_comment(__('The default value is:',$this->pluginID)) ; 
+				$params->add_comment_default_value('qr_html_sc') ; 
+				$params->add_param('qr_css', __('The CSS to display the QR code:',$this->pluginID)) ; 
+				$params->add_comment(__('The default value is:',$this->pluginID)) ; 
+				$params->add_comment_default_value('qr_css') ; 
+				
 				$params->flush() ; 
 			$tabs->add_tab(__('Parameters',  $this->pluginID), ob_get_clean() , plugin_dir_url("/").'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__))."core/img/tab_param.png") ; 	
 			
@@ -739,7 +772,7 @@ div.watermark {
 
 			if ((($this->get_param('googleplus_standard'))&&($forceButton==""))||((strpos($forceButton, ',googleplus_standard,')!==false)&&($forceButton!=""))) {
 				?>
-				<a rel="nofollow" target="_blank" href="https://plus.google.com/share?url=<?php echo $long_url ; ?>" title="<?php echo sprintf(__("Share -%s- on %s", $this->pluginID), htmlentities($titre, ENT_QUOTES, 'UTF-8'), "Googe+") ; ?>">
+				<a rel="nofollow" target="_blank" href="https://plus.google.com/share?url=<?php echo $long_url ; ?>" title="<?php echo sprintf(__("Share -%s- on %s", $this->pluginID), htmlentities($titre, ENT_QUOTES, 'UTF-8'), "Google+") ; ?>">
 					<img class="lnk_social_linkz" src="<?php echo plugin_dir_url("/")."/".plugin_basename(dirname(__FILE__)) ; ?>/img/lnk_googleplus.png" alt="Google+" height="24" width="24"/></a>
 				<?php
 				if ((($this->get_param('googleplus_standard_count'))&&($forceButton==""))||((strpos($forceButton, ',googleplus_standard_count,')!==false)&&($forceButton!=""))) {
@@ -762,7 +795,7 @@ div.watermark {
 			
 			if ((($this->get_param('linkedin'))&&($forceButton==""))||((strpos($forceButton, ',linkedin,')!==false)&&($forceButton!=""))) {
 				?>
-				<a rel="nofollow" target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&url=<?php echo urlencode($long_url) ; ?>&title=<?php echo str_replace('+','%20',urlencode("[Blog] ".$titre)) ; ?>&source=<?php echo urlencode(get_bloginfo('name')) ; ?>" title="<?php echo sprintf(__("Share -%s- on %s", $this->pluginID), htmlentities($titre, ENT_QUOTES, 'UTF-8'), "LinkedIn") ; ?>">
+				<a rel="nofollow" target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&amp;url=<?php echo urlencode($long_url) ; ?>&amp;title=<?php echo str_replace('+','%20',urlencode("[Blog] ".$titre)) ; ?>&amp;source=<?php echo urlencode(get_bloginfo('name')) ; ?>" title="<?php echo sprintf(__("Share -%s- on %s", $this->pluginID), htmlentities($titre, ENT_QUOTES, 'UTF-8'), "LinkedIn") ; ?>">
 					<img class="lnk_social_linkz" src="<?php echo plugin_dir_url("/")."/".plugin_basename(dirname(__FILE__)) ;  ?>/img/lnk_linkedin.png" alt="LinkedIn" height="24" width="24"/></a>
 				<?php
 				if ((($this->get_param('linkedin_count'))&&($forceButton==""))||((strpos($forceButton, ',linkedin_count,')!==false)&&($forceButton!=""))) {
@@ -785,7 +818,7 @@ div.watermark {
 			
 			if ((($this->get_param('viadeo'))&&($forceButton==""))||((strpos($forceButton, ',viadeo,')!==false)&&($forceButton!=""))) {
 				?>
-				<a rel="nofollow" target="_blank" href="http://www.viadeo.com/shareit/share/?url=<?php echo urlencode($long_url) ; ?>&title=<?php echo str_replace('+','%20',urlencode("[Blog] ".$titre)) ; ?>&overview=<?php echo str_replace('+','%20',urlencode("[Blog] ".$titre)) ; ?>" title="<?php echo sprintf(__("Share -%s- on %s", $this->pluginID), htmlentities($titre, ENT_QUOTES, 'UTF-8'), "Viadeo") ; ?>">
+				<a rel="nofollow" target="_blank" href="http://www.viadeo.com/shareit/share/?url=<?php echo urlencode($long_url) ; ?>&amp;title=<?php echo str_replace('+','%20',urlencode("[Blog] ".$titre)) ; ?>&amp;overview=<?php echo str_replace('+','%20',urlencode("[Blog] ".$titre)) ; ?>" title="<?php echo sprintf(__("Share -%s- on %s", $this->pluginID), htmlentities($titre, ENT_QUOTES, 'UTF-8'), "Viadeo") ; ?>">
 					<img class="lnk_social_linkz" src="<?php echo plugin_dir_url("/")."/".plugin_basename(dirname(__FILE__)) ;  ?>/img/lnk_viadeo.png" alt="Viadeo" height="24" width="24"/></a>
 				<?php
 			}
@@ -804,7 +837,7 @@ div.watermark {
 			
 			if ((($this->get_param('stumbleupon'))&&($forceButton==""))||((strpos($forceButton, ',stumbleupon,')!==false)&&($forceButton!=""))) {
 				?>
-				<a rel="nofollow" target="_blank" href="http://www.stumbleupon.com/submit?url=<?php echo urlencode($long_url) ; ?>&title=<?php echo str_replace('+','%20',urlencode("[Blog] ".$titre)) ; ?>" title="<?php echo sprintf(__("Share -%s- on %s", $this->pluginID), htmlentities($titre, ENT_QUOTES, 'UTF-8'), "StumbleUpon") ; ?>">
+				<a rel="nofollow" target="_blank" href="http://www.stumbleupon.com/submit?url=<?php echo urlencode($long_url) ; ?>&amp;title=<?php echo str_replace('+','%20',urlencode("[Blog] ".$titre)) ; ?>" title="<?php echo sprintf(__("Share -%s- on %s", $this->pluginID), htmlentities($titre, ENT_QUOTES, 'UTF-8'), "StumbleUpon") ; ?>">
 					<img class="lnk_social_linkz" src="<?php echo plugin_dir_url("/")."/".plugin_basename(dirname(__FILE__)) ;  ?>/img/lnk_stumbleupon.png" alt="StumbleUpon" height="24" width="24"/></a>
 				<?php
 				if ((($this->get_param('stumbleupon_count'))&&($forceButton==""))||((strpos($forceButton, ',stumbleupon_count,')!==false)&&($forceButton!=""))) {
@@ -817,7 +850,7 @@ div.watermark {
 			
 			if ((($this->get_param('stumbleupon_hosted'))&&($forceButton==""))||((strpos($forceButton, ',stumbleupon_hosted,')!==false)&&($forceButton!=""))) {
 				?>
-				<script src="http://www.stumbleupon.com/hostedbadge.php?s=1&r=<?php echo urlencode($long_url) ?>"></script>
+				<script src="http://www.stumbleupon.com/hostedbadge.php?s=1&amp;r=<?php echo urlencode($long_url) ?>"></script>
 				<?php
 			}
 			
@@ -839,7 +872,7 @@ div.watermark {
 					$coun = 'horizontal' ; 
 				}
 				?>
-				<a href="http://pinterest.com/pin/create/button/?url=<?php echo urlencode($url) ; ?>&media=<?php echo urlencode($img) ; ?>&description=<?php echo str_replace('+','%20',urlencode($titre)) ; ?>" class="pin-it-button" count-layout="<?php echo $coun ; ?>"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a><script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
+				<a href="http://pinterest.com/pin/create/button/?url=<?php echo urlencode($url) ; ?>&amp;media=<?php echo urlencode($img) ; ?>&amp;description=<?php echo str_replace('+','%20',urlencode($titre)) ; ?>" class="pin-it-button" count-layout="<?php echo $coun ; ?>"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a><script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
 				<?php
 			}
 			
@@ -869,21 +902,22 @@ div.watermark {
 				}
 				
 				if ((($this->get_param('mail'))&&($forceButton==""))||((strpos($forceButton, ',mail,')!==false)&&($forceButton!=""))) {
+					$randMD5 = md5($long_url.rand(1,10000)) ; 
 					?>
 					<a rel="nofollow" target="_blank" href="#" title="<?php echo __("Mail", $this->pluginID) ;?>">
-						<img onclick="openEmailSocialLinkz('<?php echo md5($long_url) ?>');return false;" class="lnk_social_linkz" src="<?php echo plugin_dir_url("/")."/".plugin_basename(dirname(__FILE__)) ; ?>/img/lnk_mail.png" alt="Mail" height="24" width="24"/></a>
-					<div id="mask<?php echo md5($long_url) ?>" class="social_mask"></div>
-					<div id="dialog<?php echo md5($long_url) ?>" class="social_window">
-						<div id="innerdialog<?php echo md5($long_url) ?>">
+						<img onclick="openEmailSocialLinkz('<?php echo $randMD5 ?>');return false;" class="lnk_social_linkz" src="<?php echo plugin_dir_url("/")."/".plugin_basename(dirname(__FILE__)) ; ?>/img/lnk_mail.png" alt="Mail" height="24" width="24"/></a>
+					<div id="mask<?php echo $randMD5 ?>" class="social_mask"></div>
+					<div id="dialog<?php echo $randMD5 ?>" class="social_window">
+						<div id="innerdialog<?php echo $randMD5 ?>">
 							<h3><?php echo __("Send this article by email", $this->pluginID) ;?></h3>
 							<p class='textEmailSocialLinkz'><?php echo __("What is your name?", $this->pluginID) ;?></p>
-							<p><input name="nameSocialLinkz<?php echo md5($long_url) ?>" id="nameSocialLinkz<?php echo md5($long_url) ?>" /></p>
+							<p><input name="nameSocialLinkz<?php echo $randMD5 ?>" id="nameSocialLinkz<?php echo $randMD5 ?>" /></p>
 							<p class='textEmailSocialLinkz'><?php echo sprintf(__("Please indicate below the emails to which you want to send this article: %s", $this->pluginID), "<b>".$titre."</b>") ;?></p>
-							<p><textarea name="emailSocialLinkz<?php echo md5($long_url) ?>" id="emailSocialLinkz<?php echo md5($long_url) ?>" rows="5"></textarea></p>
+							<p><textarea name="emailSocialLinkz<?php echo $randMD5 ?>" id="emailSocialLinkz<?php echo $randMD5 ?>" rows="5"></textarea></p>
 							<p class='closeEmailSocialLinkz'><?php echo sprintf(__("Enter one email per line. No more than %s emails.", $this->pluginID), $this->get_param('mail_max')) ;?></p>
-							<p class='sendEmailSocialLinkz'><a href="#" title="<?php echo __("Close", $this->pluginID) ;?>" onclick="sendEmailSocialLinkz('<?php echo md5($long_url) ?>', <? echo $post->ID ?>);return false;"><span class='sendEmailSocialLinkz'><?php echo __("Send", $this->pluginID) ;?></span></a></p>
+							<p class='sendEmailSocialLinkz'><a href="#" title="<?php echo __("Close", $this->pluginID) ;?>" onclick="sendEmailSocialLinkz('<?php echo $randMD5 ?>', <? echo $post->ID ?>);return false;"><span class='sendEmailSocialLinkz'><?php echo __("Send", $this->pluginID) ;?></span></a></p>
 						</div>
-						<p class='closeEmailSocialLinkz'><a href="#" title="<?php echo __("Close", $this->pluginID) ;?>" onclick="closeEmailSocialLinkz('<?php echo md5($long_url) ?>');return false;"><span class='closeEmailSocialLinkz'><?php echo __("Close", $this->pluginID) ;?></span></a></p>
+						<p class='closeEmailSocialLinkz'><a href="#" title="<?php echo __("Close", $this->pluginID) ;?>" onclick="closeEmailSocialLinkz('<?php echo $randMD5 ?>');return false;"><span class='closeEmailSocialLinkz'><?php echo __("Close", $this->pluginID) ;?></span></a></p>
 					</div>
 					<?php
 				}
@@ -1287,10 +1321,18 @@ div.watermark {
 		if (( $this->get_param('print_shortcode') ) && ( $this->get_param('print_blacklist_shortcode')!="")) {
 			$html = preg_replace('/'. $patternToRemove .'/s', "", $html) ; 
 		}
-	
+		
+		$qr_code = "" ; 
+		if ($this->get_param('print_qr')) {
+			$qr_code = $this->display_qr(get_permalink($post->ID), QR_ECLEVEL_M, 3, 3, false) ; 
+		}
+		$qr_code_end = "" ; 
+		if ($this->get_param('print_qr_end')) {
+			$qr_code_end = $this->display_qr(get_permalink($post->ID), QR_ECLEVEL_M, 3, 3, false) ; 
+		}
 		$html = '<div class="container">
-					<div class="title"><h1>' . $post_obj->post_title . '</h1></div><br/>
-					<div class="content">'. apply_filters( 'the_content', $html ) . '</div>
+					<div class="title"><h1>' . $post_obj->post_title . '</h1></div><br/>'.$qr_code.'
+					<div class="content">'. apply_filters( 'the_content', $html ) . '</div>'.$qr_code_end.'
 				</div>';
 		
 		//Remove unused shortcode pattern
@@ -1469,6 +1511,90 @@ div.watermark {
 	function transformHTMLEntitiesWithDash($m) { 
 		return mb_convert_encoding($m[1], "UTF-8", "HTML-ENTITIES"); 
 	}
+	
+	/** ====================================================================================================================================================
+	* QR code shortcode
+	* 
+	* @return void
+	*/
+	
+	function qrcode_shortcode($_atts, $text) {
+		global $post ;
+		$atts = shortcode_atts( array(
+			'size' => 3, 
+			'px_size' => 3,
+			'frame_size' => 3
+		), $_atts );
+		
+		if ($text=="") {
+			$text = get_permalink($post->ID) ; 
+		}
+		
+		// CCR
+		$size = $atts['size'] ; 
+		if (!is_numeric($size)) {
+			$size = 3 ; 
+		} else {
+			$size = floor(intval($size)) ; 
+		}
+		if ($size == 1) {
+			$ccr_param = QR_ECLEVEL_L ; 
+		} else if ($size == 2) {
+			$ccr_param = QR_ECLEVEL_M ; 
+		} else if ($size == 3) {
+			$ccr_param = QR_ECLEVEL_Q ; 
+		} else if ($size == 4) {
+			$ccr_param = QR_ECLEVEL_H ; 
+		} else {
+			$ccr_param = QR_ECLEVEL_M ; 
+		}
+		
+		// PIXEL SIZE
+		$px_size = $atts['px_size'] ; 
+		if (!is_numeric($px_size)) {
+			$pixel_param = 3 ; 
+		} else {
+			$pixel_param = floor(intval($px_size)) ; 
+		}
+		
+		// FRAME SIZE
+		$frame_size = $atts['frame_size'] ; 
+		if (!is_numeric($frame_size)) {
+			$frame_param = 3 ; 
+		} else {
+			$frame_param = floor(intval($frame_size)) ; 
+		}
+			
+		return $this->display_qr($text, $ccr_param, $pixel_param, $frame_param, true)  ; 
+	}
+	
+	/** ====================================================================================================================================================
+	* print QR code
+	* 
+	* @return void
+	*/
+	
+	function display_qr($text, $ccr_param, $pixel_param, $frame_param, $shortcode=false) {
+		
+		if (!is_dir(WP_CONTENT_DIR."/sedlex/social_linkz/qr/")) {
+			@mkdir(WP_CONTENT_DIR."/sedlex/social_linkz/qr/", 0777, true) ; 
+		}
+		
+		$name_f = md5($text)."_".$ccr_param."_".$pixel_param."_".$frame_param.".png" ; 
+		$name_file = WP_CONTENT_DIR."/sedlex/social_linkz/qr/".$name_f ;
+		$name_url = WP_CONTENT_URL."/sedlex/social_linkz/qr/".$name_f ;
+		if (!file_exists($name_file)) {
+        	QRcode::png($text, $name_file, $ccr_param, $pixel_param, $frame_param);
+    	}
+		
+		if ($shortcode) {
+			return str_replace("%qr_image%",'<img src="'.$name_url.'" />',$this->get_param('qr_html_sc')); 
+		} else {
+			return str_replace("%qr_image%",'<img src="'.$name_url.'" />',$this->get_param('qr_html')); 
+		}
+	}
+
+
 }
 
 $sociallinkz = sociallinkz::getInstance();

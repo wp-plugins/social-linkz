@@ -88,23 +88,26 @@ if (!class_exists("adminTabs")) {
 					setCookie(name,"",-1);
 				}
 
-				jQuery(function($){ 
-					$tabs<?php echo $rnd ; ?> = jQuery('#tabs<?php echo $rnd ; ?>').tabs();  
+				jQuery(document).ready(function($){ 
 					<?php 
 					if ($this->activated != 0) {
 					?>
-					$tabs<?php echo $rnd ; ?>.tabs('select', <?php echo ($this->activated) ?>) ; 
+					jQuery('#tabs<?php echo $rnd ; ?>').tabs({active:<?php echo ($this->activated) ?>}) ; 
 					<?php
 					} else {
 					?>
 					if (getCookie("tabSL")!=null) {
-						$tabs<?php echo $rnd ; ?>.tabs('select', "#"+getCookie("tabSL") ) ; 
+						var indexToGo = jQuery('#tabs<?php echo $rnd ; ?> a[href="#'+getCookie("tabSL")+'"]').parent().index();
+						if (indexToGo==-1) {
+							indexToGo = 0 ; 
+						}
+						jQuery("#tabs<?php echo $rnd ; ?>").tabs({active:indexToGo});
 					} 
 					<?php
 					}
 					?>
-					$tabs<?php echo $rnd ; ?>.tabs({ select: function(event, ui) { 
-						idToGo = ui.tab.href.split("#") ; 
+					jQuery('#tabs<?php echo $rnd ; ?>').tabs({ activate: function(event, ui) { 
+						idToGo = ui.newTab.find("a").attr('href').split("#") ; 
 						setCookie("tabSL", idToGo[1], 1 ) ; 
 					} });
 				}) ; 
