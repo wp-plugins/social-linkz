@@ -15,32 +15,19 @@ msgstr ""
 msgid "Add a QR code"
 msgstr ""
 
-#: social-linkz.php:374
+#: social-linkz.php:375
 #@ sociallinkz
 msgid "This plugin help you sharing on the social network by adding facebook or twitter buttons."
 msgstr ""
 
-#: social-linkz.php:375
+#: social-linkz.php:376
 #@ sociallinkz
 msgid "It is possible to manually insert the buttons in your post by adding the shortcode %s or %s"
 msgstr ""
 
-#: social-linkz.php:376
+#: social-linkz.php:377
 #@ sociallinkz
 msgid "In addition, you may add any QR code you want by adding the shortcode %s. If you do not set the text, it will be replaced with the URL to the article"
-msgstr ""
-
-#: social-linkz.php:393
-#: social-linkz.php:403
-#: social-linkz.php:414
-#: social-linkz.php:423
-#: social-linkz.php:430
-#: social-linkz.php:440
-#: social-linkz.php:447
-#: social-linkz.php:455
-#: social-linkz.php:473
-#@ sociallinkz
-msgid "Display %s button?"
 msgstr ""
 
 #: social-linkz.php:394
@@ -50,9 +37,10 @@ msgstr ""
 #: social-linkz.php:431
 #: social-linkz.php:441
 #: social-linkz.php:448
+#: social-linkz.php:456
 #: social-linkz.php:474
 #@ sociallinkz
-msgid "The %s button:"
+msgid "Display %s button?"
 msgstr ""
 
 #: social-linkz.php:395
@@ -62,410 +50,422 @@ msgstr ""
 #: social-linkz.php:432
 #: social-linkz.php:442
 #: social-linkz.php:449
+#: social-linkz.php:475
 #@ sociallinkz
-msgid "To share the post on %s !"
+msgid "The %s button:"
 msgstr ""
 
 #: social-linkz.php:396
 #: social-linkz.php:406
 #: social-linkz.php:417
+#: social-linkz.php:426
 #: social-linkz.php:433
 #: social-linkz.php:443
 #: social-linkz.php:450
 #@ sociallinkz
-msgid "Show the counter of this %s button:"
+msgid "To share the post on %s !"
 msgstr ""
 
 #: social-linkz.php:397
 #: social-linkz.php:407
-#: social-linkz.php:408
 #: social-linkz.php:418
-#: social-linkz.php:426
-#: social-linkz.php:435
+#: social-linkz.php:434
 #: social-linkz.php:444
+#: social-linkz.php:451
+#@ sociallinkz
+msgid "Show the counter of this %s button:"
+msgstr ""
+
+#: social-linkz.php:398
+#: social-linkz.php:408
+#: social-linkz.php:409
+#: social-linkz.php:419
+#: social-linkz.php:427
+#: social-linkz.php:436
+#: social-linkz.php:445
 #@ sociallinkz
 msgid "The official %s button:"
 msgstr ""
 
-#: social-linkz.php:398
-#: social-linkz.php:409
-#: social-linkz.php:419
-#: social-linkz.php:436
+#: social-linkz.php:399
+#: social-linkz.php:410
+#: social-linkz.php:420
+#: social-linkz.php:437
 #@ sociallinkz
 msgid "The SSL websites may not work properly with this official button... Moreover the rendering is not perfect !"
 msgstr ""
 
-#: social-linkz.php:399
-#: social-linkz.php:420
-#: social-linkz.php:427
-#: social-linkz.php:437
+#: social-linkz.php:400
+#: social-linkz.php:421
+#: social-linkz.php:428
+#: social-linkz.php:438
 #@ sociallinkz
 msgid "Show the counter of this official %s button:"
 msgstr ""
 
-#: social-linkz.php:400
+#: social-linkz.php:401
 #@ sociallinkz
 msgid "Your %s pseudo:"
 msgstr ""
 
-#: social-linkz.php:410
+#: social-linkz.php:411
 #@ sociallinkz
 msgid "Your FaceBook ID to enable Insight:"
 msgstr ""
 
-#: social-linkz.php:411
+#: social-linkz.php:412
 #@ sociallinkz
 msgid "Insight provides metrics around your content. See %s for futher details. To identify your Facebook ID, please visit the previous link and then click on Statistic of my website."
 msgstr ""
 
-#: social-linkz.php:412
+#: social-linkz.php:413
 #@ sociallinkz
 msgid "You may use an user id, an app id or a page id."
 msgstr ""
 
-#: social-linkz.php:434
+#: social-linkz.php:435
 #@ sociallinkz
 msgid "Your API key to be able to retrieve the counts (visit %s):"
 msgstr ""
 
-#: social-linkz.php:451
+#: social-linkz.php:452
 #@ sociallinkz
 msgid "Default image:"
 msgstr ""
 
-#: social-linkz.php:452
+#: social-linkz.php:453
 #@ sociallinkz
 msgid "%s requires that an image is pinned. By default, the plugin will take the first image in the post but if there is not any image, this image will be used."
 msgstr ""
 
-#: social-linkz.php:456
+#: social-linkz.php:457
 #@ sociallinkz
 msgid "The standard %s button:"
 msgstr ""
 
-#: social-linkz.php:457
+#: social-linkz.php:458
 #@ sociallinkz
 msgid "The %s button that open a new tab for a pretty printing:"
 msgstr ""
 
-#: social-linkz.php:458
+#: social-linkz.php:459
 #@ sociallinkz
 msgid "Separated-coma list of filters that are allowed to modify the display of the printed pages:"
 msgstr ""
 
-#: social-linkz.php:459
+#: social-linkz.php:460
 #@ sociallinkz
 msgid "With this option, you may allow the execution of specific plugins that modify the text to be printed. This options should be a list of filters separeted by coma, without blanks."
 msgstr ""
 
-#: social-linkz.php:460
+#: social-linkz.php:461
 #@ sociallinkz
 msgid "In order to dertermine the list of the filter available, you may tick the debug option below and then display a printed page: The list of avaliable filters will be displayed at the top of the page."
 msgstr ""
 
-#: social-linkz.php:461
+#: social-linkz.php:462
 #@ sociallinkz
 msgid "Add a QR code %s with the URL of the article/post just below the title when the article is printed:"
 msgstr ""
 
-#: social-linkz.php:462
+#: social-linkz.php:463
 #@ sociallinkz
 msgid "Add a QR code %s with the URL of the article/post at the end of the article when the article is printed:"
 msgstr ""
 
-#: social-linkz.php:463
+#: social-linkz.php:464
 #@ sociallinkz
 msgid "Debug mode to display available filters (displayed only if the current user is logged in):"
 msgstr ""
 
-#: social-linkz.php:464
+#: social-linkz.php:465
 #@ sociallinkz
 msgid "Replace shortcodes in the page:"
 msgstr ""
 
-#: social-linkz.php:465
+#: social-linkz.php:466
 #@ sociallinkz
 msgid "Separated-coma list of shortcode that are not to be replaced:"
 msgstr ""
 
-#: social-linkz.php:466
+#: social-linkz.php:467
 #@ sociallinkz
 msgid "Load the CSS of the website for the printed pages:"
 msgstr ""
 
-#: social-linkz.php:467
+#: social-linkz.php:468
 #@ sociallinkz
 msgid "Add the following CSS for the printed pages:"
 msgstr ""
 
-#: social-linkz.php:468
+#: social-linkz.php:469
 #@ sociallinkz
 msgid "Print the name of your URL of the website on printed pages (watermarking):"
 msgstr ""
 
-#: social-linkz.php:469
+#: social-linkz.php:470
 #@ sociallinkz
 msgid "The %s button that open a new tab for a pretty printing (all pages under the current page in the hierarchy is printed in a single click):"
 msgstr ""
 
-#: social-linkz.php:470
+#: social-linkz.php:471
 #@ sociallinkz
 msgid "Allow the pretty printing with hierarchy only for logged users"
 msgstr ""
 
-#: social-linkz.php:475
+#: social-linkz.php:476
 #@ sociallinkz
 msgid "The maximum number of emails for each mailing:"
 msgstr ""
 
-#: social-linkz.php:476
+#: social-linkz.php:477
 #@ sociallinkz
 msgid "The name used to send the email:"
 msgstr ""
 
-#: social-linkz.php:477
+#: social-linkz.php:478
 #@ sociallinkz
 msgid "The mail address used to send the email:"
 msgstr ""
 
-#: social-linkz.php:479
+#: social-linkz.php:480
 #@ sociallinkz
 msgid "You may use the admin email %s, a noreply address such as %s or any other email"
 msgstr ""
 
-#: social-linkz.php:481
+#: social-linkz.php:482
 #@ sociallinkz
 msgid "Display all these buttons in the excerpt?"
 msgstr ""
 
-#: social-linkz.php:482
+#: social-linkz.php:483
 #@ sociallinkz
 msgid "These buttons should be displayed in excerpt:"
 msgstr ""
 
-#: social-linkz.php:484
+#: social-linkz.php:485
 #@ sociallinkz
 msgid "Where do you want to display the buttons in post?"
-msgstr ""
-
-#: social-linkz.php:485
-#: social-linkz.php:489
-#@ sociallinkz
-msgid "At the Top:"
 msgstr ""
 
 #: social-linkz.php:486
 #: social-linkz.php:490
 #@ sociallinkz
+msgid "At the Top:"
+msgstr ""
+
+#: social-linkz.php:487
+#: social-linkz.php:491
+#@ sociallinkz
 msgid "At the Bottom:"
 msgstr ""
 
-#: social-linkz.php:488
+#: social-linkz.php:489
 #@ sociallinkz
 msgid "Where do you want to display the buttons in page?"
 msgstr ""
 
-#: social-linkz.php:492
+#: social-linkz.php:493
 #@ sociallinkz
 msgid "Advanced options"
 msgstr ""
 
-#: social-linkz.php:493
+#: social-linkz.php:494
 #@ sociallinkz
 msgid "Number of minutes between two refreshes:"
 msgstr ""
 
-#: social-linkz.php:494
+#: social-linkz.php:495
 #@ sociallinkz
 msgid "HTML:"
 msgstr ""
 
-#: social-linkz.php:496
+#: social-linkz.php:497
 #@ sociallinkz
 msgid "Default HTML is : %s with %s the displayed buttons"
 msgstr ""
 
-#: social-linkz.php:497
+#: social-linkz.php:498
 #@ sociallinkz
 msgid "CSS:"
 msgstr ""
 
-#: social-linkz.php:499
+#: social-linkz.php:500
 #@ sociallinkz
 msgid "Default CSS is : %s"
 msgstr ""
 
-#: social-linkz.php:500
+#: social-linkz.php:501
 #@ sociallinkz
 msgid "Page to be excluded:"
 msgstr ""
 
-#: social-linkz.php:501
+#: social-linkz.php:502
 #@ sociallinkz
 msgid "Please enter one entry per line. If the page %s is to be excluded, you may enter %s."
 msgstr ""
 
-#: social-linkz.php:503
+#: social-linkz.php:504
 #@ sociallinkz
 msgid "Advanced options for QR code"
 msgstr ""
 
-#: social-linkz.php:504
+#: social-linkz.php:505
 #@ sociallinkz
 msgid "The HTML to display the QR code (all but the shortcode):"
 msgstr ""
 
-#: social-linkz.php:505
-#: social-linkz.php:508
-#: social-linkz.php:511
+#: social-linkz.php:506
+#: social-linkz.php:509
+#: social-linkz.php:512
 #@ sociallinkz
 msgid "The default value is:"
 msgstr ""
 
-#: social-linkz.php:507
+#: social-linkz.php:508
 #@ sociallinkz
 msgid "The HTML to display the QR code for the shortcode:"
 msgstr ""
 
-#: social-linkz.php:510
+#: social-linkz.php:511
 #@ sociallinkz
 msgid "The CSS to display the QR code:"
 msgstr ""
 
-#: social-linkz.php:515
+#: social-linkz.php:516
 #@ sociallinkz
 msgid "Parameters"
 msgstr ""
 
-#: social-linkz.php:521
+#: social-linkz.php:522
 #@ sociallinkz
 msgid "Manage translations"
 msgstr ""
 
-#: social-linkz.php:527
+#: social-linkz.php:528
 #@ sociallinkz
 msgid "Give feedback"
 msgstr ""
 
-#: social-linkz.php:532
+#: social-linkz.php:533
 #@ sociallinkz
 msgid "Other plugins"
 msgstr ""
 
-#: social-linkz.php:718
-#: social-linkz.php:748
-#: social-linkz.php:775
-#: social-linkz.php:798
-#: social-linkz.php:821
-#: social-linkz.php:840
+#: social-linkz.php:719
+#: social-linkz.php:749
+#: social-linkz.php:776
+#: social-linkz.php:799
+#: social-linkz.php:822
+#: social-linkz.php:841
 #@ sociallinkz
 msgid "Share -%s- on %s"
 msgstr ""
 
-#: social-linkz.php:769
+#: social-linkz.php:770
 #@ sociallinkz
 msgid "Tweet"
 msgstr ""
 
-#: social-linkz.php:883
+#: social-linkz.php:884
 #@ sociallinkz
 msgid "Print this page"
 msgstr ""
 
-#: social-linkz.php:890
+#: social-linkz.php:891
 #@ sociallinkz
 msgid "Pretty print this page"
 msgstr ""
 
-#: social-linkz.php:898
+#: social-linkz.php:899
 #@ sociallinkz
 msgid "Pretty print this page and all pages under"
 msgstr ""
 
-#: social-linkz.php:907
+#: social-linkz.php:908
 #@ sociallinkz
 msgid "Mail"
 msgstr ""
 
-#: social-linkz.php:912
+#: social-linkz.php:913
 #@ sociallinkz
 msgid "Send this article by email"
 msgstr ""
 
-#: social-linkz.php:913
+#: social-linkz.php:914
 #@ sociallinkz
 msgid "What is your name?"
 msgstr ""
 
-#: social-linkz.php:915
+#: social-linkz.php:916
 #@ sociallinkz
 msgid "Please indicate below the emails to which you want to send this article: %s"
 msgstr ""
 
-#: social-linkz.php:917
+#: social-linkz.php:918
 #@ sociallinkz
 msgid "Enter one email per line. No more than %s emails."
 msgstr ""
 
-#: social-linkz.php:918
-#: social-linkz.php:920
-#: social-linkz.php:920
+#: social-linkz.php:919
+#: social-linkz.php:921
+#: social-linkz.php:921
 #@ sociallinkz
 msgid "Close"
 msgstr ""
 
-#: social-linkz.php:918
+#: social-linkz.php:919
 #@ sociallinkz
 msgid "Send"
 msgstr ""
 
-#: social-linkz.php:1243
+#: social-linkz.php:1244
 #@ sociallinkz
 msgid "List of the filters that is normally called during the display of the page"
 msgstr ""
 
-#: social-linkz.php:1244
+#: social-linkz.php:1245
 #@ sociallinkz
 msgid "This list is displayed as you have set the debug mode."
 msgstr ""
 
-#: social-linkz.php:1245
+#: social-linkz.php:1246
 #@ sociallinkz
 msgid "If you want to allow the execution of a plugin, you may identify its call in the following list (filters that are not already in the allowed filters) and add it to the allowed filters in the param page:"
 msgstr ""
 
-#: social-linkz.php:1261
+#: social-linkz.php:1262
 #@ sociallinkz
 msgid "End of the list"
 msgstr ""
 
-#: social-linkz.php:1468
+#: social-linkz.php:1469
 #@ sociallinkz
 msgid "Sending Report"
 msgstr ""
 
-#: social-linkz.php:1472
+#: social-linkz.php:1473
 #@ sociallinkz
 msgid "Sorry, but you have not provided a name. Please refresh the current page and then retry."
 msgstr ""
 
-#: social-linkz.php:1475
-#: social-linkz.php:1483
+#: social-linkz.php:1476
+#: social-linkz.php:1484
 #@ sociallinkz
 msgid "%s has recommended this article to you: %s"
 msgstr ""
 
-#: social-linkz.php:1476
+#: social-linkz.php:1477
 #@ sociallinkz
 msgid "Here is an extract of the article:"
 msgstr ""
 
-#: social-linkz.php:1501
+#: social-linkz.php:1502
 #@ sociallinkz
 msgid "Email successfully sent to %s"
 msgstr ""
 
-#: social-linkz.php:1503
+#: social-linkz.php:1504
 #@ sociallinkz
 msgid "Wordpress is unable to send an email to %s"
 msgstr ""

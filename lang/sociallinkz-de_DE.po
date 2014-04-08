@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-04-07T15:47:58+00:00\n"
+"PO-Revision-Date: 2014-04-04T09:21:23+00:00\n"
 "Last-Translator: Olly <regge@online.de>\n"
 "Last-Translator: FarChris <http://www.pinsight.de>\n"
 "Last-Translator: Susann <dclifestyle.de>\n"
@@ -30,9 +30,6 @@ msgstr "Füge die SocialLinkz Buttons hinzu"
 
 msgid "This plugin help you sharing on the social network by adding facebook or twitter buttons."
 msgstr "Dieses Plugin hilft dabei, Dinge im Social-Network durch Facebook oder Twitter-Buttons zu teilen."
-
-msgid "It is possible to manually insert the buttons in your post by adding the shortcode %s or %s"
-msgstr ""
 
 msgid "Display %s button?"
 msgstr "Zeige %s Button?"
@@ -67,14 +64,11 @@ msgstr "Insight bietet Metriken rund um deine Inhalte. Siehe hier %s für weiter
 msgid "You may use an user id, an app id or a page id."
 msgstr "Du musst eine User-ID, eine App-ID oder eine Page-ID nutzen."
 
-msgid "Your API key to be able to retrieve the counts (visit %s):"
-msgstr ""
-
 msgid "Default image:"
 msgstr "Standard Bild:"
 
 msgid "%s requires that an image is pinned. By default, the plugin will take the first image in the post but if there is not any image, this image will be used."
-msgstr "%s benötigt, dass ein Bild gepinnt wird. Dieses Plugin nimmt automatisch das erste Bild im Beitrag. Wenn dort  aber keines ist, wird dieses hier benutzt."
+msgstr "%s benötigt, dass ein Bild gepinnt wird. Dieses Plugin nimmt automatisch das erste Bild im Beitrag. Wenn dort aber keines ist, wird dieses hier benutzt."
 
 msgid "The maximum number of emails for each mailing:"
 msgstr "Die maximale Anzahl von Mails pro Mailing:"
@@ -161,10 +155,10 @@ msgid "What is your name?"
 msgstr "Wie heißt du?"
 
 msgid "Please indicate below the emails to which you want to send this article: %s"
-msgstr "Bitte geben unten die Mail-Adressen ein, denen du diesen Artikel senden möchtest : %s"
+msgstr "Bitte gib unten die Mail-Adressen ein, denen du diesen Artikel senden möchtest : %s"
 
 msgid "Enter one email per line. No more than %s emails."
-msgstr "Gebe eine Mail-Adresse pro Zeile ein. Nicht mehr als %s emails."
+msgstr "Gib eine Mail-Adresse pro Zeile ein. Nicht mehr als %s emails."
 
 msgid "Close"
 msgstr "Schließen"
