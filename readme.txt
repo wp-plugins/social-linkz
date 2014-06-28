@@ -6,7 +6,7 @@ Author URI: http://www.sedlex.fr/
 Plugin URI: http://wordpress.org/plugins/social-linkz/
 Tags: social, facebook, twitter, google, buttons
 Requires at least: 3.0
-Tested up to: 3.8.1
+Tested up to: 3.9.1
 Stable tag: trunk
 
 Add social links such as Twitter or Facebook in each post. 
@@ -31,8 +31,6 @@ It is possible to manually insert the buttons in your post by adding the shortco
 If you want to add the buttons in a very specific location, your may edit your theme and insert $this-&gt;print_buttons($post, [$url], [$buttons]); (be sure that $post refer to the current post). 
 
 It is also possible to add a widget to display buttons. 
-
-You may also insert a QR code as you want by [qrcode size="4" px_size="2" frame_size="5"]Your text to be encoded[/qrcode]. If you do not set the text, it will be replaced with the URL to the article.
 
 This plugin is under GPL licence. 
 
@@ -60,18 +58,14 @@ This plugin works with multisite installation.
 * Dutch (Netherlands) translation provided by HermanTimmermans, Jens
 * Polish (Poland) translation provided by Kajaczek
 * Portuguese (Brazil) translation provided by AndrVasconcellos, MarceloSrougi
+* Swedish (Sweden) translation provided by 
 * Turkish (Turkey) translation provided by OsmanERDOAN, Hseyinzkan, BlentDnmez
 
 = Features of the framework =
 
-This plugin uses the SL framework. This framework eases the creation of new plugins by providing incredible tools and frames.
+This plugin uses the SL framework. This framework eases the creation of new plugins by providing tools and frames (see dev-toolbox plugin for more info).
 
-For instance, a new created plugin comes with
-
-* A translation interface to simplify the localization of the text of the plugin ; 
-* An embedded SVN client (subversion) to easily commit/update the plugin in wordpress.org repository ; 
-* A detailled documentation of all available classes and methodes ; 
-* etc.
+You may easily translate the text of the plugin and submit it to the developer, send a feedback, or choose the location of the plugin in the admin panel.
 
 Have fun !
 
@@ -89,6 +83,10 @@ Have fun !
 2. The buttons
 
 == Changelog ==
+
+= 1.7.1 =
+* NEW: How to
+* NEW: You may customize the sharing string 
 
 = 1.7.0 =
 * NEW : Support for QR code / shortcode
@@ -173,4 +171,4 @@ Have fun !
 Visit http://www.sedlex.fr/cote_geek/
 
  
-InfoVersion:e8d9ed4f9625791e8b03a89e3d63631f
+InfoVersion:95dae9f89a4d38b17a006308e3fb7519169310f7

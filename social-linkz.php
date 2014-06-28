@@ -3,8 +3,7 @@
 Plugin Name: Social Linkz
 Plugin Tag: social, facebook, twitter, google, buttons
 Description: <p>Add social links such as Twitter or Facebook in each post. </p><p>You can choose the buttons to be displayed such as : </p><ul><li>Twitter</li><li>FaceBook</li><li>LinkedIn</li><li>Viadeo</li><li>Google+</li><li>StumbleUpon</li><li>Pinterest</li><li>Print</li></ul><p>It is possible to manually insert the buttons in your post by adding the shortcode <code>[sociallinkz]</code> or <code>[sociallinkz url='http://domain.tld' buttons='facebook,google+' desc='Short description']</code> . </p><p>If you want to add the buttons in a very specific location, your may edit your theme and insert <code>$this->print_buttons($post, [$url], [$buttons]);</code> (be sure that <code>$post</code> refer to the current post). </p><p>It is also possible to add a widget to display buttons. </p><p>This plugin is under GPL licence. </p>
-Version: 1.7.0
-
+Version: 1.7.1
 Author: SedLex
 Author Email: sedlex@sedlex.fr
 Framework Email: sedlex@sedlex.fr
@@ -98,7 +97,7 @@ class sociallinkz extends pluginSedLex {
 	public function _update() {
 		global $wpdb ; 
 		
-		SL_Debug::log(get_class(), "Update the plugin." , 4) ; 
+		SLFramework_Debug::log(get_class(), "Update the plugin." , 4) ; 
 		
 		// Delete the former counter ...
 		$names = $this->get_name_params() ; 
@@ -178,36 +177,42 @@ class sociallinkz extends pluginSedLex {
 			case 'twitter_count' 						: return false 	; break ; 
 			case 'twitter_hosted' 				: return false 	; break ; 
 			case 'twitter_hosted_count' 		: return false 	; break ; 
+			case 'twitter_string' 		: return "[Blog] %title% - %shorturl% (via %twitter_name%)" 	; break ; 
 			case 'name_twitter'					: return "" 	; break ; 
 			
 			case 'pinterest_hosted' 				: return false 	; break ; 
 			case 'pinterest_hosted_count' 		: return false 	; break ;
 			case 'pinterest_hosted_defaultimage' 		: return "[file]/social-linkz/" 	; break ;
+			case 'pinterest_string' 		: return "[Blog] %title% - %url%" 	; break ; 
 			
 			case 'linkedin' 					: return false 	; break ; 
 			case 'linkedin_count' 					: return false 	; break ; 
 			case 'linkedin_hosted' 				: return false 	; break ; 
 			case 'linkedin_hosted_count' 		: return false 	; break ; 
+			case 'linkedin_string' 		: return "[Blog] %title% - %shorturl%" 	; break ; 
 
 			case 'viadeo' 					: return false 	; break ; 
 			case 'viadeo_hosted' 					: return false 	; break ; 
 			case 'viadeo_hosted_count' 		: return false 	; break ; 
+			case 'viadeo_string' 		: return "[Blog] %title% - %shorturl%" 	; break ; 
 						
 			case 'googleplus_standard' 					: return false 	; break ; 
 			case 'googleplus_standard_count' 					: return false 	; break ; 
 			case 'googleplus' 					: return true 	; break ; 
 			case 'googleplus_count' 			: return true 	; break ; 
-			case 'googleplus_standard_key' 		: return 'AIzaSyCKSbrvQasunBoV16zDH9R33D88CeLr9gQ' ; break ; 
+			case 'googleplus_standard_key' 		: return '' ; break ; 
 
 			case 'facebook' 					: return true 	; break ; 
 			case 'facebook_id' 					: return "" 	; break ; 
 			case 'facebook_count' 					: return false 	; break ; 
 			case 'facebook_hosted' 				: return false 	; break ; 
 			case 'facebook_hosted_share'			: return false 	; break ; 
+			case 'facebook_string' 		: return "[Blog] %title% - %shorturl%" 	; break ; 
 			
 			case 'stumbleupon' 					: return false 	; break ; 
 			case 'stumbleupon_count' 					: return false 	; break ; 
 			case 'stumbleupon_hosted'				: return false 	; break ; 
+			case 'stumbleupon_string' 		: return "[Blog] %title% - %shorturl%" 	; break ; 
 			
 			case 'print'	 					: return true 	; break ; 
 			case 'print_newtab'	 					: return false 	; break ; 
@@ -249,6 +254,7 @@ div.watermark {
 			case 'mail_max'	 					: return 5 	; break ; 
 			case 'mail_address'					: return  get_option('admin_email') ; break ; 
 			case 'mail_name'						: return get_bloginfo('name'); break ; 
+			case 'mail_string' 		: return "[Blog] %title%" 	; break ; 
 
 			case 'refresh_time'						: return 10; break ; 
 
@@ -310,12 +316,12 @@ div.watermark {
 		
 			ob_start() ; 
 			?>
-				function sendEmailSocialLinkz(md5, id) { 
-					jQuery("#wait_mail"+md5).show();
-					jQuery("#emailSocialLinkz"+md5).attr('disabled', 'disabled');
+				function sendEmailSocialLinkz(sha1, id) { 
+					jQuery("#wait_mail"+sha1).show();
+					jQuery("#emailSocialLinkz"+sha1).attr('disabled', 'disabled');
 					
-					listemail = jQuery("#emailSocialLinkz"+md5).val();
-					nom = jQuery("#nameSocialLinkz"+md5).val();
+					listemail = jQuery("#emailSocialLinkz"+sha1).val();
+					nom = jQuery("#nameSocialLinkz"+sha1).val();
 					
 					var arguments = {
 						action: 'emailSocialLinkz', 
@@ -326,7 +332,7 @@ div.watermark {
 					var ajaxurl2 = "<?php echo admin_url()."admin-ajax.php"?>" ; 
 					//POST the data and append the results to the results div
 					jQuery.post(ajaxurl2, arguments, function(response) {
-						jQuery("#innerdialog"+md5).html(response);
+						jQuery("#innerdialog"+sha1).html(response);
 					});    
 				}
 		
@@ -372,9 +378,6 @@ div.watermark {
 		<div class="plugin-contentSL">		
 			<?php echo $this->signature ; ?>
 
-			<p><?php echo __('This plugin help you sharing on the social network by adding facebook or twitter buttons.', $this->pluginID) ; ?></p>
-			<p><?php echo sprintf(__('It is possible to manually insert the buttons in your post by adding the shortcode %s or %s', $this->pluginID), "<code>[sociallinkz]</code>", "<code>[sociallinkz url='http://domain.tld' buttons='facebook,google+' desc='Short description']</code>") ; ?></p>
-			<p><?php echo sprintf(__('In addition, you may add any QR code you want by adding the shortcode %s. If you do not set the text, it will be replaced with the URL to the article', $this->pluginID), '<code>[qrcode size="4" px_size="2" frame_size="5"]Your text to be encoded[/qrcode]</code>') ; ?></p>
 		<?php
 		
 			// On verifie que les droits sont corrects
@@ -386,10 +389,10 @@ div.watermark {
 			//		(bien mettre a jour les liens contenu dans les <li> qui suivent)
 			//
 			//==========================================================================================
-			$tabs = new adminTabs() ; 
+			$tabs = new SLFramework_Tabs() ; 
 			
 			ob_start() ; 
-				$params = new parametersSedLex($this, 'tab-parameters') ; 
+				$params = new SLFramework_Parameters($this, 'tab-parameters') ; 
 				$title = "Twitter&#8482;" ; 
 				$params->add_title(sprintf(__('Display %s button?',$this->pluginID), $title)) ; 
 				$params->add_param('twitter', "<img src='".plugin_dir_url("/")."/".plugin_basename(dirname(__FILE__))."/img/lnk_twitter.png'/> ".sprintf(__('The %s button:',$this->pluginID), $title),"","",array('twitter_count')) ; 
@@ -399,6 +402,11 @@ div.watermark {
 				$params->add_comment(__('The SSL websites may not work properly with this official button... Moreover the rendering is not perfect !',$this->pluginID)) ; 
 				$params->add_param('twitter_hosted_count', sprintf(__('Show the counter of this official %s button:',$this->pluginID), $title) ) ; 
 				$params->add_param('name_twitter', sprintf(__('Your %s pseudo:',$this->pluginID), $title)) ; 
+				$params->add_param('twitter_string', sprintf(__('The string used for a sharing with %s:',$this->pluginID), $title)) ; 
+				$params->add_comment(sprintf(__('%s is for the short url of the post',$this->pluginID), "<code>%shorturl%</code>"))  ; 
+				$params->add_comment(sprintf(__('%s is for the url of the post',$this->pluginID), "<code>%url%</code>"))  ; 
+				$params->add_comment(sprintf(__('%s is for the title of the post',$this->pluginID), "<code>%title%</code>"))  ; 
+				$params->add_comment(sprintf(__('%s is for the pseudo used on Twitter',$this->pluginID), "<code>%twitter_name%</code>"))  ; 
 				
 				$title = "FaceBook&#8482;" ; 
 				$params->add_title(sprintf(__('Display %s button?',$this->pluginID), $title)) ; 
@@ -411,6 +419,11 @@ div.watermark {
 				$params->add_param('facebook_id', __('Your FaceBook ID to enable Insight:',$this->pluginID)) ; 
 				$params->add_comment(sprintf(__('Insight provides metrics around your content. See %s for futher details. To identify your Facebook ID, please visit the previous link and then click on Statistic of my website.',$this->pluginID), "<a href='http://www.facebook.com/insights'>Facebook Insights</a>")) ; 
 				$params->add_comment(__('You may use an user id, an app id or a page id.',$this->pluginID)) ; 
+				$params->add_param('facebook_string', sprintf(__('The string used for a sharing with %s:',$this->pluginID), $title)) ; 
+				$params->add_comment(sprintf(__('%s is for the short url of the post',$this->pluginID), "<code>%shorturl%</code>"))  ; 
+				$params->add_comment(sprintf(__('%s is for the url of the post',$this->pluginID), "<code>%url%</code>"))  ; 
+				$params->add_comment(sprintf(__('%s is for the title of the post',$this->pluginID), "<code>%title%</code>"))  ; 
+
 				$title = "LinkedIn&#8482;" ; 
 				$params->add_title(sprintf(__('Display %s button?',$this->pluginID), $title)) ; 
 				$params->add_param('linkedin', "<img src='".plugin_dir_url("/")."/".plugin_basename(dirname(__FILE__))."/img/lnk_linkedin.png'/> ".sprintf(__('The %s button:',$this->pluginID), $title),"","",array('linkedin_count')) ; 
@@ -419,6 +432,10 @@ div.watermark {
 				$params->add_param('linkedin_hosted', "<img src='".plugin_dir_url("/")."/".plugin_basename(dirname(__FILE__))."/img/lnk_linkedin_hosted.png'/> ".sprintf(__('The official %s button:',$this->pluginID), $title),"","",array('linkedin_hosted_count')) ; 
 				$params->add_comment(__('The SSL websites may not work properly with this official button... Moreover the rendering is not perfect !',$this->pluginID)) ; 
 				$params->add_param('linkedin_hosted_count', sprintf(__('Show the counter of this official %s button:',$this->pluginID), $title) ) ; 
+				$params->add_param('linkedin_string', sprintf(__('The string used for a sharing with %s:',$this->pluginID), $title)) ; 
+				$params->add_comment(sprintf(__('%s is for the short url of the post',$this->pluginID), "<code>%shorturl%</code>"))  ; 
+				$params->add_comment(sprintf(__('%s is for the url of the post',$this->pluginID), "<code>%url%</code>"))  ; 
+				$params->add_comment(sprintf(__('%s is for the title of the post',$this->pluginID), "<code>%title%</code>"))  ; 
 
 				$title = "Viadeo&#8482;" ; 
 				$params->add_title(sprintf(__('Display %s button?',$this->pluginID), $title)) ; 
@@ -426,6 +443,10 @@ div.watermark {
 				$params->add_comment(sprintf(__('To share the post on %s !',$this->pluginID), $title)) ; 
 				$params->add_param('viadeo_hosted', "<img src='".plugin_dir_url("/")."/".plugin_basename(dirname(__FILE__))."/img/lnk_viadeo_hosted.png'/> ".sprintf(__('The official %s button:',$this->pluginID), $title),"","",array('viadeo_hosted_count')) ; 
 				$params->add_param('viadeo_hosted_count', sprintf(__('Show the counter of this official %s button:',$this->pluginID), $title) ) ; 
+				$params->add_param('viadeo_string', sprintf(__('The string used for a sharing with %s:',$this->pluginID), $title)) ; 
+				$params->add_comment(sprintf(__('%s is for the short url of the post',$this->pluginID), "<code>%shorturl%</code>"))  ; 
+				$params->add_comment(sprintf(__('%s is for the url of the post',$this->pluginID), "<code>%url%</code>"))  ; 
+				$params->add_comment(sprintf(__('%s is for the title of the post',$this->pluginID), "<code>%title%</code>"))  ; 
 
 				$title = "Google+&#8482;" ; 
 				$params->add_title(sprintf(__('Display %s button?',$this->pluginID), $title)) ; 
@@ -443,6 +464,10 @@ div.watermark {
 				$params->add_comment(sprintf(__('To share the post on %s !',$this->pluginID), $title)) ; 
 				$params->add_param('stumbleupon_count', sprintf(__('Show the counter of this %s button:',$this->pluginID), $title)) ; 
 				$params->add_param('stumbleupon_hosted', "<img src='".plugin_dir_url("/")."/".plugin_basename(dirname(__FILE__))."/img/lnk_stumbleupon_hosted.png'/> ".sprintf(__('The official %s button:',$this->pluginID), $title)) ; 
+				$params->add_param('stumbleupon_string', sprintf(__('The string used for a sharing with %s:',$this->pluginID), $title)) ; 
+				$params->add_comment(sprintf(__('%s is for the short url of the post',$this->pluginID), "<code>%shorturl%</code>"))  ; 
+				$params->add_comment(sprintf(__('%s is for the url of the post',$this->pluginID), "<code>%url%</code>"))  ; 
+				$params->add_comment(sprintf(__('%s is for the title of the post',$this->pluginID), "<code>%title%</code>"))  ; 
 				
 				$title = "Pinterest&#8482;" ; 
 				$params->add_title(sprintf(__('Display %s button?',$this->pluginID), $title)) ; 
@@ -451,6 +476,10 @@ div.watermark {
 				$params->add_param('pinterest_hosted_count', sprintf(__('Show the counter of this %s button:',$this->pluginID), $title)) ; 
 				$params->add_param('pinterest_hosted_defaultimage', __('Default image:',$this->pluginID)) ; 
 				$params->add_comment(sprintf(__('%s requires that an image is pinned. By default, the plugin will take the first image in the post but if there is not any image, this image will be used.',$this->pluginID), $title)) ; 
+				$params->add_param('pinterest_string', sprintf(__('The string used for a sharing with %s:',$this->pluginID), $title)) ; 
+				$params->add_comment(sprintf(__('%s is for the short url of the post',$this->pluginID), "<code>%shorturl%</code>"))  ; 
+				$params->add_comment(sprintf(__('%s is for the url of the post',$this->pluginID), "<code>%url%</code>"))  ; 
+				$params->add_comment(sprintf(__('%s is for the title of the post',$this->pluginID), "<code>%title%</code>"))  ; 
 
 				$title = "Print" ; 
 				$params->add_title(sprintf(__('Display %s button?',$this->pluginID), $title)) ; 
@@ -478,6 +507,11 @@ div.watermark {
 				$params->add_param('mail_address', __('The mail address used to send the email:',$this->pluginID)) ; 
 				$address = explode("/", home_url('/')) ; 
 				$params->add_comment(sprintf(__('You may use the admin email %s, a noreply address such as %s or any other email',$this->pluginID), "<code>".get_option('admin_email')."</code>","<code>noreply@".str_replace("www.", "", $address[2])."</code>")) ; 
+				$params->add_param('mail_string', __('The string used for the subject of the mail:',$this->pluginID)) ; 
+				$params->add_comment(sprintf(__('%s is for the short url of the post',$this->pluginID), "<code>%shorturl%</code>"))  ; 
+				$params->add_comment(sprintf(__('%s is for the url of the post',$this->pluginID), "<code>%url%</code>"))  ; 
+				$params->add_comment(sprintf(__('%s is for the title of the post',$this->pluginID), "<code>%title%</code>"))  ; 
+
 				
 				$params->add_title(__('Display all these buttons in the excerpt?',$this->pluginID)) ; 
 				$params->add_param('display_in_excerpt', __('These buttons should be displayed in excerpt:',$this->pluginID)) ; 
@@ -515,20 +549,61 @@ div.watermark {
 				$params->flush() ; 
 			$tabs->add_tab(__('Parameters',  $this->pluginID), ob_get_clean() , plugin_dir_url("/").'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__))."core/img/tab_param.png") ; 	
 			
+			// HOW To
+			ob_start() ;
+				echo "<p>".__('This plugin enables the sharing of your posts/pages on the social networks by adding different social buttons.', $this->pluginID)."</p>" ;
+			$howto1 = new SLFramework_Box (__("Purpose of that plugin", $this->pluginID), ob_get_clean()) ; 
+			ob_start() ;
+				echo "<p>".__('You can configure the place of the social buttons in the configuration tab.', $this->pluginID)."</p>" ;
+				echo "<p>".sprintf(__('It is also possible to manually insert the social buttons in your post by adding the shortcode %s or %s', $this->pluginID), "<code>[sociallinkz]</code>", "<code>[sociallinkz url='http://domain.tld' buttons='facebook,google+' desc='Short description']</code>")."</p>" ; 
+				echo "<p>".__('The name of the different buttons for these shortcodes are:', $this->pluginID)."</p>" ;
+				echo "<ul style='list-style-type: disc;padding-left:40px;'>" ; 
+					echo "<li>facebook</li>" ;
+					echo "<li>facebook_hosted</li>" ; 
+					echo "<li>twitter</li>" ; 
+					echo "<li>twitter_hosted</li>" ; 
+					echo "<li>googleplus_standard</li>" ; 
+					echo "<li>googleplus</li>" ; 
+					echo "<li>linkedin</li>" ; 
+					echo "<li>linkedin_hosted</li>" ; 
+					echo "<li>viadeo</li>" ; 
+					echo "<li>viadeo_hosted</li>" ; 
+					echo "<li>stumbleupon</li>" ; 
+					echo "<li>stumbleupon_hosted</li>" ; 
+					echo "<li>pinterest</li>" ; 
+					echo "<li>pinterest_hosted</li>" ; 
+					echo "<li>print</li>" ; 
+					echo "<li>print_newtab</li>" ; 
+					echo "<li>print_newtab_hierarchy</li>" ; 
+					echo "<li>mail</li>" ; 
+				echo "</ul>" ; 
+				echo "<p>".__('Please note that there is also a widget available to display the buttons.', $this->pluginID)."</p>" ;
+				echo "<p>".sprintf(__('If your are a theme developer, you also may add %s in your theme to display the buttons (with %s the post to use or if the post should be the blog frontpage, you may use %s).', $this->pluginID), "<code>".'$sociallinkz->print_buttons($post)'."</code>", '<code>$post</code>', '<code>$post = new stdClass ; $post->ID = 0 ;</code>')."</p>" ; 
+			$howto2 = new SLFramework_Box (__("How to display the social buttons?", $this->pluginID), ob_get_clean()) ; 
+			ob_start() ;
+				echo "<p>".sprintf(__('In addition, you may add any QR code you want by adding the shortcode %s. If you do not set the text, it will be replaced with the URL to the article', $this->pluginID), '<code>[qrcode size="4" px_size="2" frame_size="5"]Your text to be encoded[/qrcode]</code>')."</p>" ; 
+				echo "<p>".__('A button is inserted in the post editor to ease the insertion of QR code.', $this->pluginID)."</p>" ;
+			$howto3 = new SLFramework_Box (__("Custom QR code", $this->pluginID), ob_get_clean()) ; 
+			ob_start() ;
+				 echo $howto1->flush() ; 
+				 echo $howto2->flush() ; 
+				 echo $howto3->flush() ; 
+			$tabs->add_tab(__('How To',  $this->pluginID), ob_get_clean() , plugin_dir_url("/").'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__))."core/img/tab_how.png") ; 				
+
 			ob_start() ; 
 				$plugin = str_replace("/","",str_replace(basename(__FILE__),"",plugin_basename( __FILE__))) ; 
-				$trans = new translationSL($this->pluginID, $plugin) ; 
+				$trans = new SLFramework_Translation($this->pluginID, $plugin) ; 
 				$trans->enable_translation() ; 
 			$tabs->add_tab(__('Manage translations',  $this->pluginID), ob_get_clean() , plugin_dir_url("/").'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__))."core/img/tab_trad.png") ; 	
 
 			ob_start() ; 
 				$plugin = str_replace("/","",str_replace(basename(__FILE__),"",plugin_basename( __FILE__))) ; 
-				$trans = new feedbackSL($plugin, $this->pluginID) ; 
+				$trans = new SLFramework_Feedback($plugin, $this->pluginID) ; 
 				$trans->enable_feedback() ; 
 			$tabs->add_tab(__('Give feedback',  $this->pluginID), ob_get_clean() , plugin_dir_url("/").'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__))."core/img/tab_mail.png") ; 	
 			
 			ob_start() ; 
-				$trans = new otherPlugins("sedLex", array('wp-pirates-search')) ; 
+				$trans = new SLFramework_OtherPlugins("sedLex", array('wp-pirates-search')) ; 
 				$trans->list_plugins() ; 
 			$tabs->add_tab(__('Other plugins',  $this->pluginID), ob_get_clean() , plugin_dir_url("/").'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__))."core/img/tab_plug.png") ; 	
 			
@@ -714,9 +789,14 @@ div.watermark {
 		?>
 			<?php
 			
+			
 			if ((($this->get_param('facebook'))&&($forceButton==""))||((strpos($forceButton, ',facebook,')!==false)&&($forceButton!=""))) {
+				
+				$facebook_title = str_replace("%url%", $long_url, $this->get_param('facebook_string')) ; 
+				$facebook_title = str_replace("%shorturl%", $url, $facebook_title) ;
+				$facebook_title = str_replace("%title%", $titre, $facebook_title) ; 
 				?>
-				<a rel="nofollow" target="_blank" href="http://www.facebook.com/sharer.php?u=<?php echo urlencode($long_url) ; ?>&amp;t=<?php echo urlencode($titre) ; ?>" title="<?php echo sprintf(__("Share -%s- on %s", $this->pluginID), htmlentities($titre, ENT_QUOTES, 'UTF-8'), "Facebook") ; ?>">
+				<a rel="nofollow" target="_blank" href="http://www.facebook.com/sharer.php?u=<?php echo urlencode($long_url) ; ?>&amp;t=<?php echo urlencode($facebook_title) ; ?>" title="<?php echo sprintf(__("Share -%s- on %s", $this->pluginID), htmlentities($titre, ENT_QUOTES, 'UTF-8'), "Facebook") ; ?>">
 					<img class="lnk_social_linkz" src="<?php echo plugin_dir_url("/")."/".plugin_basename(dirname(__FILE__)) ; ?>/img/lnk_facebook.png" alt="Facebook" height="24" width="24"/></a>
 				<?php
 				if ((($this->get_param('facebook_count'))&&($forceButton==""))||((strpos($forceButton, ',facebook_count,')!==false)&&($forceButton!=""))) {
@@ -742,11 +822,18 @@ div.watermark {
 			if ((($this->get_param('twitter'))&&($forceButton==""))||((strpos($forceButton, ',twitter,')!==false)&&($forceButton!=""))) {
 				$via = "" ; 
 				if ($this->get_param('name_twitter')!="") {
-					$via = " (via @".$this->get_param('name_twitter').")" ; 
+					$via = $this->get_param('name_twitter') ; 
+					if ((strlen($via)!=0)&&(substr($via, 0,1) != "@")) {
+						$via = "@".$via ; 
+					}
 				}
+				$twitter_title = str_replace("%url%", $long_url, $this->get_param('twitter_string')) ; 
+				$twitter_title = str_replace("%shorturl%", $url, $twitter_title) ;
+				$twitter_title = str_replace("%title%", $titre, $twitter_title) ; 
+				$twitter_title = str_replace("%twitter_name%", $via, $twitter_title) ; 
 				
 				?>
-				<a rel="nofollow" target="_blank" href="http://twitter.com/?status=<?php echo str_replace('+','%20',urlencode("[Blog] ".$titre)) ; ?>%20-%20<?php echo urlencode($url) ; ?>.<?php echo str_replace('+','%20',urlencode($via)) ; ?>" title="<?php echo sprintf(__("Share -%s- on %s", $this->pluginID), htmlentities($titre, ENT_QUOTES, 'UTF-8'), "Twitter") ; ?>">
+				<a rel="nofollow" target="_blank" href="http://twitter.com/?status=<?php echo str_replace('+','%20',urlencode($twitter_title)) ; ?>" title="<?php echo sprintf(__("Share -%s- on %s", $this->pluginID), htmlentities($titre, ENT_QUOTES, 'UTF-8'), "Twitter") ; ?>">
 					<img class="lnk_social_linkz" src="<?php echo plugin_dir_url("/")."/".plugin_basename(dirname(__FILE__)) ;  ?>/img/lnk_twitter.png" alt="Twitter" height="24" width="24"/></a>
 				<?php
 				if ((($this->get_param('twitter_count'))&&($forceButton==""))||((strpos($forceButton, ',twitter_count,')!==false)&&($forceButton!=""))) {
@@ -766,8 +853,21 @@ div.watermark {
 				if ((($this->get_param('twitter_hosted_count'))&&($forceButton==""))||((strpos($forceButton, ',twitter_hosted_count,')!==false)&&($forceButton!=""))) {
 					$coun = 'horizontal' ; 
 				}
+				
+				$via2 = "" ; 
+				if ($this->get_param('name_twitter')!="") {
+					$via2 = $this->get_param('name_twitter') ; 
+					if ((strlen($via2)!=0)&&(substr($via2, 0,1) != "@")) {
+						$via2 = "@".$via2 ; 
+					}
+				}
+				$twitter_title = str_replace("%url%", $long_url, $this->get_param('twitter_string')) ; 
+				$twitter_title = str_replace("%shorturl%", $url, $twitter_title) ;
+				$twitter_title = str_replace("%title%", $titre, $twitter_title) ; 
+				$twitter_title = str_replace("%twitter_name%", $via2, $twitter_title) ; 
+
 				?>
-				<a href="http://twitter.com/share" class="twitter-share-button" data-text="<?php echo "[Blog] ".$titre ; ?> - <?php echo $url ; ?>" data-url="<?php echo urlencode($url) ; ?>" data-count="<?php echo $coun ; ?>" <?php echo $via ; ?> ><?php echo __('Tweet', $this->pluginID) ; ?></a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+				<a href="http://twitter.com/share" class="twitter-share-button" data-text="<?php echo $twitter_title ; ?>" data-url="<?php echo urlencode($url) ; ?>" data-count="<?php echo $coun ; ?>" <?php echo $via ; ?> ><?php echo __('Tweet', $this->pluginID) ; ?></a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 				<?php
 			}
 
@@ -794,9 +894,14 @@ div.watermark {
 				<?php
 			}
 			
+			
 			if ((($this->get_param('linkedin'))&&($forceButton==""))||((strpos($forceButton, ',linkedin,')!==false)&&($forceButton!=""))) {
+				$linkedin_title = str_replace("%url%", $long_url, $this->get_param('linkedin_string')) ; 
+				$linkedin_title = str_replace("%shorturl%", $url, $linkedin_title) ;
+				$linkedin_title = str_replace("%title%", $titre, $linkedin_title) ; 
+	
 				?>
-				<a rel="nofollow" target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&amp;url=<?php echo urlencode($long_url) ; ?>&amp;title=<?php echo str_replace('+','%20',urlencode("[Blog] ".$titre)) ; ?>&amp;source=<?php echo urlencode(get_bloginfo('name')) ; ?>" title="<?php echo sprintf(__("Share -%s- on %s", $this->pluginID), htmlentities($titre, ENT_QUOTES, 'UTF-8'), "LinkedIn") ; ?>">
+				<a rel="nofollow" target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&amp;url=<?php echo urlencode($long_url) ; ?>&amp;title=<?php echo str_replace('+','%20',urlencode($linkedin_title)) ; ?>&amp;source=<?php echo urlencode(get_bloginfo('name')) ; ?>" title="<?php echo sprintf(__("Share -%s- on %s", $this->pluginID), htmlentities($titre, ENT_QUOTES, 'UTF-8'), "LinkedIn") ; ?>">
 					<img class="lnk_social_linkz" src="<?php echo plugin_dir_url("/")."/".plugin_basename(dirname(__FILE__)) ;  ?>/img/lnk_linkedin.png" alt="LinkedIn" height="24" width="24"/></a>
 				<?php
 				if ((($this->get_param('linkedin_count'))&&($forceButton==""))||((strpos($forceButton, ',linkedin_count,')!==false)&&($forceButton!=""))) {
@@ -818,8 +923,12 @@ div.watermark {
 			}
 			
 			if ((($this->get_param('viadeo'))&&($forceButton==""))||((strpos($forceButton, ',viadeo,')!==false)&&($forceButton!=""))) {
+				$viadeo_title = str_replace("%url%", $long_url, $this->get_param('viadeo_string')) ; 
+				$viadeo_title = str_replace("%shorturl%", $url, $viadeo_title) ;
+				$viadeo_title = str_replace("%title%", $titre, $viadeo_title) ; 
+
 				?>
-				<a rel="nofollow" target="_blank" href="http://www.viadeo.com/shareit/share/?url=<?php echo urlencode($long_url) ; ?>&amp;title=<?php echo str_replace('+','%20',urlencode("[Blog] ".$titre)) ; ?>&amp;overview=<?php echo str_replace('+','%20',urlencode("[Blog] ".$titre)) ; ?>" title="<?php echo sprintf(__("Share -%s- on %s", $this->pluginID), htmlentities($titre, ENT_QUOTES, 'UTF-8'), "Viadeo") ; ?>">
+				<a rel="nofollow" target="_blank" href="http://www.viadeo.com/shareit/share/?url=<?php echo urlencode($long_url) ; ?>&amp;title=<?php echo str_replace('+','%20',urlencode($viadeo_title)) ; ?>&amp;overview=<?php echo str_replace('+','%20',urlencode($viadeo_title)) ; ?>" title="<?php echo sprintf(__("Share -%s- on %s", $this->pluginID), htmlentities($titre, ENT_QUOTES, 'UTF-8'), "Viadeo") ; ?>">
 					<img class="lnk_social_linkz" src="<?php echo plugin_dir_url("/")."/".plugin_basename(dirname(__FILE__)) ;  ?>/img/lnk_viadeo.png" alt="Viadeo" height="24" width="24"/></a>
 				<?php
 			}
@@ -837,8 +946,12 @@ div.watermark {
 			}
 			
 			if ((($this->get_param('stumbleupon'))&&($forceButton==""))||((strpos($forceButton, ',stumbleupon,')!==false)&&($forceButton!=""))) {
+				$stumbleupon_title = str_replace("%url%", $long_url, $this->get_param('stumbleupon_string')) ; 
+				$stumbleupon_title = str_replace("%shorturl%", $url, $stumbleupon_title) ;
+				$stumbleupon_title = str_replace("%title%", $titre, $stumbleupon_title) ; 
+
 				?>
-				<a rel="nofollow" target="_blank" href="http://www.stumbleupon.com/submit?url=<?php echo urlencode($long_url) ; ?>&amp;title=<?php echo str_replace('+','%20',urlencode("[Blog] ".$titre)) ; ?>" title="<?php echo sprintf(__("Share -%s- on %s", $this->pluginID), htmlentities($titre, ENT_QUOTES, 'UTF-8'), "StumbleUpon") ; ?>">
+				<a rel="nofollow" target="_blank" href="http://www.stumbleupon.com/submit?url=<?php echo urlencode($long_url) ; ?>&amp;title=<?php echo str_replace('+','%20',urlencode($stumbleupon_title)) ; ?>" title="<?php echo sprintf(__("Share -%s- on %s", $this->pluginID), htmlentities($titre, ENT_QUOTES, 'UTF-8'), "StumbleUpon") ; ?>">
 					<img class="lnk_social_linkz" src="<?php echo plugin_dir_url("/")."/".plugin_basename(dirname(__FILE__)) ;  ?>/img/lnk_stumbleupon.png" alt="StumbleUpon" height="24" width="24"/></a>
 				<?php
 				if ((($this->get_param('stumbleupon_count'))&&($forceButton==""))||((strpos($forceButton, ',stumbleupon_count,')!==false)&&($forceButton!=""))) {
@@ -872,8 +985,11 @@ div.watermark {
 				if ((($this->get_param('pinterest_hosted_count'))&&($forceButton==""))||((strpos($forceButton, ',pinterest_hosted_count,')!==false)&&($forceButton!=""))) {
 					$coun = 'horizontal' ; 
 				}
+				$pinterest_title = str_replace("%url%", $long_url, $this->get_param('pinterest_string')) ; 
+				$pinterest_title = str_replace("%shorturl%", $url, $pinterest_title) ;
+				$pinterest_title = str_replace("%title%", $titre, $pinterest_title) ; 
 				?>
-				<a href="http://pinterest.com/pin/create/button/?url=<?php echo urlencode($url) ; ?>&amp;media=<?php echo urlencode($img) ; ?>&amp;description=<?php echo str_replace('+','%20',urlencode($titre)) ; ?>" class="pin-it-button" count-layout="<?php echo $coun ; ?>"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a><script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
+				<a href="http://pinterest.com/pin/create/button/?url=<?php echo urlencode($url) ; ?>&amp;media=<?php echo urlencode($img) ; ?>&amp;description=<?php echo str_replace('+','%20',urlencode($pinterest_title)) ; ?>" class="pin-it-button" count-layout="<?php echo $coun ; ?>"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a><script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
 				<?php
 			}
 			
@@ -903,22 +1019,22 @@ div.watermark {
 				}
 				
 				if ((($this->get_param('mail'))&&($forceButton==""))||((strpos($forceButton, ',mail,')!==false)&&($forceButton!=""))) {
-					$randMD5 = md5($long_url.rand(1,10000)) ; 
+					$randsha1 = sha1($long_url.rand(1,10000)) ; 
 					?>
 					<a rel="nofollow" target="_blank" href="#" title="<?php echo __("Mail", $this->pluginID) ;?>">
-						<img onclick="openEmailSocialLinkz('<?php echo $randMD5 ?>');return false;" class="lnk_social_linkz" src="<?php echo plugin_dir_url("/")."/".plugin_basename(dirname(__FILE__)) ; ?>/img/lnk_mail.png" alt="Mail" height="24" width="24"/></a>
-					<div id="mask<?php echo $randMD5 ?>" class="social_mask"></div>
-					<div id="dialog<?php echo $randMD5 ?>" class="social_window">
-						<div id="innerdialog<?php echo $randMD5 ?>">
+						<img onclick="openEmailSocialLinkz('<?php echo $randsha1 ?>');return false;" class="lnk_social_linkz" src="<?php echo plugin_dir_url("/")."/".plugin_basename(dirname(__FILE__)) ; ?>/img/lnk_mail.png" alt="Mail" height="24" width="24"/></a>
+					<div id="mask<?php echo $randsha1 ?>" class="social_mask"></div>
+					<div id="dialog<?php echo $randsha1 ?>" class="social_window">
+						<div id="innerdialog<?php echo $randsha1 ?>">
 							<h3><?php echo __("Send this article by email", $this->pluginID) ;?></h3>
 							<p class='textEmailSocialLinkz'><?php echo __("What is your name?", $this->pluginID) ;?></p>
-							<p><input name="nameSocialLinkz<?php echo $randMD5 ?>" id="nameSocialLinkz<?php echo $randMD5 ?>" /></p>
+							<p><input name="nameSocialLinkz<?php echo $randsha1 ?>" id="nameSocialLinkz<?php echo $randsha1 ?>" /></p>
 							<p class='textEmailSocialLinkz'><?php echo sprintf(__("Please indicate below the emails to which you want to send this article: %s", $this->pluginID), "<b>".$titre."</b>") ;?></p>
-							<p><textarea name="emailSocialLinkz<?php echo $randMD5 ?>" id="emailSocialLinkz<?php echo $randMD5 ?>" rows="5"></textarea></p>
+							<p><textarea name="emailSocialLinkz<?php echo $randsha1 ?>" id="emailSocialLinkz<?php echo $randsha1 ?>" rows="5"></textarea></p>
 							<p class='closeEmailSocialLinkz'><?php echo sprintf(__("Enter one email per line. No more than %s emails.", $this->pluginID), $this->get_param('mail_max')) ;?></p>
-							<p class='sendEmailSocialLinkz'><a href="#" title="<?php echo __("Close", $this->pluginID) ;?>" onclick="sendEmailSocialLinkz('<?php echo $randMD5 ?>', <?php echo $post->ID ?>);return false;"><span class='sendEmailSocialLinkz'><?php echo __("Send", $this->pluginID) ;?></span></a></p>
+							<p class='sendEmailSocialLinkz'><a href="#" title="<?php echo __("Close", $this->pluginID) ;?>" onclick="sendEmailSocialLinkz('<?php echo $randsha1 ?>', <?php echo $post->ID ?>);return false;"><span class='sendEmailSocialLinkz'><?php echo __("Send", $this->pluginID) ;?></span></a></p>
 						</div>
-						<p class='closeEmailSocialLinkz'><a href="#" title="<?php echo __("Close", $this->pluginID) ;?>" onclick="closeEmailSocialLinkz('<?php echo $randMD5 ?>');return false;"><span class='closeEmailSocialLinkz'><?php echo __("Close", $this->pluginID) ;?></span></a></p>
+						<p class='closeEmailSocialLinkz'><a href="#" title="<?php echo __("Close", $this->pluginID) ;?>" onclick="closeEmailSocialLinkz('<?php echo $randsha1 ?>');return false;"><span class='closeEmailSocialLinkz'><?php echo __("Close", $this->pluginID) ;?></span></a></p>
 					</div>
 					<?php
 				}
@@ -1581,7 +1697,7 @@ div.watermark {
 			@mkdir(WP_CONTENT_DIR."/sedlex/social_linkz/qr/", 0777, true) ; 
 		}
 		
-		$name_f = md5($text)."_".$ccr_param."_".$pixel_param."_".$frame_param.".png" ; 
+		$name_f = sha1($text)."_".$ccr_param."_".$pixel_param."_".$frame_param.".png" ; 
 		$name_file = WP_CONTENT_DIR."/sedlex/social_linkz/qr/".$name_f ;
 		$name_url = WP_CONTENT_URL."/sedlex/social_linkz/qr/".$name_f ;
 		if (!file_exists($name_file)) {
