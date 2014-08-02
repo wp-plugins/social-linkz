@@ -3,7 +3,7 @@
 Plugin Name: Social Linkz
 Plugin Tag: social, facebook, twitter, google, buttons
 Description: <p>Add social links such as Twitter or Facebook in each post. </p><p>You can choose the buttons to be displayed such as : </p><ul><li>Twitter</li><li>FaceBook</li><li>LinkedIn</li><li>Viadeo</li><li>Google+</li><li>StumbleUpon</li><li>Pinterest</li><li>Print</li></ul><p>It is possible to manually insert the buttons in your post by adding the shortcode <code>[sociallinkz]</code> or <code>[sociallinkz url='http://domain.tld' buttons='facebook,google+' desc='Short description']</code> . </p><p>If you want to add the buttons in a very specific location, your may edit your theme and insert <code>$this->print_buttons($post, [$url], [$buttons]);</code> (be sure that <code>$post</code> refer to the current post). </p><p>It is also possible to add a widget to display buttons. </p><p>This plugin is under GPL licence. </p>
-Version: 1.7.1
+Version: 1.7.2
 Author: SedLex
 Author Email: sedlex@sedlex.fr
 Framework Email: sedlex@sedlex.fr
@@ -310,11 +310,13 @@ div.watermark {
 		if ($this->get_param('facebook_id')!="") {
 			echo '<meta property="fb:admins" content="'.$this->get_param('facebook_id').'" />' ; 
 		}
+		ob_start() ; 
+		
 		if ($this->get_param('mail')) {
 			// jquery
 			wp_enqueue_script('jquery');   
 		
-			ob_start() ; 
+			
 			?>
 				function sendEmailSocialLinkz(sha1, id) { 
 					jQuery("#wait_mail"+sha1).show();
@@ -338,11 +340,47 @@ div.watermark {
 		
 			<?php 
 			
-			$java = ob_get_clean() ; 
-			$this->add_inline_js($java) ; 
 		}
 		
-		ob_start() ; 
+		// Pour mettre à jour les compteurs
+		?>
+			function forceUpdateSocialLinkz() {	
+				jQuery(".forceUpdateSocialLinkz_id").each(function( index ) {
+					var arguments = {
+						action: 'forceUpdateSocialLinkz', 
+						id:jQuery(this).val()
+					} 
+					
+					//POST the data and append the results to the results div
+					var ajaxurl2 = "<?php echo admin_url()."admin-ajax.php"?>" ; 
+					jQuery.post(ajaxurl2, arguments, function(response) {
+						// nothing
+					});
+				});
+				
+				jQuery(".forceUpdateSocialLinkz_url").each(function( index ) {
+					
+					var arguments = {
+						action: 'forceUpdateSocialLinkz', 
+						id:-1, 
+						url:""+jQuery(this).val() 
+					} 				
+					
+					//POST the data and append the results to the results div
+					var ajaxurl2 = "<?php echo admin_url()."admin-ajax.php"?>" ; 
+					jQuery.post(ajaxurl2, arguments, function(response) {
+						// nothing
+					});
+				});
+			}
+			
+			// We launch the callback
+			if (window.attachEvent) {window.attachEvent('onload', forceUpdateSocialLinkz);}
+			else if (window.addEventListener) {window.addEventListener('load', forceUpdateSocialLinkz, false);}
+			else {document.addEventListener('load', forceUpdateSocialLinkz, false);} 
+		<?php		
+		$java = ob_get_clean() ; 
+		$this->add_inline_js($java) ; 
 		
 		
 	}
@@ -723,42 +761,17 @@ div.watermark {
 			$forceButton = str_replace(" ", "", $forceButton) ; 
 		}
 		
-		$rand = rand(0,1000000000) ; 
+		// On met un champs caché pour permettre au javascript de retrouver les id/url à vérifier
+		if ($forceURL=="") {
 		?>
-		<script>
-			function forceUpdateSocialLinkz_<?php echo $rand ; ?>() {	
-				<?php
-				if ($forceURL=="") {
-				?>
-				var arguments = {
-					action: 'forceUpdateSocialLinkz', 
-					id:<?php echo $post->ID ;  ?>
-				} 
-				<?php 
-				} else {
-				?>
-				var arguments = {
-					action: 'forceUpdateSocialLinkz', 
-					id:-1, 
-					url:"<?php echo str_replace('"', "", $forceURL) ; ?>", 
-				} 				
-				<?php
-				}
-				?>
-				//POST the data and append the results to the results div
-				var ajaxurl2 = "<?php echo admin_url()."admin-ajax.php"?>" ; 
-				jQuery.post(ajaxurl2, arguments, function(response) {
-					// nothing
-				});
-			}
-			
-			// We launch the callback
-			if (window.attachEvent) {window.attachEvent('onload', forceUpdateSocialLinkz_<?php echo $rand ; ?>);}
-			else if (window.addEventListener) {window.addEventListener('load', forceUpdateSocialLinkz_<?php echo $rand ; ?>, false);}
-			else {document.addEventListener('load', forceUpdateSocialLinkz_<?php echo $rand ; ?>, false);} 
-		</script>
-
+		<input type='hidden' class='forceUpdateSocialLinkz_id' value='<?php echo $post->ID ;  ?>'/>
+		<?php 
+		} else {
+		?>
+		<input type='hidden' class='forceUpdateSocialLinkz_url' value='<?php echo str_replace('"', "", $forceURL) ; ?>'/>
 		<?php
+		}
+		
 		if ($forceURL!="") {
 			$url = $forceURL ; 
 			$long_url = $forceURL ; 

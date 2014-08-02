@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-04-04T09:21:23+00:00\n"
+"PO-Revision-Date: 2014-07-02T20:54:33+00:00\n"
 "Last-Translator: Olly <regge@online.de>\n"
 "Last-Translator: FarChris <http://www.pinsight.de>\n"
 "Last-Translator: Susann <dclifestyle.de>\n"
@@ -183,4 +183,7 @@ msgstr "Email erfolgreich gesendet an %s"
 
 msgid "Wordpress is unable to send an email to %s"
 msgstr "Wordpress kann diese Email nicht an %s senden."
+
+msgid "Print this page"
+msgstr "Drucke die Seite"
 

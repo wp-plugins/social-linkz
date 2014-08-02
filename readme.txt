@@ -84,6 +84,9 @@ Have fun !
 
 == Changelog ==
 
+= 1.7.2 =
+* Remove the Javascript from the content of the page and put it in the header to avoid any problem with Feed display
+
 = 1.7.1 =
 * NEW: How to
 * NEW: You may customize the sharing string 
@@ -171,4 +174,4 @@ Have fun !
 Visit http://www.sedlex.fr/cote_geek/
 
  
-InfoVersion:95dae9f89a4d38b17a006308e3fb7519169310f7
+InfoVersion:9828e4721fcf69ab597d6e0ed0ff3ac2e43e6d12
