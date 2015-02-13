@@ -6,8 +6,9 @@ Author URI: http://www.sedlex.fr/
 Plugin URI: http://wordpress.org/plugins/social-linkz/
 Tags: social, facebook, twitter, google, buttons
 Requires at least: 3.0
-Tested up to: 3.9.1
+Tested up to: 4.2
 Stable tag: trunk
+License: GPLv3
 
 Add social links such as Twitter or Facebook in each post. 
 
@@ -83,6 +84,10 @@ Have fun !
 2. The buttons
 
 == Changelog ==
+
+= 1.7.3 =
+* NEW: icons
+* NEW: delete content on uninstall
 
 = 1.7.2 =
 * Remove the Javascript from the content of the page and put it in the header to avoid any problem with Feed display
@@ -174,4 +179,4 @@ Have fun !
 Visit http://www.sedlex.fr/cote_geek/
 
  
-InfoVersion:9828e4721fcf69ab597d6e0ed0ff3ac2e43e6d12
+InfoVersion:de797d99492f6295dadd4b67d1191bd8cf30d42f
